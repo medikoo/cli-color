@@ -1,6 +1,7 @@
-# cli-color - Yet another color package for console output.
+# cli-color - Yet another console color package.
 
-What's wrong with the others ? Awesome ones mess with built-ins, less awesome seem too verbose in use. This one aims to be both safe and neat.
+What's wrong with the others ?  
+Awesome ones mess with built-ins, less awesome seem too verbose in use. This one aims to be both safe and neat.
 
 ## Installation
 
@@ -20,6 +21,10 @@ Styles can be mixed:
 
 	color.log(ccolor.red.bgWhite.underline('Underlined red text on white background.'));
 
+Styled text can be mixed with unstyled:
+
+	ccolor.log(ccolor.red('red') + ' plain ' + ccolor.blue('blue'));
+
 Best way is to preset needed stylings and then use it:
 
 	var error = ccolor.red.bold;
@@ -29,6 +34,7 @@ Best way is to preset needed stylings and then use it:
 	console.log(error('Error!'));
 	console.log(warn('Warning'));
 	console.log(notice('Notice'));
+
 
 Supported are all ANSI colors and styles:
 
