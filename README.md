@@ -1,4 +1,4 @@
-# cli-color - Yet another console color package.
+# cli-color - Yet another colors and formatting for the console solution.
 
 Colors and formatting for the console. This package won't mess with built-ins and provides neat way to predefine color patterns, see below.
 
