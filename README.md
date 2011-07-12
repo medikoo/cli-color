@@ -1,7 +1,7 @@
 # cli-color - Yet another console color package.
 
-What's wrong with the others ?  
-Awesome ones mess with built-ins, less awesome seem too verbose in use. This one aims to be both safe and neat.
+Colors and formatting for the console. This package won't mess with your built-ins and
+provides neat way to predefine color patterns, see below.
 
 ## Installation
 
@@ -11,25 +11,25 @@ Awesome ones mess with built-ins, less awesome seem too verbose in use. This one
 
 Usage:
 
-	var ccolor = require('cli-color');
+	var clc = require('cli-color');
 
 Output colored text:
 
-	color.log(ccolor.red('Text in red'));
+	console.log(clc.red('Text in red'));
 
 Styles can be mixed:
 
-	color.log(ccolor.red.bgWhite.underline('Underlined red text on white background.'));
+	console.log(clc.red.bgWhite.underline('Underlined red text on white background.'));
 
 Styled text can be mixed with unstyled:
 
-	ccolor.log(ccolor.red('red') + ' plain ' + ccolor.blue('blue'));
+	console.log(clc.red('red') + ' plain ' + clc.blue('blue'));
 
-Best way is to preset needed stylings and then use it:
+__Best way is to predefine needed stylings and then use it__:
 
-	var error = ccolor.red.bold;
-	var warn = ccolor.yellow;
-	var notice = ccolor.blue;
+	var error = clc.red.bold;
+	var warn = clc.yellow;
+	var notice = clc.blue;
 
 	console.log(error('Error!'));
 	console.log(warn('Warning'));
