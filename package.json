@@ -1,6 +1,6 @@
 {
 	"name": "cli-color",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Colors and formatting for the console",
 	"keywords": ["ansi", "color", "console", "terminal", "cli", "shell", "log", "logging", "xterm"],
 	"author": "Mariusz Nowak <medikoo+cli-color@medikoo.com> (http://www.medikoo.com/)",
