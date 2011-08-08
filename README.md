@@ -68,3 +68,32 @@ Styles will display correctly if font used in your console supports them.
 * bgMagenta
 * bgCyan
 * bgWhite
+
+
+### Additional functions:
+
+#### trim(formatedText)
+
+Trims ANSI formatted string to plain text
+
+	var ansiTrim = require('cli-color/lib/trim');
+
+	var plain = ansiTrim(formatted);
+
+#### throbber(interval[, format])
+
+Displays throbber on given interval.
+Interval should be [clock.interval](https://github.com/medikoo/clock) object
+Optionally throbber output can be formatted with given format
+
+	var interval = require('clock/lib/interval')
+	  , ansiThrobber = require('cli-color/lib/throbber');
+
+	var i = interval(200, true);
+
+	// Display throbber while interval is ticking
+	ansiThrobber(i);
+
+	// at any time you can stop/start interval
+	// When interval is stopped throbber doesn't show
+	i.stop();
