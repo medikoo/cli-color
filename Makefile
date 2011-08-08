@@ -3,4 +3,7 @@ SHELL = bash
 install:
 	npm install
 
-.PHONY: install
+test:
+	./node_modules/tad/bin/tad lib
+
+.PHONY: install test
