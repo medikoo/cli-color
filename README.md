@@ -1,6 +1,6 @@
 # cli-color - Yet another colors and formatting for the console solution
 
-Colors and formatting for the console. This package won't mess with built-ins and provides neat way to predefine color patterns, see below.
+Colors, formatting and other goodies for the console. This package won't mess with built-ins and provides neat way to predefine formatting patterns, see below.
 
 ## Installation
 
@@ -37,7 +37,7 @@ __Best way is to predefine needed stylings and then use it__:
 
 Supported are all ANSI colors and styles:
 
-### Styles
+#### Styles
 
 Styles will display correctly if font used in your console supports them.
 
@@ -47,7 +47,7 @@ Styles will display correctly if font used in your console supports them.
 * inverse
 * strike
 
-### Foreground colors
+#### Foreground colors
 
 * black
 * red
@@ -58,7 +58,7 @@ Styles will display correctly if font used in your console supports them.
 * cyan
 * white
 
-### Background colors
+#### Background colors
 
 * bgBlack
 * bgRed
