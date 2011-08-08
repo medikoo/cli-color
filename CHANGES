@@ -1,3 +1,9 @@
+v0.1.2  --  2011.08.08
+* trim - for removing ANSI formatting from string
+* throbber - displays throbber with preconfigured interval
+* Compatibility with es5-ext v0.6
+* Test with TAD
+
 v0.1.1  --  2011.07.12
 * Better documentation
 
