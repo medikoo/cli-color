@@ -72,10 +72,10 @@ Styles will display correctly if font used in your console supports them.
 
 #### Colors intensity
 
-For _bright_ color variations
+For _bright_ color variants:
 
-* bright (for foreground color)
-* bgBright (for background color)
+* bright (foreground)
+* bgBright (background)
 
 ### Additional functions:
 
