@@ -57,6 +57,7 @@ Styles will display correctly if font used in your console supports them.
 * magenta
 * cyan
 * white
+* gray (technically bright.black)
 
 #### Background colors
 
@@ -69,6 +70,12 @@ Styles will display correctly if font used in your console supports them.
 * bgCyan
 * bgWhite
 
+#### Colors intensity
+
+For _bright_ color variations
+
+* bright (for foreground color)
+* bgBright (for background color)
 
 ### Additional functions:
 
