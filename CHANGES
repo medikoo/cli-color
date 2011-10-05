@@ -1,3 +1,6 @@
+v0.1.4  --  2011.10.05
+* Added bright color variants
+
 v0.1.3  --  2011.08.08
 * Added TAD test suite to devDependencies, configured test commands.
   Tests can be run with 'make test' or 'npm test'
