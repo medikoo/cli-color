@@ -11,7 +11,7 @@
 	},
 	"bugs": {
 		"mail": "medikoo+cli-color@medikoo.com",
-		"web": "https://github.com/medikoo/cli-color/issues"
+		"url": "https://github.com/medikoo/cli-color/issues"
 	},
 	"engines": {
 		"node": ">=0.1.103"
