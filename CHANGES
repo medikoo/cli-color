@@ -1,3 +1,6 @@
+v0.1.5  --  2011.12.12
+* Cleared npm warning for misnamed property in package.json
+
 v0.1.4  --  2011.10.05
 * Added bright color variants
 
