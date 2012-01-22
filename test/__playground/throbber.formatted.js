@@ -11,4 +11,4 @@ var i = interval(100, true);
 throbber(i, format);
 process.stdout.write('START');
 
-setTimeout(i.stop.bind(i), 500);
+setTimeout(i.stop.bind(i), 550);
