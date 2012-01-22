@@ -1,3 +1,8 @@
+v0.1.6  --  2012.01.22
+* Update dependencies to latest versions
+* Travis CI support
+* More reliable tests for throbber
+
 v0.1.5  --  2011.12.12
 * Cleared npm warning for misnamed property in package.json
 
