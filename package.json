@@ -22,7 +22,8 @@
 		"es5-ext": "0.7.x"
 	},
 	"scripts": {
-		"test": "node ./node_modules/tad/bin/tad lib"
+		"test": "node ./node_modules/tad/bin/tad lib",
+		"lint": "node ./node_modules/jslint/bin/jslint.js --color --git"
 	},
 	"devDependencies": {
 		"clock": "0.1.x",
