@@ -1,7 +1,7 @@
 'use strict';
 
 var spawn = require('child_process').spawn
-  , pg = __dirname + '/__playground'
+  , pg = __dirname + '/__playground';
 
 module.exports = {
 	"": function (a, d) {
@@ -16,8 +16,9 @@ module.exports = {
 		});
 		t.on('exit', function () {
 			a.ok(out.length > 4, "Interval");
-			a(out.join(""), "START-\b\\\b|\b/\b-\b", "Output")
-			a(err, "", "No stderr output"); d();
+			a(out.join(""), "START-\b\\\b|\b/\b-\b", "Output");
+			a(err, "", "No stderr output");
+			d();
 		});
 	},
 	"Formatted": function (a, d) {
@@ -32,8 +33,10 @@ module.exports = {
 		});
 		t.on('exit', function () {
 			a.ok(out.length > 4, "Interval");
-			a(out.join(""), "START\x1b[31m-\x1b[39m\b\x1b[31m\\\x1b[39m\b\x1b[31m|\x1b[39m\b\x1b[31m/\x1b[39m\b\x1b[31m-\x1b[39m\b", "Output")
-			a(err, "", "No stderr output"); d();
+			a(out.join(""), "START\x1b[31m-\x1b[39m\b\x1b[31m\\\x1b[39m\b\x1b[31m" +
+				"|\x1b[39m\b\x1b[31m/\x1b[39m\b\x1b[31m-\x1b[39m\b", "Output");
+			a(err, "", "No stderr output");
+			d();
 		});
 	}
 };

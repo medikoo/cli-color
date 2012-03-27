@@ -11,4 +11,3 @@ setTimeout(i.stop.bind(i), 1100);
 
 throbber(i, format);
 process.stdout.write('START');
-
