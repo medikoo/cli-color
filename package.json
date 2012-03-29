@@ -21,12 +21,12 @@
 	"dependencies": {
 		"es5-ext": "git://github.com/medikoo/es5-ext.git"
 	},
-	"scripts": {
-		"test": "node ./node_modules/tad/bin/tad lib",
-		"lint": "node ./node_modules/jslint/bin/jslint.js --color --git"
-	},
 	"devDependencies": {
 		"clock": "0.1.x",
 		"tad": "0.1.x"
+	},
+	"scripts": {
+		"test": "node ./node_modules/tad/bin/tad lib",
+		"lint": "node ./node_modules/jslint/bin/jslint.js --color --git"
 	}
 }
