@@ -34,8 +34,7 @@
     "tad": "0.1.x"
   },
   "scripts": {
-    "test": "node ./node_modules/tad/bin/tad lib",
-    "lint": "node ./node_modules/jslint/bin/jslint.js --color --git"
+    "test": "node ./node_modules/tad/bin/tad lib"
   },
   "optionalDependencies": {}
 }
