@@ -27,7 +27,7 @@
     "node": ">=0.1.103"
   },
   "dependencies": {
-    "es5-ext": "git://github.com/medikoo/es5-ext.git"
+    "es5-ext": "0.8.x"
   },
   "devDependencies": {
     "clock": "0.1.x",
