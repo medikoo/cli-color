@@ -104,3 +104,7 @@ Optionally throbber output can be formatted with given format
 	// at any time you can stop/start interval
 	// When interval is stopped throbber doesn't show
 	i.stop();
+
+## Tests [![Build Status](https://secure.travis-ci.org/medikoo/cli-color.png?branch=master)](https://secure.travis-ci.org/medikoo/cli-color)
+
+	$ npm test
