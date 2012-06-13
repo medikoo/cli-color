@@ -1,6 +1,6 @@
 {
   "name": "cli-color",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Colors, formatting and other tools for the console",
   "keywords": [
     "ansi",
