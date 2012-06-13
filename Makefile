@@ -1,7 +1,7 @@
 SHELL = bash
 
 install:
-	npm install --dev
+	npm install
 
 test:
 	npm test
