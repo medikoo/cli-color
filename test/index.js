@@ -45,4 +45,15 @@ module.exports = function (t, a) {
 	a(t.move(2, 35), '\x1b[2C\x1b[35B', "Move: two positives");
 
 	a(t.beep, '\x07', "Beep");
+
+	a(t.rgb(999, 999, 999)('x'), '\x1b[38;5;231mx\x1b[39m', "RGB: Out of scope");
+	a(t.rgb({}, 180, 'raz')('x'), '\x1b[38;5;40mx\x1b[39m', "RGB: Invalid");
+	a(t.rgb(-234, 180, -433)('x'), '\x1b[38;5;40mx\x1b[39m', "RGB: Negative");
+	a(t.rgb(24, 180, 230)('x'), '\x1b[38;5;45mx\x1b[39m', "RGB: Ok");
+
+	a(t.hex()('x'), '\x1b[38;5;40mx\x1b[39m', "Hex: Not given");
+	a(t.hex('#########')('x'), '\x1b[38;5;16mx\x1b[39m', "Hex: Invalid");
+	a(t.hex('#ioioio')('x'), '\x1b[38;5;16mx\x1b[39m', "Hex: Invalid");
+	a(t.hex('ff3400')('x'), '\x1b[38;5;202mx\x1b[39m', "Hex: No Hash, Ok");
+	a(t.hex('#ff3400')('x'), '\x1b[38;5;202mx\x1b[39m', "Hex: Hash, Ok");
 };
