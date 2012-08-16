@@ -56,4 +56,15 @@ module.exports = function (t, a) {
 	a(t.hex('#ioioio')('x'), '\x1b[38;5;16mx\x1b[39m', "Hex: Invalid");
 	a(t.hex('ff3400')('x'), '\x1b[38;5;202mx\x1b[39m', "Hex: No Hash, Ok");
 	a(t.hex('#ff3400')('x'), '\x1b[38;5;202mx\x1b[39m', "Hex: Hash, Ok");
+
+	a(t.bgRgb(999, 999, 999)('x'), '\x1b[48;5;231mx\x1b[49m', "RGB: Out of scope");
+	a(t.bgRgb({}, 180, 'raz')('x'), '\x1b[48;5;40mx\x1b[49m', "RGB: Invalid");
+	a(t.bgRgb(-234, 180, -433)('x'), '\x1b[48;5;40mx\x1b[49m', "RGB: Negative");
+	a(t.bgRgb(24, 180, 230)('x'), '\x1b[48;5;45mx\x1b[49m', "RGB: Ok");
+
+	a(t.bgHex()('x'), '\x1b[48;5;40mx\x1b[49m', "Hex: Not given");
+	a(t.bgHex('#########')('x'), '\x1b[48;5;16mx\x1b[49m', "Hex: Invalid");
+	a(t.bgHex('#ioioio')('x'), '\x1b[48;5;16mx\x1b[49m', "Hex: Invalid");
+	a(t.bgHex('ff3400')('x'), '\x1b[48;5;202mx\x1b[49m', "Hex: No Hash, Ok");
+	a(t.bgHex('#ff3400')('x'), '\x1b[48;5;202mx\x1b[49m', "Hex: Hash, Ok");
 };
