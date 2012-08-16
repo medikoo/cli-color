@@ -43,4 +43,6 @@ module.exports = function (t, a) {
 	a(t.move(0, -12), '\x1b[12A', "Move: One negative direction");
 	a(t.move(-42, -2), '\x1b[42D\x1b[2A', "Move: two negatives");
 	a(t.move(2, 35), '\x1b[2C\x1b[35B', "Move: two positives");
+
+	a(t.beep, '\x07', "Beep");
 };
