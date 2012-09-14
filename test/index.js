@@ -3,14 +3,59 @@
 var msg = 'test test';
 
 module.exports = function (t, a) {
-	a(t("test"), "test", "Plain");
-	a(t.red(msg), '\x1b[31m' + msg + '\x1b[39m', "Foreground");
-	a(t.bgRed(msg), '\x1b[41m' + msg + '\x1b[49m', "Background");
-	a(t.bold(msg), '\x1b[1m' + msg + '\x1b[22m', "Format");
-	a(t.bold.blue(msg), '\x1b[34m\x1b[1m' + msg + '\x1b[22m\x1b[39m',
+	var x, y;
+
+	a(t('test'), 'test', "Plain");
+	a(t('test', 'foo', 3, { toString: function () { return 'bar'; } }),
+		'test foo 3 bar', "Plain: Many args");
+
+	a(t.red('foo'), '\x1b[31mfoo\x1b[39m', "Foreground");
+	a(t.red('foo', 'bar', 3), '\x1b[31mfoo bar 3\x1b[39m',
+		"Foreground: Many args");
+	a(t.red.yellow('foo', 'bar', 3), '\x1b[33mfoo bar 3\x1b[39m',
+		"Foreground: Overriden");
+	a(t.bgRed('foo', 'bar'), '\x1b[41mfoo bar\x1b[49m', "Background");
+	a(t.bgRed.bgYellow('foo', 'bar', 3), '\x1b[43mfoo bar 3\x1b[49m',
+		"Background: Overriden");
+
+	a(t.blue.bgYellow('foo', 'bar'), '\x1b[43m\x1b[34mfoo bar\x1b[39m\x1b[49m',
+		"Foreground & Background");
+	a(t.blue.bgYellow.red.bgMagenta('foo', 'bar'),
+		'\x1b[45m\x1b[31mfoo bar\x1b[39m\x1b[49m',
+		"Foreground & Background: Overriden");
+
+	a(t.bold('foo', 'bar'), '\x1b[1mfoo bar\x1b[22m', "Format");
+	a(t.bold.blue('foo', 'bar', 3), '\x1b[1m\x1b[34mfoo bar 3\x1b[39m\x1b[22m',
 		"Foreground & Format");
-	a(t.red.bright(msg), '\x1b[91m' + msg + '\x1b[39m', "Bright");
-	a(t.bgRed.bgBright(msg), '\x1b[101m' + msg + '\x1b[49m', "Bright background");
+
+	a(t.red.bright('foo', 'bar'), '\x1b[91mfoo bar\x1b[39m', "Bright");
+	a(t.bgRed.bgBright('foo', 3), '\x1b[101mfoo 3\x1b[49m', "Bright background");
+
+	a(t.blue.bgYellow.bright.bgBright.red.bgMagenta('foo', 'bar'),
+		'\x1b[105m\x1b[91mfoo bar\x1b[39m\x1b[49m',
+		"Foreground & Background: Bright: Overriden");
+
+	x = t.red;
+	y = x.bold;
+
+	a(x('foo', 'red') + ' ' + y('foo', 'boldred'),
+		'\x1b[31mfoo red\x1b[39m \x1b[1m\x1b[31mfoo boldred\x1b[39m\x1b[22m',
+		"Detached extension");
+
+	if (t.xtermSupported) {
+		a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
+			'\x1b[48;5;67m\x1b[38;5;12mfoo xterm\x1b[39m\x1b[49m', "Xterm");
+
+		a(t.red.bgBlue.xterm(12).bgXterm(67).bright.bgBright('foo', 'xterm'),
+			'\x1b[48;5;67m\x1b[38;5;12mfoo xterm\x1b[39m\x1b[49m',
+			"Xterm: Override & Bright");
+		a(t.bright.xterm(12).bgBright.bgXterm(67).red.bgMagenta('foo', 'xterm'),
+			'\x1b[105m\x1b[91mfoo xterm\x1b[39m\x1b[49m',
+			"Xterm: Override & Bright #2");
+	} else {
+		a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
+			'\x1b[48;5;67m\x1b[38;5;12mfoo xterm\x1b[39m\x1b[49m', "Xterm");
+	}
 
 	a(typeof t.width, 'number', "Width");
 	a(typeof t.height, 'number', "Height");
@@ -44,27 +89,23 @@ module.exports = function (t, a) {
 	a(t.move(-42, -2), '\x1b[42D\x1b[2A', "Move: two negatives");
 	a(t.move(2, 35), '\x1b[2C\x1b[35B', "Move: two positives");
 
+	a(t.moveTo(), '\x1b[1;1H', "MoveTo: No arguments");
+	a(t.moveTo({}, {}), '\x1b[1;1H', "MoveTo: Bad arguments");
+	a(t.moveTo({}, 12), '\x1b[13;1H', "MoveTo: One direction");
+	a(t.moveTo(2, -12), '\x1b[1;3H', "MoveTo: One negative direction");
+	a(t.moveTo(-42, -2), '\x1b[1;1H', "MoveTo: two negatives");
+	a(t.moveTo(2, 35), '\x1b[36;3H', "MoveTo: two positives");
+
+	a(t.bol(), '\x1b[0E', "Bol: No argument");
+	a(t.bol({}), '\x1b[0E', "Bol: Not a number");
+	a(t.bol(-34), '\x1b[34F', "Bol: Negative");
+	a(t.bol(34), '\x1b[34E', "Bol: Positive");
+
+	a(t.bol({}, true), '\x1b[0E\x1bK', "Bol: Erase: Not a number");
+	a(t.bol(-2, true), '\x1b[0E\x1bK\x1b[1F\x1b[K\x1b[1F\x1b[K',
+		"Bol: Erase: Negative");
+	a(t.bol(2, true), '\x1b[0E\x1bK\x1b[1E\x1b[K\x1b[1E\x1b[K',
+		"Bol: Erase: Positive");
+
 	a(t.beep, '\x07', "Beep");
-
-	a(t.rgb(999, 999, 999)('x'), '\x1b[38;5;231mx\x1b[39m', "RGB: Out of scope");
-	a(t.rgb({}, 180, 'raz')('x'), '\x1b[38;5;40mx\x1b[39m', "RGB: Invalid");
-	a(t.rgb(-234, 180, -433)('x'), '\x1b[38;5;40mx\x1b[39m', "RGB: Negative");
-	a(t.rgb(24, 180, 230)('x'), '\x1b[38;5;45mx\x1b[39m', "RGB: Ok");
-
-	a(t.hex()('x'), '\x1b[38;5;40mx\x1b[39m', "Hex: Not given");
-	a(t.hex('#########')('x'), '\x1b[38;5;16mx\x1b[39m', "Hex: Invalid");
-	a(t.hex('#ioioio')('x'), '\x1b[38;5;16mx\x1b[39m', "Hex: Invalid");
-	a(t.hex('ff3400')('x'), '\x1b[38;5;202mx\x1b[39m', "Hex: No Hash, Ok");
-	a(t.hex('#ff3400')('x'), '\x1b[38;5;202mx\x1b[39m', "Hex: Hash, Ok");
-
-	a(t.bgRgb(999, 999, 999)('x'), '\x1b[48;5;231mx\x1b[49m', "RGB: Out of scope");
-	a(t.bgRgb({}, 180, 'raz')('x'), '\x1b[48;5;40mx\x1b[49m', "RGB: Invalid");
-	a(t.bgRgb(-234, 180, -433)('x'), '\x1b[48;5;40mx\x1b[49m', "RGB: Negative");
-	a(t.bgRgb(24, 180, 230)('x'), '\x1b[48;5;45mx\x1b[49m', "RGB: Ok");
-
-	a(t.bgHex()('x'), '\x1b[48;5;40mx\x1b[49m', "Hex: Not given");
-	a(t.bgHex('#########')('x'), '\x1b[48;5;16mx\x1b[49m', "Hex: Invalid");
-	a(t.bgHex('#ioioio')('x'), '\x1b[48;5;16mx\x1b[49m', "Hex: Invalid");
-	a(t.bgHex('ff3400')('x'), '\x1b[48;5;202mx\x1b[49m', "Hex: No Hash, Ok");
-	a(t.bgHex('#ff3400')('x'), '\x1b[48;5;202mx\x1b[49m', "Hex: Hash, Ok");
 };
