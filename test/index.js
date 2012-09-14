@@ -40,6 +40,16 @@ module.exports = function (t, a) {
 		'\x1b[31mfoo red\x1b[39m \x1b[1m\x1b[31mfoo boldred\x1b[39m\x1b[22m',
 		"Detached extension");
 
+	a(t.gray('foo', 'bar'), '\x1b[90mfoo bar\x1b[39m', "Gray");
+	a(t.bgGray('foo', 'bar'), '\x1b[100mfoo bar\x1b[49m', "Gray: background");
+	a(t.gray.red('foo', 'bar'), '\x1b[31mfoo bar\x1b[39m', "Gray: Override");
+	a(t.bgGray.bgRed('foo', 'bar'), '\x1b[41mfoo bar\x1b[49m',
+		"Gray: Background: Override");
+	a(t.red.gray('foo', 'bar'), '\x1b[90mfoo bar\x1b[39m',
+		"Gray: Override: Other way");
+	a(t.bgRed.bgGray('foo', 'bar'), '\x1b[100mfoo bar\x1b[49m',
+		"Gray: Background: Override: Other way");
+
 	if (t.xtermSupported) {
 		a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
 			'\x1b[48;5;67m\x1b[38;5;12mfoo xterm\x1b[39m\x1b[49m', "Xterm");
