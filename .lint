@@ -1,7 +1,40 @@
 @root
+
 indent 2
 maxlen 80
-nomen
-plusplus
-tabs
-predef __dirname, process, setTimeout
+es5
+node
+jslint_medikoo.nomen
+
+jslint_medikoo.tabs
+jslint_medikoo.module
+jslint_medikoo.plusplus
+
+jshint.laxcomma
+jshint.camelcase
+jshint.curly
+jshint.eqeqeq
+jshint.forin
+jshint.immed
+jshint.latedef
+jshint.newcap
+jshint.noarg
+jshint.noempty
+jshint.nonew
+jshint.regexp
+jshint.undef
+jshint.unused
+jshint.strict
+jshint.trailing
+jshint.globalstrict
+jshint.global module, require, exports
+jshint.smarttabs
+jshint.eqnull
+jshint.expr
+
+./lib/_xterm-match.js
+maxlen 90
+
+./lib/index.js
+jshint.proto
+!jshint.camelcase

@@ -1,7 +1,5 @@
 'use strict';
 
-var msg = 'test test';
-
 module.exports = function (t, a) {
 	var x, y;
 

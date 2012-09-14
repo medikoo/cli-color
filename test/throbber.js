@@ -6,7 +6,7 @@ var spawn = require('child_process').spawn
 module.exports = {
 	"": function (a, d) {
 		var t = spawn(pg + '/throbber.js')
-		  , out = [], err = '', time = Date.now();
+		  , out = [], err = '';
 
 		t.stdout.on('data', function (data) {
 			out.push(data);
@@ -23,7 +23,7 @@ module.exports = {
 	},
 	"Formatted": function (a, d) {
 		var t = spawn(pg + '/throbber.formatted.js')
-		  , out = [], err = '', time = Date.now();
+		  , out = [], err = '';
 
 		t.stdout.on('data', function (data) {
 			out.push(data);
