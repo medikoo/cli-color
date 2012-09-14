@@ -52,7 +52,7 @@ module.exports = function (t, a) {
 			"Xterm: Override & Bright #2");
 	} else {
 		a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
-			'\x1b[48;5;67m\x1b[38;5;12mfoo xterm\x1b[39m\x1b[49m', "Xterm");
+			'\x1b[100m\x1b[94mfoo xterm\x1b[39m\x1b[49m', "Xterm");
 	}
 
 	a(typeof t.width, 'number', "Width");
