@@ -26,11 +26,11 @@ module.exports = function (t, a) {
 	a(t.bold.blue('foo', 'bar', 3), '\x1b[1m\x1b[34mfoo bar 3\x1b[39m\x1b[22m',
 		"Foreground & Format");
 
-	a(t.red.bright('foo', 'bar'), '\x1b[91mfoo bar\x1b[39m', "Bright");
-	a(t.bgRed.bgBright('foo', 3), '\x1b[101mfoo 3\x1b[49m', "Bright background");
+	a(t.redBright('foo', 'bar'), '\x1b[91mfoo bar\x1b[39m', "Bright");
+	a(t.bgRedBright('foo', 3), '\x1b[101mfoo 3\x1b[49m', "Bright background");
 
-	a(t.blue.bgYellow.bright.bgBright.red.bgMagenta('foo', 'bar'),
-		'\x1b[105m\x1b[91mfoo bar\x1b[39m\x1b[49m',
+	a(t.blueBright.bgYellowBright.red.bgMagenta('foo', 'bar'),
+		'\x1b[45m\x1b[31mfoo bar\x1b[39m\x1b[49m',
 		"Foreground & Background: Bright: Overriden");
 
 	x = t.red;
@@ -40,24 +40,14 @@ module.exports = function (t, a) {
 		'\x1b[31mfoo red\x1b[39m \x1b[1m\x1b[31mfoo boldred\x1b[39m\x1b[22m',
 		"Detached extension");
 
-	a(t.gray('foo', 'bar'), '\x1b[90mfoo bar\x1b[39m', "Gray");
-	a(t.bgGray('foo', 'bar'), '\x1b[100mfoo bar\x1b[49m', "Gray: background");
-	a(t.gray.red('foo', 'bar'), '\x1b[31mfoo bar\x1b[39m', "Gray: Override");
-	a(t.bgGray.bgRed('foo', 'bar'), '\x1b[41mfoo bar\x1b[49m',
-		"Gray: Background: Override");
-	a(t.red.gray('foo', 'bar'), '\x1b[90mfoo bar\x1b[39m',
-		"Gray: Override: Other way");
-	a(t.bgRed.bgGray('foo', 'bar'), '\x1b[100mfoo bar\x1b[49m',
-		"Gray: Background: Override: Other way");
-
 	if (t.xtermSupported) {
 		a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
 			'\x1b[48;5;67m\x1b[38;5;12mfoo xterm\x1b[39m\x1b[49m', "Xterm");
 
-		a(t.red.bgBlue.xterm(12).bgXterm(67).bright.bgBright('foo', 'xterm'),
+		a(t.redBright.bgBlueBright.xterm(12).bgXterm(67)('foo', 'xterm'),
 			'\x1b[48;5;67m\x1b[38;5;12mfoo xterm\x1b[39m\x1b[49m',
 			"Xterm: Override & Bright");
-		a(t.bright.xterm(12).bgBright.bgXterm(67).red.bgMagenta('foo', 'xterm'),
+		a(t.xterm(12).bgXterm(67).redBright.bgMagentaBright('foo', 'xterm'),
 			'\x1b[105m\x1b[91mfoo xterm\x1b[39m\x1b[49m',
 			"Xterm: Override & Bright #2");
 	} else {
