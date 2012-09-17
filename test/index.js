@@ -102,7 +102,7 @@ module.exports = function (t, a) {
 	a(t.bol({}, true), '\x1b[0E\x1bK', "Bol: Erase: Not a number");
 	a(t.bol(-2, true), '\x1b[0E\x1bK\x1b[1F\x1b[K\x1b[1F\x1b[K',
 		"Bol: Erase: Negative");
-	a(t.bol(2, true), '\x1b[0E\x1bK\x1b[1E\x1b[K\x1b[1E\x1b[K',
+	a(t.bol(2, true), '\x1b[1E\x1b[K\x1b[1E\x1b[K',
 		"Bol: Erase: Positive");
 
 	a(t.beep, '\x07', "Beep");
