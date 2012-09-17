@@ -27,7 +27,7 @@
     "node": ">=0.1.103"
   },
   "dependencies": {
-    "es5-ext": "0.8.x"
+    "es5-ext": "~0.9.1"
   },
   "devDependencies": {
     "clock": "0.1.x",
