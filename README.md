@@ -62,13 +62,13 @@ Styles will display correctly if font used in your console supports them.
   <thead><th>Foreground</th><th>Background</th><th width="30"></th></thead>
   <tbody>
     <tr><td>black</td><td>bgBlack</td><td bgcolor="black"></td></tr>
-    <tr><td>red</td><td>bgRed</td><td bgcolor="maroon"></td></tr>
-    <tr><td>green</td><td>bgGreen</td><td bgcolor="green"></td></tr>
-    <tr><td>yellow</td><td>bgYellow</td><td bgcolor="olive"></td></tr>
-    <tr><td>blue</td><td>bgBlue</td><td bgcolor="navy"></td></tr>
-    <tr><td>magenta</td><td>bgMagenta</td><td bgcolor="purple"></td></tr>
-    <tr><td>cyan</td><td>bgCyan</td><td bgcolor="teal"></td></tr>
-    <tr><td>white</td><td>bgWhite</td><td bgcolor="silver"></td></tr>
+    <tr><td>red</td><td>bgRed</td><td bgcolor=#800000"></td></tr>
+    <tr><td>green</td><td>bgGreen</td><td bgcolor="008000"></td></tr>
+    <tr><td>yellow</td><td>bgYellow</td><td bgcolor="808000"></td></tr>
+    <tr><td>blue</td><td>bgBlue</td><td bgcolor="000080"></td></tr>
+    <tr><td>magenta</td><td>bgMagenta</td><td bgcolor="800080"></td></tr>
+    <tr><td>cyan</td><td>bgCyan</td><td bgcolor="008080"></td></tr>
+    <tr><td>white</td><td>bgWhite</td><td bgcolor="c0c0c0"></td></tr>
   </tbody>
 </table>
 
@@ -77,13 +77,13 @@ Styles will display correctly if font used in your console supports them.
 <table>
   <thead><th>Foreground</th><th>Background</th><th width="30"></th></thead>
   <tbody>
-    <tr><td>blackBright</td><td>bgBlackBright</td><td bgcolor="gray"></td></tr>
-    <tr><td>redBright</td><td>bgRedBright</td><td bgcolor="red"></td></tr>
-    <tr><td>greenBright</td><td>bgGreenBright</td><td bgcolor="lime"></td></tr>
-    <tr><td>yellowBright</td><td>bgYellowBright</td><td bgcolor="yellow"></td></tr>
-    <tr><td>blueBright</td><td>bgBlueBright</td><td bgcolor="blue"></td></tr>
-    <tr><td>magentaBright</td><td>bgMagentaBright</td><td bgcolor="fuchsia"></td></tr>
-    <tr><td>cyanBright</td><td>bgCyanBright</td><td bgcolor="cyan"></td></tr>
+    <tr><td>blackBright</td><td>bgBlackBright</td><td bgcolor="808080"></td></tr>
+    <tr><td>redBright</td><td>bgRedBright</td><td bgcolor="f00"></td></tr>
+    <tr><td>greenBright</td><td>bgGreenBright</td><td bgcolor="0f0"></td></tr>
+    <tr><td>yellowBright</td><td>bgYellowBright</td><td bgcolor="ff0"></td></tr>
+    <tr><td>blueBright</td><td>bgBlueBright</td><td bgcolor="00f"></td></tr>
+    <tr><td>magentaBright</td><td>bgMagentaBright</td><td bgcolor="f0f"></td></tr>
+    <tr><td>cyanBright</td><td>bgCyanBright</td><td bgcolor="0ff"></td></tr>
     <tr><td>whiteBright</td><td>bgWhiteBright</td><td bgcolor="white"></td></tr>
   </tbody>
 </table>
