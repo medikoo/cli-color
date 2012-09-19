@@ -62,7 +62,7 @@ Styles will display correctly if font used in your console supports them.
   <thead><th>Foreground</th><th>Background</th><th width="30"></th></thead>
   <tbody>
     <tr><td>black</td><td>bgBlack</td><td bgcolor="black"></td></tr>
-    <tr><td>red</td><td>bgRed</td><td bgcolor=#800000"></td></tr>
+    <tr><td>red</td><td>bgRed</td><td bgcolor="#800000"></td></tr>
     <tr><td>green</td><td>bgGreen</td><td bgcolor="#008000"></td></tr>
     <tr><td>yellow</td><td>bgYellow</td><td bgcolor="#808000"></td></tr>
     <tr><td>blue</td><td>bgBlue</td><td bgcolor="#000080"></td></tr>
