@@ -466,7 +466,7 @@ console.log(clc.reset);
 Move cursor _x_ columns and _y_ rows away. Values can be positive or negative, e.g.:
 
 ```javascript
-process.stdout.write(clc.move(-2, -2)); // Move cursors two columns and rows back
+process.stdout.write(clc.move(-2, -2)); // Move cursors two columns and two rows back
 ```
 
 ##### clc.moveTo(x, y)
@@ -474,7 +474,7 @@ process.stdout.write(clc.move(-2, -2)); // Move cursors two columns and rows bac
 Absolute move. Sets cursor position at _x_ column and _y_ row
 
 ```javascript
-process.stdout.write(clc.moveTo(0, 0)); // Move cursor to first row and column in terminal window
+process.stdout.write(clc.moveTo(0, 0)); // Move cursor to first row and first column in terminal window
 ```
 
 ##### clc.bol([n[, erase]])
