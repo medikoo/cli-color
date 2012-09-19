@@ -1,3 +1,23 @@
+v0.2.0  --  2012.09.19
+Major refactor of internal algorithm, addition of new functionalities
+
+Changes:
+* Bright variants are now set as individual colors (not as additional
+  characteristics as it was in 0.1.x). We should do: clc.redBright instead of
+  clc.red.bright
+* Removed 'gray' color, clc.blackBright has same effect and should be used
+  instead
+
+New functionalities:
+* Already prepared configurations can now be extended directly, e.g.:
+  var error = clc.red;
+  var majorError = error.bold;
+* 256 xTerm color support via xterm(n) and bgXterm(n) functions
+* Move around functions: clc.move, clc.moveTo, clc.bol, clc.up, clc.down, clc.right and clc.left
+* clc.reset - Outputs string that clears the terminal
+* clc.beep
+* clc.width & clc.height - Terminal characteristics properties
+
 v0.1.7  --  2012.06.13
 * Update up to v0.8 branch of es5-ext
 * package.json now in npm friendly format
