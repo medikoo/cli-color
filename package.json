@@ -1,6 +1,6 @@
 {
   "name": "cli-color",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Colors, formatting and other tools for the console",
   "keywords": [
     "ansi",
@@ -27,7 +27,8 @@
     "node": ">=0.1.103"
   },
   "dependencies": {
-    "es5-ext": "~0.9.1"
+    "es5-ext": "~0.9.1",
+    "memoizee": "0.1.x"
   },
   "devDependencies": {
     "clock": "0.1.x",
