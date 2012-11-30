@@ -14,7 +14,7 @@
     "xterm"
   ],
   "author": "Mariusz Nowak <medikoo+cli-color@medikoo.com> (http://www.medikoo.com/)",
-  "main": "lib",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/medikoo/cli-color.git"
