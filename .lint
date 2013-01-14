@@ -1,7 +1,7 @@
 @root
 
-indent 2
-maxlen 80
+jslint_medikoo.indent 2
+jslint_medikoo.maxlen 80
 es5
 node
 jslint_medikoo.nomen
@@ -32,8 +32,8 @@ jshint.smarttabs
 jshint.eqnull
 jshint.expr
 
-./lib/_xterm-match.js
-maxlen 90
+./lib/_xterm-colors.js
+jslint_medikoo.maxlen 90
 
 ./lib/index.js
 jshint.proto
