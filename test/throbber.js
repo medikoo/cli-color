@@ -1,6 +1,8 @@
 'use strict';
 
-var spawn = require('child_process').spawn
+var startsWith = require('es5-ext/lib/String/prototype/starts-with')
+  , spawn      = require('child_process').spawn
+
   , pg = __dirname + '/__playground';
 
 module.exports = {
@@ -16,7 +18,7 @@ module.exports = {
 		});
 		t.on('exit', function () {
 			a.ok(out.length > 4, "Interval");
-			a(out.join(""), "START-\b\\\b|\b/\b-\b", "Output");
+			a(startsWith.call(out.join(""), "START-\b\\\b|\b/\b-\b"), true, "Output");
 			a(err, "", "No stderr output");
 			d();
 		});
@@ -33,8 +35,9 @@ module.exports = {
 		});
 		t.on('exit', function () {
 			a.ok(out.length > 4, "Interval");
-			a(out.join(""), "START\x1b[31m-\x1b[39m\b\x1b[31m\\\x1b[39m\b\x1b[31m" +
-				"|\x1b[39m\b\x1b[31m/\x1b[39m\b\x1b[31m-\x1b[39m\b", "Output");
+			a(startsWith.call(out.join(""), "START\x1b[31m-\x1b[39m\b\x1b[31m\\\x1b" +
+				"[39m\b\x1b[31m|\x1b[39m\b\x1b[31m/\x1b[39m\b\x1b[31m-\x1b[39m\b"),
+				true, "Output");
 			a(err, "", "No stderr output");
 			d();
 		});
