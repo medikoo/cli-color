@@ -1,3 +1,9 @@
+v0.2.2  --  2013.02.20
+* Fix trim, so it tims all kind of ANSI sequence codes correctly
+* Do not rely on getWindowSize (it may not be available at all)
+* Fix some xterm colors references in documentation
+* Add Missing MIT licence
+
 v0.2.1  --  2012.10.05
 Maintanance (Use v0.2 of memoizee)
 
