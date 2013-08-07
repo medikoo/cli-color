@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "es5-ext": "~0.9.1",
-    "memoizee": "0.2.x"
+    "memoizee": "git://github.com/medikoo/memoize.git"
   },
   "devDependencies": {
     "clock": "0.1.x",
