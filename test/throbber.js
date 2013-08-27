@@ -1,6 +1,6 @@
 'use strict';
 
-var startsWith = require('es5-ext/lib/String/prototype/starts-with')
+var startsWith = require('es5-ext/string/#/starts-with')
   , spawn      = require('child_process').spawn
 
   , pg = __dirname + '/__playground';

@@ -2,7 +2,7 @@
 
 'use strict';
 
-var uniq     = require('es5-ext/lib/Array/prototype/uniq')
+var uniq     = require('es5-ext/array/#/uniq')
   , deferred = require('deferred')
   , resolve  = require('path').resolve
   , gm       = require("gm")
