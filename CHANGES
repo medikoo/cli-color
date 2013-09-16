@@ -1,3 +1,6 @@
+v0.2.3  --  2013.09.16
+Add `blink`
+
 v0.2.2  --  2013.02.20
 * Fix trim, so it tims all kind of ANSI sequence codes correctly
 * Do not rely on getWindowSize (it may not be available at all)

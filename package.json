@@ -1,6 +1,6 @@
 {
   "name": "cli-color",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Colors, formatting and other tools for the console",
   "keywords": [
     "ansi",
@@ -31,8 +31,8 @@
     "memoizee": "git://github.com/medikoo/memoize.git"
   },
   "devDependencies": {
-    "clock": "0.1.x",
-    "tad": "0.1.x"
+    "clock": "~0.1.5",
+    "tad": "~0.1.19"
   },
   "scripts": {
     "test": "node ./node_modules/tad/bin/tad lib"
