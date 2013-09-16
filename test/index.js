@@ -23,6 +23,7 @@ module.exports = function (t, a) {
 		"Foreground & Background: Overriden");
 
 	a(t.bold('foo', 'bar'), '\x1b[1mfoo bar\x1b[22m', "Format");
+	a(t.blink('foobar'), '\x1b[5mfoobar\x1b[25m', "Format: blink");
 	a(t.bold.blue('foo', 'bar', 3), '\x1b[1m\x1b[34mfoo bar 3\x1b[39m\x1b[22m',
 		"Foreground & Format");
 

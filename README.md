@@ -53,6 +53,7 @@ Styles will display correctly if font used in your console supports them.
 * bold
 * italic
 * underline
+* blink
 * inverse
 * strike
 
