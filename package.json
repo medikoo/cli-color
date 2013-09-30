@@ -27,6 +27,7 @@
     "node": ">=0.1.103"
   },
   "dependencies": {
+    "d": "git://github.com/medikoo/d.git",
     "es5-ext": "git://github.com/medikoo/es5-ext.git",
     "memoizee": "git://github.com/medikoo/memoize.git"
   },
