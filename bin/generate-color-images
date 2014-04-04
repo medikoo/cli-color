@@ -15,4 +15,4 @@ deferred.map(uniq.call(colors), function (color) {
 		.pThumb(1, 1, resolve(__dirname, color + '.png'), 80).aside(function () {
 			console.log('Done: ' + color);
 		});
-}).end();
+}).done();
