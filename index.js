@@ -71,7 +71,7 @@ proto = Object.create(Function.prototype, assign(map(mods, function (mod) {
 })));
 
 if (process.platform === 'win32') {
-	xtermMatch = require('./_xterm-match');
+	xtermMatch = require('./lib/xterm-match');
 }
 
 getFn = function () {

@@ -36,7 +36,7 @@
     "tad": "~0.1.19"
   },
   "scripts": {
-    "test": "node ./node_modules/tad/bin/tad lib"
+    "test": "node ./node_modules/tad/bin/tad"
   },
   "licence": "MIT"
 }

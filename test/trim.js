@@ -1,6 +1,6 @@
 'use strict';
 
-var clc = require('../lib');
+var clc = require('../');
 
 module.exports = function (t, a) {
 	a(t(clc.red('raz') + 'dwa' + clc.bold('trzy')), 'razdwatrzy', "Colors");

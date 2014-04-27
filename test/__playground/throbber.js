@@ -2,7 +2,7 @@
 
 'use strict';
 
-var setupThrobber = require('../../lib/throbber')
+var setupThrobber = require('../../throbber')
 
   , throbber = setupThrobber(process.stdout.write.bind(process.stdout), 200);
 
