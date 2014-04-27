@@ -29,7 +29,8 @@
   "dependencies": {
     "d": "~0.1.1",
     "es5-ext": "~0.10.2",
-    "memoizee": "0.3.x"
+    "memoizee": "0.3.x",
+    "timers-ext": "0.1.x"
   },
   "devDependencies": {
     "tad": "~0.1.19"
