@@ -27,9 +27,9 @@
     "node": ">=0.1.103"
   },
   "dependencies": {
-    "d": "git://github.com/medikoo/d.git",
-    "es5-ext": "git://github.com/medikoo/es5-ext.git",
-    "memoizee": "git://github.com/medikoo/memoize.git"
+    "d": "~0.1.1",
+    "es5-ext": "~0.10.2",
+    "memoizee": "0.3.x"
   },
   "devDependencies": {
     "clock": "~0.1.5",
