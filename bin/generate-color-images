@@ -5,7 +5,7 @@
 var uniq     = require('es5-ext/array/#/uniq')
   , deferred = require('deferred')
   , resolve  = require('path').resolve
-  , gm       = require("gm")
+  , gm       = require('gm')
   , colors   = require('../lib/_xterm-colors');
 
 gm.prototype.pThumb = deferred.gate(deferred.promisify(gm.prototype.thumb), 50);
