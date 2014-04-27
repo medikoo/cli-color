@@ -32,7 +32,6 @@
     "memoizee": "0.3.x"
   },
   "devDependencies": {
-    "clock": "~0.1.5",
     "tad": "~0.1.19"
   },
   "scripts": {

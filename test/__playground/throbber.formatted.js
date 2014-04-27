@@ -2,13 +2,11 @@
 
 'use strict';
 
-var throbber = require('../../lib/throbber')
-  , interval = require('clock/lib/interval')
-  , format   = require('../../lib/index').red
+var setupThrobber = require('../../lib/throbber')
+  , format       = require('../../lib/index').red
 
-  , i = interval(200, true);
+  , throbber = setupThrobber(process.stdout.write.bind(process.stdout), 200, format);
 
-setTimeout(i.stop.bind(i), 1100);
-
-throbber(i, format);
 process.stdout.write('START');
+throbber.start();
+setTimeout(throbber.stop, 1100);

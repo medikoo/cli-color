@@ -525,23 +525,20 @@ var ansiTrim = require('cli-color/lib/trim');
 var plain = ansiTrim(formatted);
 ```
 
-#### throbber(interval[, format])
+#### throbber(write, interval[, format])
 
-Displays throbber on given interval.
-Interval should be [clock.interval](https://github.com/medikoo/clock) object
-Optionally throbber output can be formatted with given format
+Writes throbber string to _write_ function at given _interval_. Optionally throbber output can be formatted with given _format_ function
 
 ```javascript
-var interval = require('clock/lib/interval')
-  , ansiThrobber = require('cli-color/lib/throbber');
+var setupThrobber = require('cli-color/lib/throbber');
 
-var i = interval(200, true);
+var throbber = setupThrobber(function (str) {
+  process.stdout.write(str);
+}, 200);
 
-// Display throbber while interval is ticking
-ansiThrobber(i);
+throbber.start();
 
-// at any time you can stop/start interval
-// When interval is stopped throbber doesn't show
+// at any time you can stop/start throbber
 i.stop();
 ```
 
