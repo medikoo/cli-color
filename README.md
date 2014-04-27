@@ -515,7 +515,7 @@ Returns terminal height
 
 ### Additional functionalities (provided as separate modules)
 
-#### trim(formatedText)
+#### trim(formatedText) _(cli-color/trim)_
 
 Trims ANSI formatted string to plain text
 
@@ -525,7 +525,7 @@ var ansiTrim = require('cli-color/lib/trim');
 var plain = ansiTrim(formatted);
 ```
 
-#### throbber(write, interval[, format])
+#### throbber(write, interval[, format]) _(cli-color/throbber)_
 
 Writes throbber string to _write_ function at given _interval_. Optionally throbber output can be formatted with given _format_ function
 
@@ -542,6 +542,6 @@ throbber.start();
 i.stop();
 ```
 
-## Tests [![Build Status](https://secure.travis-ci.org/medikoo/cli-color.png?branch=master)](https://secure.travis-ci.org/medikoo/cli-color)
+## Tests [![Build Status](https://travis-ci.org/medikoo/cli-color.png)](https://travis-ci.org/medikoo/cli-color)
 
 	$ npm test
