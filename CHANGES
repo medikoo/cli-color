@@ -1,3 +1,6 @@
+v0.3.1  --  2014.04.27
+* Update package.json to use latest 'tad' engine (fixes tests evaluation)
+
 v0.3.0  --  2014.04.27
 * Move out all main modules from lib folder
 * Improve `throbber` utility, so it no longer relies on `clock/lib/interval` interface
