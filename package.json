@@ -1,6 +1,6 @@
 {
   "name": "cli-color",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Colors, formatting and other tools for the console",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [

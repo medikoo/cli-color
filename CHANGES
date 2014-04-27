@@ -1,3 +1,10 @@
+v0.3.0  --  2014.04.27
+* Move out all main modules from lib folder
+* Improve `throbber` utility, so it no longer relies on `clock/lib/interval` interface
+  and it's easier to use on its own
+* Update internals to use latest versions of dependencies
+* Remove Makefile (it's cross environement package)
+
 v0.2.3  --  2013.09.16
 Add `blink`
 
