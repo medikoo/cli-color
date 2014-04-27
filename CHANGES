@@ -1,3 +1,6 @@
+v0.3.2  --  2014.04.27
+* Fix errorneous dependency version in package.json
+
 v0.3.1  --  2014.04.27
 * Update package.json to use latest 'tad' engine (fixes tests evaluation)
 

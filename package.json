@@ -1,6 +1,6 @@
 {
   "name": "cli-color",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Colors, formatting and other tools for the console",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
@@ -25,7 +25,7 @@
     "timers-ext": "0.1.x"
   },
   "devDependencies": {
-    "tad": "x0.2.0"
+    "tad": "0.2.x"
   },
   "scripts": {
     "test": "node ./node_modules/tad/bin/tad"
