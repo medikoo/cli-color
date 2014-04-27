@@ -25,7 +25,7 @@
     "timers-ext": "0.1.x"
   },
   "devDependencies": {
-    "tad": "~0.1.21"
+    "tad": "x0.2.0"
   },
   "scripts": {
     "test": "node ./node_modules/tad/bin/tad"
