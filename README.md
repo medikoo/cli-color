@@ -520,7 +520,7 @@ Returns terminal height
 Trims ANSI formatted string to plain text
 
 ```javascript
-var ansiTrim = require('cli-color/lib/trim');
+var ansiTrim = require('cli-color/trim');
 
 var plain = ansiTrim(formatted);
 ```
@@ -530,7 +530,7 @@ var plain = ansiTrim(formatted);
 Writes throbber string to _write_ function at given _interval_. Optionally throbber output can be formatted with given _format_ function
 
 ```javascript
-var setupThrobber = require('cli-color/lib/throbber');
+var setupThrobber = require('cli-color/throbber');
 
 var throbber = setupThrobber(function (str) {
   process.stdout.write(str);
