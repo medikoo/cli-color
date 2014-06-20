@@ -8,6 +8,7 @@ var d              = require('d')
   , memoize        = require('memoizee')
   , memoizeMethods = require('memoizee/methods')
   , tty            = require('tty')
+  , f              = require('util').format
 
   , join = Array.prototype.join, defineProperty = Object.defineProperty
   , defineProperties = Object.defineProperties, abs = Math.abs
@@ -81,7 +82,7 @@ getFn = function () {
 			end = '\x1b[' + mod[1] + 'm' + end;
 			start += '\x1b[' + mod[0] + 'm';
 		}, null, true);
-		return start + join.call(arguments, ' ') + end;
+		return start + f.apply(null, arguments) + end;
 	};
 	fn.__proto__ = proto;
 	return fn;
