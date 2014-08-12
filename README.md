@@ -539,7 +539,7 @@ var throbber = setupThrobber(function (str) {
 throbber.start();
 
 // at any time you can stop/start throbber
-i.stop();
+throbber.stop();
 ```
 
 ## Tests [![Build Status](https://travis-ci.org/medikoo/cli-color.png)](https://travis-ci.org/medikoo/cli-color)
