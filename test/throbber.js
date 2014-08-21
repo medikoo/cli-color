@@ -23,7 +23,7 @@ module.exports = {
 			d();
 		});
 	},
-	"Formatted": function (a, d) {
+	Formatted: function (a, d) {
 		var t = spawn(pg + '/throbber.formatted.js')
 		  , out = [], err = '';
 
