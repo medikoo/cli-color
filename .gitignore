@@ -2,3 +2,6 @@
 /.lintcache
 /node_modules
 npm-debug.log
+
+# Ignore sublime project files.
+*.sublime-*
