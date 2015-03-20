@@ -7,7 +7,7 @@ var startsWith = require('es5-ext/string/#/starts-with')
 
 module.exports = {
 	"": function (a, d) {
-		var t = spawn(resolve(pg, 'throbber.js'))
+		var t = spawn('node', [resolve(pg, 'throbber.js')])
 		  , out = [], err = '';
 
 		t.stdout.on('data', function (data) {
@@ -24,7 +24,7 @@ module.exports = {
 		});
 	},
 	Formatted: function (a, d) {
-		var t = spawn(resolve(pg, 'throbber.formatted.js'))
+		var t = spawn('node', [resolve(pg, 'throbber.formatted.js')])
 		  , out = [], err = '';
 
 		t.stdout.on('data', function (data) {
