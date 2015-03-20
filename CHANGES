@@ -1,3 +1,6 @@
+v0.3.x  --  2015.03.20
+* Added support to `.trim()` directly from `cli-color`, without require an additional module
+
 v0.3.3  --  2015.03.20
 * Fix throbber tests
 * Fix spelling of LICENSE

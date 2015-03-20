@@ -9,6 +9,8 @@ var d              = require('d')
   , memoizeMethods = require('memoizee/methods')
   , tty            = require('tty')
 
+  , trim           = require("./trim.js")
+
   , join = Array.prototype.join, defineProperty = Object.defineProperty
   , defineProperties = Object.defineProperties, abs = Math.abs
   , floor = Math.floor, max = Math.max, min = Math.min
@@ -95,6 +97,7 @@ getMove = function (control) {
 };
 
 module.exports = defineProperties(getFn(), {
+    trim: d(trim),
 	width: d.gs(process.stdout.getWindowSize ? function () {
 		return process.stdout.getWindowSize()[0];
 	} : function () {

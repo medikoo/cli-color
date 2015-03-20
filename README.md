@@ -513,17 +513,11 @@ Returns terminal width
 
 Returns terminal height
 
-### Additional functionalities (provided as separate modules)
-
-#### trim(formatedText) _(cli-color/trim)_
+#### trim(formatedText) _(as in 0.3.x)_
 
 Trims ANSI formatted string to plain text
 
-```javascript
-var ansiTrim = require('cli-color/trim');
-
-var plain = ansiTrim(formatted);
-```
+### Additional functionalities (provided as separate modules)
 
 #### throbber(write, interval[, format]) _(cli-color/throbber)_
 
