@@ -1,5 +1,6 @@
 v0.4.x  --  2015.03.20
 * Added support to `.trim()` and `.throbber()` directly from `cli-color`, without require an internal module
+* Styles are now unified to a single sentence
 
 v0.3.3  --  2015.03.20
 * Fix throbber tests

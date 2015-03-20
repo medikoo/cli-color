@@ -79,12 +79,22 @@ if (process.platform === 'win32') {
 
 getFn = function () {
 	var fn = function (/*…msg*/) {
-		var start = '', end = '';
-		forEach(fn._cliColorData, function (mod) {
-			end = '\x1b[' + mod[1] + 'm' + end;
-			start += '\x1b[' + mod[0] + 'm';
-		}, null, true);
-		return start + join.call(arguments, ' ') + end;
+        var start = ''
+          , end = ''
+          , keys = Object.keys(fn._cliColorData)
+          , msg = join.call(arguments, ' ');
+
+        if(keys.length) {
+            for(var i in keys) {
+                start+= fn._cliColorData[keys[i]][0] + ";";
+                end+= fn._cliColorData[keys[i]][1] + ";";
+            }
+
+            start = '\x1B[' + start.slice(0, -1) + 'm';
+            end = '\x1B[' + end.slice(0, -1) + 'm';
+        }
+
+        return start + msg + end;
 	};
 	fn.__proto__ = proto;
 	return fn;
