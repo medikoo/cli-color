@@ -10,6 +10,7 @@ var d              = require('d')
   , tty            = require('tty')
 
   , trim           = require("./trim.js")
+  , throbber       = require("./throbber.js")
 
   , join = Array.prototype.join, defineProperty = Object.defineProperty
   , defineProperties = Object.defineProperties, abs = Math.abs
@@ -98,6 +99,7 @@ getMove = function (control) {
 
 module.exports = defineProperties(getFn(), {
     trim: d(trim),
+    throbber: d(throbber),
 	width: d.gs(process.stdout.getWindowSize ? function () {
 		return process.stdout.getWindowSize()[0];
 	} : function () {

@@ -513,20 +513,16 @@ Returns terminal width
 
 Returns terminal height
 
-#### trim(formatedText) _(as in 0.3.x)_
+#### trim(formatedText) _(as in 0.4.x)_
 
 Trims ANSI formatted string to plain text
 
-### Additional functionalities (provided as separate modules)
-
-#### throbber(write, interval[, format]) _(cli-color/throbber)_
+#### throbber(write, interval[, format]) _(as in 0.4.x)_
 
 Writes throbber string to _write_ function at given _interval_. Optionally throbber output can be formatted with given _format_ function
 
 ```javascript
-var setupThrobber = require('cli-color/throbber');
-
-var throbber = setupThrobber(function (str) {
+var throbber = clc.throbber(function (str) {
   process.stdout.write(str);
 }, 200);
 
