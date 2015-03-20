@@ -1,3 +1,9 @@
+v0.3.3  --  2015.03.20
+* Fix throbber tests
+* Fix spelling of LICENSE
+* Improve documentation
+* Configure lint scripts
+
 v0.3.2  --  2014.04.27
 * Fix errorneous dependency version in package.json
 

@@ -1,6 +1,6 @@
 {
   "name": "cli-color",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Colors, formatting and other tools for the console",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
@@ -20,14 +20,14 @@
   },
   "dependencies": {
     "d": "~0.1.1",
-    "es5-ext": "~0.10.2",
-    "memoizee": "0.3.x",
-    "timers-ext": "0.1.x"
+    "es5-ext": "~0.10.6",
+    "memoizee": "~0.3.8",
+    "timers-ext": "0.1"
   },
   "devDependencies": {
-    "tad": "0.2.x",
-    "xlint": "~0.2.1",
-    "xlint-jslint-medikoo": "~0.1.1"
+    "tad": "~0.2.2",
+    "xlint": "~0.2.2",
+    "xlint-jslint-medikoo": "~0.1.2"
   },
   "scripts": {
     "lint": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --no-cache --no-stream",
