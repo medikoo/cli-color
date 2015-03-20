@@ -2,12 +2,12 @@
 
 var startsWith = require('es5-ext/string/#/starts-with')
   , spawn      = require('child_process').spawn
-
-  , pg = __dirname + '/__playground';
+  , resolve    = require('path').resolve
+  , pg = resolve(__dirname, '__playground');
 
 module.exports = {
 	"": function (a, d) {
-		var t = spawn(pg + '/throbber.js')
+		var t = spawn(resolve(pg, 'throbber.js'))
 		  , out = [], err = '';
 
 		t.stdout.on('data', function (data) {
@@ -24,7 +24,7 @@ module.exports = {
 		});
 	},
 	Formatted: function (a, d) {
-		var t = spawn(pg + '/throbber.formatted.js')
+		var t = spawn(resolve(pg, 'throbber.formatted.js'))
 		  , out = [], err = '';
 
 		t.stdout.on('data', function (data) {
