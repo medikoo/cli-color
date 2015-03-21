@@ -33,6 +33,12 @@ Styled text can be mixed with unstyled:
 console.log(clc.red('red') + ' plain ' + clc.blue('blue'));
 ```
 
+Styled text can be nest another styled text:
+
+```javascript
+console.log(clc.red('red ' + clc.blue('blue') + ' red'));
+```
+
 __Best way is to predefine needed stylings and then use it__:
 
 ```javascript

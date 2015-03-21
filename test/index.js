@@ -43,6 +43,138 @@ module.exports = function (t, a) {
     a(t.bgRed.blue.bgBlue.red('foo'), '\x1b[44;31;mfoo\x1b[49;39;m', "Prioritize the Last Mixed Style: BG Blue and Red");
     a(t.bgBlue.red.bgRed.blue('foo'), '\x1b[41;34;mfoo\x1b[49;39;m', "Prioritize the Last Mixed Style: BG Red and Blue");
 
+    a(t.red(t.blue('blue ') + 'red'),
+        '\x1b[34;mblue \x1b[31;mred\x1b[39;49;m',
+        "Nested Foreground: Two Levels Type 1");
+    a(t.red('red ' + t.blue('blue ')),
+        '\x1b[31;mred \x1b[34;mblue \x1b[39;49;m',
+        "Nested Foreground: Two Levels Type 2");
+    a(t.red('red ' + t.blue('blue ') + 'red'),
+        '\x1b[31;mred \x1b[34;mblue \x1b[31;mred\x1b[39;49;m',
+        "Nested Foreground: Two Levels Type 3");
+
+    a(t.red('red ' + t.blue('blue ' + t.green('green ')) + 'red'),
+        '\x1b[31;mred \x1b[34;mblue \x1b[32;mgreen \x1b[31;mred\x1b[39;49;m',
+        "Nested Foreground: Three Levels Type 1");
+    a(t.red('red ' + t.blue('blue ' + t.green('green ') + 'blue ') + 'red'),
+        '\x1b[31;mred \x1b[34;mblue \x1b[32;mgreen \x1b[34;mblue \x1b[31;mred\x1b[39;49;m',
+        "Nested Foreground: Three Levels Type 2");
+    a(t.red('red ' + t.blue('blue ' + t.green('green ')) + t.green('green ') + 'red'),
+        '\x1b[31;mred \x1b[34;mblue \x1b[32;mgreen \x1b[32;mgreen \x1b[31;mred\x1b[39;49;m',
+        "Nested Foreground: Three Levels Type 3");
+    a(t.red('red ' + t.blue('blue ' + t.green('green ') + t.yellow('yellow ')) + 'red'),
+        '\x1b[31;mred \x1b[34;mblue \x1b[32;mgreen \x1b[33;myellow \x1b[31;mred\x1b[39;49;m',
+        "Nested Foreground: Three Levels Type 4");
+    a(t.red('red ' + t.blue('blue ' + t.green('green ') + "blue " + t.yellow('yellow ')) + 'red'),
+        '\x1b[31;mred \x1b[34;mblue \x1b[32;mgreen \x1b[34;mblue \x1b[33;myellow \x1b[31;mred\x1b[39;49;m',
+        "Nested Foreground: Three Levels Type 5");
+
+    a(t.red('red ' + t.blue('blue ' + t.green('green ' + t.yellow('yellow ') + "green ")) + 'red'),
+        '\x1b[31;mred \x1b[34;mblue \x1b[32;mgreen \x1b[33;myellow \x1b[32;mgreen \x1b[31;mred\x1b[39;49;m',
+        "Nested Foreground: Four Levels");
+
+    a(t.red('\x1bAred'),
+        '\x1b[31;m\x1bAred\x1b[39;49;m',
+        "Nested Foreground: Trap Type 1 - Not a Style Before");
+    a(t.red('red\x1bA'),
+        '\x1b[31;mred\x1bA\x1b[39;49;m',
+        "Nested Foreground: Trap Type 2 - Not a Style After");
+    a(t.red('\x1bAred\x1bA'),
+        '\x1b[31;m\x1bAred\x1bA\x1b[39;49;m',
+        "Nested Foreground: Trap Type 3 - Not a Style Around");
+    a(t.red('\x1b34;m\x1b39;m'),
+        '\x1b[31;m\x1b34;m\x1b39;m\x1b[39;49;m',
+        "Nested Foreground: Trap Type 4 - Not a Valid Style");
+    a(t.red('\x1b[34;m\x1b[39;49;m'),
+        '',
+        "Nested Foreground: Trap Type 5 - No Message Style");
+    a(t.red('\x1b[34;m\x1b[39;49;m\x1b[34;mblue\x1b[39;49;m'),
+        '\x1b[34;mblue\x1b[39;49;m',
+        "Nested Foreground: Trap Type 6 - No Message Style Before");
+    a(t.red('\x1b[34;mblue\x1b[39;49;m\x1b[34;m\x1b[39;49;m'),
+        '\x1b[34;mblue\x1b[39;49;m',
+        "Nested Foreground: Trap Type 7 - No Message Style After");
+    a(t.red('\x1b[34;m\x1b[39;49;m\x1b[34;mblue\x1b[39;49;m\x1b[34;m\x1b[39;49;m'),
+        '\x1b[34;mblue\x1b[39;49;m',
+        "Nested Foreground: Trap Type 8 - No Message Style Around");
+    a(t.red('\x1b[34;mblue'),
+        '\x1b[34;mblue\x1b[39;49;m',
+        "Nested Foreground: Trap Type 9 - Bad-formatted Before");
+    a(t.red('red\x1b[39;49;m'),
+        '\x1b[31;mred\x1b[39;49;m',
+        "Nested Foreground: Trap Type 10 - Bad-formatted After");
+
+    a(t.bgRed(t.bgBlue('blue ') + 'red'),
+        '\x1b[44;mblue \x1b[41;mred\x1b[39;49;m',
+        "Nested Background: Two Levels Type 1");
+    a(t.bgRed('red ' + t.bgBlue('blue ')),
+        '\x1b[41;mred \x1b[44;mblue \x1b[39;49;m',
+        "Nested Background: Two Levels Type 2");
+    a(t.bgRed('red ' + t.bgBlue('blue ') + 'red'),
+        '\x1b[41;mred \x1b[44;mblue \x1b[41;mred\x1b[39;49;m',
+        "Nested Background: Two Levels Type 3");
+
+    a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ')) + 'red'),
+        '\x1b[41;mred \x1b[44;mblue \x1b[42;mgreen \x1b[41;mred\x1b[39;49;m',
+        "Nested Background: Three Levels Type 1");
+    a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ') + 'blue ') + 'red'),
+        '\x1b[41;mred \x1b[44;mblue \x1b[42;mgreen \x1b[44;mblue \x1b[41;mred\x1b[39;49;m',
+        "Nested Background: Three Levels Type 2");
+    a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ')) + t.bgGreen('green ') + 'red'),
+        '\x1b[41;mred \x1b[44;mblue \x1b[42;mgreen \x1b[42;mgreen \x1b[41;mred\x1b[39;49;m',
+        "Nested Background: Three Levels Type 3");
+    a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ') + t.bgYellow('yellow ')) + 'red'),
+        '\x1b[41;mred \x1b[44;mblue \x1b[42;mgreen \x1b[43;myellow \x1b[41;mred\x1b[39;49;m',
+        "Nested Background: Three Levels Type 4");
+    a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ') + "blue " + t.bgYellow('yellow ')) + 'red'),
+        '\x1b[41;mred \x1b[44;mblue \x1b[42;mgreen \x1b[44;mblue \x1b[43;myellow \x1b[41;mred\x1b[39;49;m',
+        "Nested Background: Three Levels Type 5");
+
+    a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ' + t.bgYellow('yellow ') + "green ")) + 'red'),
+        '\x1b[41;mred \x1b[44;mblue \x1b[42;mgreen \x1b[43;myellow \x1b[42;mgreen \x1b[41;mred\x1b[39;49;m',
+        "Nested Background: Four Levels");
+
+    a(t.bgRed('\x1bAred'),
+        '\x1b[41;m\x1bAred\x1b[39;49;m',
+        "Nested Background: Trap Type 1 - Not a Style Before");
+    a(t.bgRed('red\x1bA'),
+        '\x1b[41;mred\x1bA\x1b[39;49;m',
+        "Nested Background: Trap Type 2 - Not a Style After");
+    a(t.bgRed('\x1bAred\x1bA'),
+        '\x1b[41;m\x1bAred\x1bA\x1b[39;49;m',
+        "Nested Background: Trap Type 3 - Not a Style Around");
+    a(t.bgRed('\x1b44;m\x1b39;m'),
+        '\x1b[41;m\x1b44;m\x1b39;m\x1b[39;49;m',
+        "Nested Background: Trap Type 4 - Not a Valid Style");
+    a(t.bgRed('\x1b[44;m\x1b[39;49;m'),
+        '',
+        "Nested Background: Trap Type 5 - No Message Style");
+    a(t.bgRed('\x1b[44;m\x1b[39;49;m\x1b[44;mblue\x1b[39;49;m'),
+        '\x1b[44;mblue\x1b[39;49;m',
+        "Nested Background: Trap Type 6 - No Message Style Before");
+    a(t.bgRed('\x1b[44;mblue\x1b[39;49;m\x1b[44;m\x1b[39;49;m'),
+        '\x1b[44;mblue\x1b[39;49;m',
+        "Nested Background: Trap Type 7 - No Message Style After");
+    a(t.bgRed('\x1b[44;m\x1b[39;49;m\x1b[44;mblue\x1b[39;49;m\x1b[44;m\x1b[39;49;m'),
+        '\x1b[44;mblue\x1b[39;49;m',
+        "Nested Background: Trap Type 8 - No Message Style Around");
+    a(t.bgRed('\x1b[44;mblue'),
+        '\x1b[44;mblue\x1b[39;49;m',
+        "Nested Background: Trap Type 9 - Bad-formatted Before");
+    a(t.bgRed('red\x1b[39;49;m'),
+        '\x1b[41;mred\x1b[39;49;m',
+        "Nested Background: Trap Type 10 - Bad-formatted After");
+
+    a(t.red('red ' + t.bgBlue('blue ')),
+        '\x1b[31;mred \x1b[44;mblue \x1b[39;49;m',
+        "Nested Foreground and Background: Two Levels Type 1");
+    a(t.red('red ' + t.bgBlue('blue ') + 'red'),
+        '\x1b[31;mred \x1b[44;mblue \x1b[31;mred\x1b[39;49;m',
+        "Nested Foreground and Background: Two Levels Type 2");
+    a(t.bgBlue('blue ' + t.bgRed('red ' + t.whiteBright('white ') + 'red ') + 'blue'),
+        '\x1b[44;mblue \x1b[41;mred \x1b[97;mwhite \x1b[41;mred \x1b[44;mblue\x1b[39;49;m',
+        "Nested Foreground and Background: Two Levels Type 3");
+
 	x = t.red;
 	y = x.bold;
 

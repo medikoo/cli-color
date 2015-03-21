@@ -9,12 +9,18 @@ var d              = require('d')
   , memoizeMethods = require('memoizee/methods')
   , tty            = require('tty')
 
-  , trim           = require("./trim.js")
-  , throbber       = require("./throbber.js")
+  , trim           = require('./trim.js')
+  , throbber       = require('./throbber.js')
 
   , join = Array.prototype.join, defineProperty = Object.defineProperty
   , defineProperties = Object.defineProperties, abs = Math.abs
   , floor = Math.floor, max = Math.max, min = Math.min
+
+  , styleExpression = '(?:\\x1b|\\x9b)\\[(?:\\d+|\\d[\\d;]*)m'
+  , styleEndingExpression = new RegExp('(?:\\x1b|\\x9b)\\[(?:39;|49;)+m')
+  , styleEndingFilter = function(part) { return !styleEndingExpression.test(part); }
+  , styleTester = new RegExp(styleExpression)
+  , styleSplitter = new RegExp(styleExpression + '|(?:(?!' + styleExpression + ').)+', 'g')
 
   , mods, proto, getFn, getMove, xtermMatch
   , up, down, right, left, getHeight, memoized;
@@ -84,14 +90,50 @@ getFn = function () {
           , keys = Object.keys(fn._cliColorData)
           , msg = join.call(arguments, ' ');
 
-        if(keys.length) {
-            for(var i in keys) {
-                start+= fn._cliColorData[keys[i]][0] + ";";
-                end+= fn._cliColorData[keys[i]][1] + ";";
+        if (keys.length) {
+            for (var i in keys) {
+                start+= fn._cliColorData[keys[i]][0] + ';';
+                end+= fn._cliColorData[keys[i]][1] + ';';
             }
 
-            start = '\x1B[' + start + 'm';
-            end = '\x1B[' + end + 'm';
+            start = '\x1b[' + start + 'm';
+            end = '\x1b[' + end + 'm';
+
+            // Nested style.
+            if (msg.indexOf('\x1b') !== -1) {
+                var result = ''
+                  , parts = msg.match(styleSplitter).filter(styleEndingFilter)
+                  , index = 0
+                  , limit = parts.length - 1;
+
+                while (index <= limit) {
+                    // If current item is a text, encapsulate it.
+                    if (!styleTester.test(parts[index])) {
+                        result+= start + parts[index];
+                        index++;
+                    }
+
+                    // Trap: if is the last style, ignore.
+                    // It mean a non-message style.
+                    if (index === limit) {
+                        break;
+                    }
+
+                    // Trap: if next index is another style, ignore.
+                    // It mean a bad-formatted style.
+                    if (limit - index >= 0 && parts[index + 1].charAt(0) === '\x1b') {
+                        index++;
+                        continue;
+                    }
+
+                    // Copy current style.
+                    result+= parts.slice(index, index + 2).join('');
+                    index+= 2;
+                }
+
+                // Return result with ending style.
+                return result + ( result.length ? '\x1b[39;49;m' : '' );
+            }
         }
 
         return start + msg + end;
