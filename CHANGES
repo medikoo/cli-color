@@ -1,6 +1,7 @@
 v0.4.x  --  2015.03.20
 * Added support to `.trim()` and `.throbber()` directly from `cli-color`, without require an internal module
 * Styles are now unified to a single sentence
+* Improved `.trim()` Regular Expression to remove all control sequence
 
 v0.3.3  --  2015.03.20
 * Fix throbber tests
