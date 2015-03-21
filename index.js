@@ -90,8 +90,8 @@ getFn = function () {
                 end+= fn._cliColorData[keys[i]][1] + ";";
             }
 
-            start = '\x1B[' + start.slice(0, -1) + 'm';
-            end = '\x1B[' + end.slice(0, -1) + 'm';
+            start = '\x1B[' + start + 'm';
+            end = '\x1B[' + end + 'm';
         }
 
         return start + msg + end;

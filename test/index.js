@@ -7,56 +7,56 @@ module.exports = function (t, a) {
 	a(t('test', 'foo', 3, { toString: function () { return 'bar'; } }),
 		'test foo 3 bar', "Plain: Many args");
 
-	a(t.red('foo'), '\x1b[31mfoo\x1b[39m', "Foreground");
-	a(t.red('foo', 'bar', 3), '\x1b[31mfoo bar 3\x1b[39m',
+	a(t.red('foo'), '\x1b[31;mfoo\x1b[39;m', "Foreground");
+	a(t.red('foo', 'bar', 3), '\x1b[31;mfoo bar 3\x1b[39;m',
 		"Foreground: Many args");
-	a(t.red.yellow('foo', 'bar', 3), '\x1b[33mfoo bar 3\x1b[39m',
+	a(t.red.yellow('foo', 'bar', 3), '\x1b[33;mfoo bar 3\x1b[39;m',
 		"Foreground: Overriden");
-	a(t.bgRed('foo', 'bar'), '\x1b[41mfoo bar\x1b[49m', "Background");
-	a(t.bgRed.bgYellow('foo', 'bar', 3), '\x1b[43mfoo bar 3\x1b[49m',
+	a(t.bgRed('foo', 'bar'), '\x1b[41;mfoo bar\x1b[49;m', "Background");
+	a(t.bgRed.bgYellow('foo', 'bar', 3), '\x1b[43;mfoo bar 3\x1b[49;m',
 		"Background: Overriden");
 
-	a(t.blue.bgYellow('foo', 'bar'), '\x1b[34;43mfoo bar\x1b[39;49m',
+	a(t.blue.bgYellow('foo', 'bar'), '\x1b[34;43;mfoo bar\x1b[39;49;m',
 		"Foreground & Background");
 	a(t.blue.bgYellow.red.bgMagenta('foo', 'bar'),
-		'\x1b[31;45mfoo bar\x1b[39;49m',
+		'\x1b[31;45;mfoo bar\x1b[39;49;m',
 		"Foreground & Background: Overriden");
 
-	a(t.bold('foo', 'bar'), '\x1b[1mfoo bar\x1b[22m', "Format");
-	a(t.blink('foobar'), '\x1b[5mfoobar\x1b[25m', "Format: blink");
-	a(t.bold.blue('foo', 'bar', 3), '\x1b[1;34mfoo bar 3\x1b[22;39m',
+	a(t.bold('foo', 'bar'), '\x1b[1;mfoo bar\x1b[22;m', "Format");
+	a(t.blink('foobar'), '\x1b[5;mfoobar\x1b[25;m', "Format: blink");
+	a(t.bold.blue('foo', 'bar', 3), '\x1b[1;34;mfoo bar 3\x1b[22;39;m',
 		"Foreground & Format");
 
-	a(t.redBright('foo', 'bar'), '\x1b[91mfoo bar\x1b[39m', "Bright");
-	a(t.bgRedBright('foo', 3), '\x1b[101mfoo 3\x1b[49m', "Bright background");
+	a(t.redBright('foo', 'bar'), '\x1b[91;mfoo bar\x1b[39;m', "Bright");
+	a(t.bgRedBright('foo', 3), '\x1b[101;mfoo 3\x1b[49;m', "Bright background");
 
 	a(t.blueBright.bgYellowBright.red.bgMagenta('foo', 'bar'),
-		'\x1b[31;45mfoo bar\x1b[39;49m',
+		'\x1b[31;45;mfoo bar\x1b[39;49;m',
 		"Foreground & Background: Bright: Overriden");
 
-    a(t.red.blue('foo'), '\x1b[34mfoo\x1b[39m', "Prioritize the Last Color: Blue");
-    a(t.blue.red('foo'), '\x1b[31mfoo\x1b[39m', "Prioritize the Last Color: Red");
-    a(t.bgRed.bgBlue('foo'), '\x1b[44mfoo\x1b[49m', "Prioritize the Last Background Color: Blue");
-    a(t.bgBlue.bgRed('foo'), '\x1b[41mfoo\x1b[49m', "Prioritize the Last Background Color: Red");
-    a(t.bgRed.red.bgBlue.blue('foo'), '\x1b[44;34mfoo\x1b[49;39m', "Prioritize the Last Mixed Style: Blue");
-    a(t.bgBlue.blue.bgRed.red('foo'), '\x1b[41;31mfoo\x1b[49;39m', "Prioritize the Last Mixed Style: Red");
-    a(t.bgRed.blue.bgBlue.red('foo'), '\x1b[44;31mfoo\x1b[49;39m', "Prioritize the Last Mixed Style: BG Blue and Red");
-    a(t.bgBlue.red.bgRed.blue('foo'), '\x1b[41;34mfoo\x1b[49;39m', "Prioritize the Last Mixed Style: BG Red and Blue");
+    a(t.red.blue('foo'), '\x1b[34;mfoo\x1b[39;m', "Prioritize the Last Color: Blue");
+    a(t.blue.red('foo'), '\x1b[31;mfoo\x1b[39;m', "Prioritize the Last Color: Red");
+    a(t.bgRed.bgBlue('foo'), '\x1b[44;mfoo\x1b[49;m', "Prioritize the Last Background Color: Blue");
+    a(t.bgBlue.bgRed('foo'), '\x1b[41;mfoo\x1b[49;m', "Prioritize the Last Background Color: Red");
+    a(t.bgRed.red.bgBlue.blue('foo'), '\x1b[44;34;mfoo\x1b[49;39;m', "Prioritize the Last Mixed Style: Blue");
+    a(t.bgBlue.blue.bgRed.red('foo'), '\x1b[41;31;mfoo\x1b[49;39;m', "Prioritize the Last Mixed Style: Red");
+    a(t.bgRed.blue.bgBlue.red('foo'), '\x1b[44;31;mfoo\x1b[49;39;m', "Prioritize the Last Mixed Style: BG Blue and Red");
+    a(t.bgBlue.red.bgRed.blue('foo'), '\x1b[41;34;mfoo\x1b[49;39;m', "Prioritize the Last Mixed Style: BG Red and Blue");
 
 	x = t.red;
 	y = x.bold;
 
 	a(x('foo', 'red') + ' ' + y('foo', 'boldred'),
-		'\x1b[31mfoo red\x1b[39m \x1b[31;1mfoo boldred\x1b[39;22m',
+		'\x1b[31;mfoo red\x1b[39;m \x1b[31;1;mfoo boldred\x1b[39;22;m',
 		"Detached extension");
 
 	a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
-		'\x1b[94;100mfoo xterm\x1b[39;49m', "Xterm");
+		'\x1b[94;100;mfoo xterm\x1b[39;49;m', "Xterm");
     a(t.redBright.bgBlueBright.xterm(12).bgXterm(67)('foo', 'xterm'),
-        '\x1b[94;100mfoo xterm\x1b[39;49m',
+        '\x1b[94;100;mfoo xterm\x1b[39;49;m',
         "Xterm: Override & Bright");
     a(t.xterm(12).bgXterm(67).redBright.bgMagentaBright('foo', 'xterm'),
-        '\x1b[91;105mfoo xterm\x1b[39;49m',
+        '\x1b[91;105;mfoo xterm\x1b[39;49;m',
         "Xterm: Override & Bright #2");
 
 	a(typeof t.width, 'number', "Width");

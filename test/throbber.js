@@ -35,8 +35,8 @@ module.exports = {
 		});
 		t.on('exit', function () {
 			a.ok(out.length > 4, "Interval");
-			a(startsWith.call(out.join(""), "START\x1b[31m-\x1b[39m\x1b[31m\b\\\x1b" +
-				"[39m\x1b[31m\b|\x1b[39m\x1b[31m\b/\x1b[39m\x1b[31m\b-\x1b[39m"),
+			a(startsWith.call(out.join(""), "START\x1b[31;m-\x1b[39;m\x1b[31;m\b\\\x1b" +
+				"[39;m\x1b[31;m\b|\x1b[39;m\x1b[31;m\b/\x1b[39;m\x1b[31;m\b-\x1b[39;m"),
 				true, "Output");
 			a(err, "", "No stderr output");
 			d();
