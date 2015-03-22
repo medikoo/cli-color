@@ -74,16 +74,16 @@ module.exports = function (t, a) {
         "Nested Foreground: Four Levels");
 
     a(t.red('\x1bAred'),
-        '\x1b[31;m\x1bAred\x1b[39;49;m',
+        '\x1b[31;m\x1bAred\x1b[39;m',
         "Nested Foreground: Trap Type 1 - Not a Style Before");
     a(t.red('red\x1bA'),
-        '\x1b[31;mred\x1bA\x1b[39;49;m',
+        '\x1b[31;mred\x1bA\x1b[39;m',
         "Nested Foreground: Trap Type 2 - Not a Style After");
     a(t.red('\x1bAred\x1bA'),
-        '\x1b[31;m\x1bAred\x1bA\x1b[39;49;m',
+        '\x1b[31;m\x1bAred\x1bA\x1b[39;m',
         "Nested Foreground: Trap Type 3 - Not a Style Around");
     a(t.red('\x1b34;m\x1b39;m'),
-        '\x1b[31;m\x1b34;m\x1b39;m\x1b[39;49;m',
+        '\x1b[31;m\x1b34;m\x1b39;m\x1b[39;m',
         "Nested Foreground: Trap Type 4 - Not a Valid Style");
     a(t.red('\x1b[34;m\x1b[39;49;m'),
         '',
@@ -135,16 +135,16 @@ module.exports = function (t, a) {
         "Nested Background: Four Levels");
 
     a(t.bgRed('\x1bAred'),
-        '\x1b[41;m\x1bAred\x1b[39;49;m',
+        '\x1b[41;m\x1bAred\x1b[49;m',
         "Nested Background: Trap Type 1 - Not a Style Before");
     a(t.bgRed('red\x1bA'),
-        '\x1b[41;mred\x1bA\x1b[39;49;m',
+        '\x1b[41;mred\x1bA\x1b[49;m',
         "Nested Background: Trap Type 2 - Not a Style After");
     a(t.bgRed('\x1bAred\x1bA'),
-        '\x1b[41;m\x1bAred\x1bA\x1b[39;49;m',
+        '\x1b[41;m\x1bAred\x1bA\x1b[49;m',
         "Nested Background: Trap Type 3 - Not a Style Around");
     a(t.bgRed('\x1b44;m\x1b39;m'),
-        '\x1b[41;m\x1b44;m\x1b39;m\x1b[39;49;m',
+        '\x1b[41;m\x1b44;m\x1b39;m\x1b[49;m',
         "Nested Background: Trap Type 4 - Not a Valid Style");
     a(t.bgRed('\x1b[44;m\x1b[39;49;m'),
         '',

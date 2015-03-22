@@ -100,7 +100,7 @@ getFn = function () {
             end = '\x1b[' + end + 'm';
 
             // Nested style.
-            if (msg.indexOf('\x1b') !== -1) {
+            if (styleTester.test(msg)) {
                 var result = ''
                   , parts = msg.match(styleSplitter).filter(styleEndingFilter)
                   , index = 0
@@ -121,7 +121,7 @@ getFn = function () {
 
                     // Trap: if next index is another style, ignore.
                     // It mean a bad-formatted style.
-                    if (limit - index >= 0 && parts[index + 1].charAt(0) === '\x1b') {
+                    if (styleTester.test(parts[index + 1])) {
                         index++;
                         continue;
                     }
