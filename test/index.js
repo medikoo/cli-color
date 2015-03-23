@@ -255,9 +255,9 @@ module.exports = function (t, a) {
 
 	if (t.xtermSupported) {
 		a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
-			'\x1b[94;38;5;12;100;48;5;67mfoo xterm\x1b[39;49m', "Xterm");
+			'\x1b[38;5;12;48;5;67mfoo xterm\x1b[39;49m', "Xterm");
 		a(t.redBright.bgBlueBright.xterm(12).bgXterm(67)('foo', 'xterm'),
-			'\x1b[94;38;5;12;100;48;5;67mfoo xterm\x1b[39;49m',
+			'\x1b[38;5;12;48;5;67mfoo xterm\x1b[39;49m',
 			"Xterm: Override & Bright");
 		a(t.xterm(12).bgXterm(67).redBright.bgMagentaBright('foo', 'xterm'),
 			'\x1b[91;105mfoo xterm\x1b[39;49m',
