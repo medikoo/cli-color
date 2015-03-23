@@ -16,7 +16,7 @@ var d              = require('d')
   , floor = Math.floor, max = Math.max, min = Math.min
 
   , styleTester = /(?:\x1b|\x9b)\[(?:\d[\d;]*)m/
-  , styleEndTester = new RegExp('(?:\\x1b|\\x9b)\\[(?:39;|49;|22;|23;|24;|25;|27;|29;)+m')
+  , styleEndTester = new RegExp('(?:\\x1b|\\x9b)\\[(?:(?:39|49|22|23|24|25|27|29)[;m])+')
   , styleSplitter = new RegExp(styleTester.source + '|(?:(?!' + styleTester.source + ').)+', 'g')
 
   , mods, proto, getFn, getMove, xtermMatch
@@ -88,9 +88,9 @@ getFn = function () {
           , msg   = join.call(arguments, ' ');
 
         if (keys.length) {
-            for (var i in keys) {
-                start += fn._cliColorData[keys[i]][0] + ';';
-                end   += fn._cliColorData[keys[i]][1] + ';';
+            for (var i=0; i<keys.length; i++) {
+                start += ( i !== 0 ? ';' : '' ) + fn._cliColorData[keys[i]][0];
+                end   += ( i !== 0 ? ';' : '' ) + fn._cliColorData[keys[i]][1];
             }
 
             start = '\x1b[' + start + 'm';
