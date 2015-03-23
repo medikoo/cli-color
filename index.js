@@ -16,11 +16,9 @@ var d              = require('d')
   , defineProperties = Object.defineProperties, abs = Math.abs
   , floor = Math.floor, max = Math.max, min = Math.min
 
-  , styleExpression = '(?:\\x1b|\\x9b)\\[(?:\\d+|\\d[\\d;]*)m'
-  , styleEndingExpression = new RegExp('(?:\\x1b|\\x9b)\\[(?:39;|49;)+m')
-  , styleEndingFilter = function(part) { return !styleEndingExpression.test(part); }
-  , styleTester = new RegExp(styleExpression)
-  , styleSplitter = new RegExp(styleExpression + '|(?:(?!' + styleExpression + ').)+', 'g')
+  , styleTester = /(?:\x1b|\x9b)\[(?:\d+|\d[\d;]*)m/
+  , styleEndTester = new RegExp('(?:\\x1b|\\x9b)\\[(?:39;|49;)+m')
+  , styleSplitter = new RegExp(styleTester.source + '|(?:(?!' + styleTester.source + ').)+', 'g')
 
   , mods, proto, getFn, getMove, xtermMatch
   , up, down, right, left, getHeight, memoized;
@@ -86,58 +84,75 @@ if (process.platform === 'win32') {
 getFn = function () {
 	var fn = function (/*…msg*/) {
         var start = ''
-          , end = ''
-          , keys = Object.keys(fn._cliColorData)
-          , msg = join.call(arguments, ' ');
+          , end   = ''
+          , keys  = Object.keys(fn._cliColorData)
+          , msg   = join.call(arguments, ' ');
 
         if (keys.length) {
             for (var i in keys) {
-                start+= fn._cliColorData[keys[i]][0] + ';';
-                end+= fn._cliColorData[keys[i]][1] + ';';
+                start += fn._cliColorData[keys[i]][0] + ';';
+                end   += fn._cliColorData[keys[i]][1] + ';';
             }
 
             start = '\x1b[' + start + 'm';
-            end = '\x1b[' + end + 'm';
+            end   = '\x1b[' + end + 'm';
 
             // Nested style.
             if (styleTester.test(msg)) {
-                var result = ''
-                  , parts = msg.match(styleSplitter).filter(styleEndingFilter)
-                  , index = 0
-                  , limit = parts.length - 1;
+                var result    = ''
+                  , parts     = msg.match(styleSplitter)
+                  , index     = 0
+                  , length    = parts.length
+                  , depth     = []
+                  , ending    = false;
 
-                while (index <= limit) {
-                    // If current item is a text, encapsulate it.
-                    if (!styleTester.test(parts[index])) {
+                while (index < length) {
+                    // When depth is empty, we can match a plain text.
+                    // To it, we need check if current part is not a style.
+                    // We encapsulate the text, but not end it, because
+                    // next parts can use current style.
+                    // We set ending to true that mean that we need end this style.
+                    if (depth.length === 0 && !styleTester.test(parts[index])) {
+                        ending = true;
                         result+= start + parts[index];
                         index++;
+
+                        // If no more parts, we can break looping.
+                        if (index === length) {
+                            break;
+                        }
                     }
 
-                    // Trap: if is the last style, ignore.
-                    // It mean a non-message style.
-                    if (index === limit) {
-                        break;
+                    // If current part is a nested end style, we pop depth.
+                    if (styleEndTester.test(parts[index])) {
+                        depth.pop();
+                    }
+                    else
+                    // If current part is a nested start style, we increase depth.
+                    // Except if is the same that the previous depth.
+                    // It mean that is a continuation of nested color.
+                    if (styleTester.test(parts[index]) && parts[index] !== depth[depth.length - 1]) {
+                        depth.push(parts[index]);
                     }
 
-                    // Trap: if next index is another style, ignore.
-                    // It mean a bad-formatted style.
-                    if (styleTester.test(parts[index + 1])) {
-                        index++;
-                        continue;
-                    }
-
-                    // Copy current style.
-                    result+= parts.slice(index, index + 2).join('');
-                    index+= 2;
+                    // Basically, we copy all next parts.
+                    result+= parts[index];
+                    index++;
                 }
 
-                // Return result with ending style.
-                return result + ( result.length ? '\x1b[39;49;m' : '' );
+                // If result has length, so we need ending it.
+                // Else, just return empty.
+                if (result.length) {
+                    return result + ( ending ? end : '' );
+                }
+
+                return '';
             }
         }
 
         return start + msg + end;
 	};
+
 	fn.__proto__ = proto;
 	return fn;
 };
