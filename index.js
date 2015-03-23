@@ -15,8 +15,8 @@ var d              = require('d')
   , defineProperties = Object.defineProperties, abs = Math.abs
   , floor = Math.floor, max = Math.max, min = Math.min
 
-  , styleTester = /(?:\x1b|\x9b)\[(?:\d+|\d[\d;]*)m/
-  , styleEndTester = new RegExp('(?:\\x1b|\\x9b)\\[(?:39;|49;)+m')
+  , styleTester = /(?:\x1b|\x9b)\[(?:\d[\d;]*)m/
+  , styleEndTester = new RegExp('(?:\\x1b|\\x9b)\\[(?:39;|49;|22;|23;|24;|25;|27;|29;)+m')
   , styleSplitter = new RegExp(styleTester.source + '|(?:(?!' + styleTester.source + ').)+', 'g')
 
   , mods, proto, getFn, getMove, xtermMatch

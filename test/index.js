@@ -43,6 +43,48 @@ module.exports = function (t, a) {
     a(t.bgRed.blue.bgBlue.red('foo'), '\x1b[44;31;mfoo\x1b[49;39;m', "Prioritize the Last Mixed Style: BG Blue and Red");
     a(t.bgBlue.red.bgRed.blue('foo'), '\x1b[41;34;mfoo\x1b[49;39;m', "Prioritize the Last Mixed Style: BG Red and Blue");
 
+    a(t.bold('bold ' + t.whiteBright('whiteBright ') + 'bold'),
+        '\x1b[1;mbold \x1b[97;mwhiteBright \x1b[39;m\x1b[1;mbold\x1b[22;m',
+        "Nested Format: Bold Type 1");
+    a(t.white('white ' + t.bold('bold ') + 'white'),
+        '\x1b[37;mwhite \x1b[1;mbold \x1b[22;m\x1b[37;mwhite\x1b[39;m',
+        "Nested Format: Bold Type 2");
+
+    a(t.italic('italic ' + t.whiteBright('whiteBright ') + 'italic'),
+        '\x1b[3;mitalic \x1b[97;mwhiteBright \x1b[39;m\x1b[3;mitalic\x1b[23;m',
+        "Nested Format: Italic");
+    a(t.white('white ' + t.italic('italic ') + 'white'),
+        '\x1b[37;mwhite \x1b[3;mitalic \x1b[23;m\x1b[37;mwhite\x1b[39;m',
+        "Nested Format: Italic Type 2");
+
+    a(t.underline('underline ' + t.whiteBright('whiteBright ') + 'underline'),
+        '\x1b[4;munderline \x1b[97;mwhiteBright \x1b[39;m\x1b[4;munderline\x1b[24;m',
+        "Nested Format: Underline");
+    a(t.white('white ' + t.underline('underline ') + 'white'),
+        '\x1b[37;mwhite \x1b[4;munderline \x1b[24;m\x1b[37;mwhite\x1b[39;m',
+        "Nested Format: Underline Type 2");
+
+    a(t.blink('blink ' + t.whiteBright('whiteBright ') + 'blink'),
+        '\x1b[5;mblink \x1b[97;mwhiteBright \x1b[39;m\x1b[5;mblink\x1b[25;m',
+        "Nested Format: Blink");
+    a(t.white('white ' + t.blink('blink ') + 'white'),
+        '\x1b[37;mwhite \x1b[5;mblink \x1b[25;m\x1b[37;mwhite\x1b[39;m',
+        "Nested Format: Blink Type 2");
+
+    a(t.inverse('inverse ' + t.whiteBright('whiteBright ') + 'inverse'),
+        '\x1b[7;minverse \x1b[97;mwhiteBright \x1b[39;m\x1b[7;minverse\x1b[27;m',
+        "Nested Format: Inverse");
+    a(t.white('white ' + t.inverse('inverse ') + 'white'),
+        '\x1b[37;mwhite \x1b[7;minverse \x1b[27;m\x1b[37;mwhite\x1b[39;m',
+        "Nested Format: Inverse Type 2");
+
+    a(t.strike('strike ' + t.whiteBright('whiteBright ') + 'strike'),
+        '\x1b[9;mstrike \x1b[97;mwhiteBright \x1b[39;m\x1b[9;mstrike\x1b[29;m',
+        "Nested Format: Strike");
+    a(t.white('white ' + t.strike('strike ') + 'white'),
+        '\x1b[37;mwhite \x1b[9;mstrike \x1b[29;m\x1b[37;mwhite\x1b[39;m',
+        "Nested Format: Strike Type 2");
+
     a(t.red('red ' + t.blue('blue ')),
         '\x1b[31;mred \x1b[34;mblue \x1b[39;m\x1b[39;m',
         "Nested Foreground: Two Levels Type 1");
