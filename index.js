@@ -82,74 +82,74 @@ if (process.platform === 'win32') {
 
 getFn = function () {
 	var fn = function (/*…msg*/) {
-        var start = ''
-          , end   = ''
-          , keys  = Object.keys(fn._cliColorData)
-          , msg   = join.call(arguments, ' ');
+		var start = ''
+		  , end   = ''
+		  , keys  = Object.keys(fn._cliColorData)
+		  , msg   = join.call(arguments, ' ');
 
-        if (keys.length) {
-            for (var i=0; i<keys.length; i++) {
-                start += ( i !== 0 ? ';' : '' ) + fn._cliColorData[keys[i]][0];
-                end   += ( i !== 0 ? ';' : '' ) + fn._cliColorData[keys[i]][1];
-            }
+		if (keys.length) {
+			for (var i=0; i<keys.length; i++) {
+				start += ( i !== 0 ? ';' : '' ) + fn._cliColorData[keys[i]][0];
+				end   += ( i !== 0 ? ';' : '' ) + fn._cliColorData[keys[i]][1];
+			}
 
-            start = '\x1b[' + start + 'm';
-            end   = '\x1b[' + end + 'm';
+			start = '\x1b[' + start + 'm';
+			end   = '\x1b[' + end + 'm';
 
-            // Nested style.
-            if (styleTester.test(msg)) {
-                var result    = ''
-                  , parts     = msg.match(styleSplitter)
-                  , index     = 0
-                  , length    = parts.length
-                  , depth     = []
-                  , ending    = false;
+			// Nested style.
+			if (styleTester.test(msg)) {
+				var result    = ''
+				  , parts     = msg.match(styleSplitter)
+				  , index     = 0
+				  , length    = parts.length
+				  , depth     = []
+				  , ending    = false;
 
-                while (index < length) {
-                    // When depth is empty, we can match a plain text.
-                    // To it, we need check if current part is not a style.
-                    // We encapsulate the text, but not end it, because
-                    // next parts can use current style.
-                    // We set ending to true that mean that we need end this style.
-                    if (depth.length === 0 && !styleTester.test(parts[index])) {
-                        ending = true;
-                        result+= start + parts[index];
-                        index++;
+				while (index < length) {
+					// When depth is empty, we can match a plain text.
+					// To it, we need check if current part is not a style.
+					// We encapsulate the text, but not end it, because
+					// next parts can use current style.
+					// We set ending to true that mean that we need end this style.
+					if (depth.length === 0 && !styleTester.test(parts[index])) {
+						ending = true;
+						result+= start + parts[index];
+						index++;
 
-                        // If no more parts, we can break looping.
-                        if (index === length) {
-                            break;
-                        }
-                    }
+						// If no more parts, we can break looping.
+						if (index === length) {
+							break;
+						}
+					}
 
-                    // If current part is a nested end style, we pop depth.
-                    if (styleEndTester.test(parts[index])) {
-                        depth.pop();
-                    }
-                    else
-                    // If current part is a nested start style, we increase depth.
-                    // Except if is the same that the previous depth.
-                    // It mean that is a continuation of nested color.
-                    if (styleTester.test(parts[index]) && parts[index] !== depth[depth.length - 1]) {
-                        depth.push(parts[index]);
-                    }
+					// If current part is a nested end style, we pop depth.
+					if (styleEndTester.test(parts[index])) {
+						depth.pop();
+					}
+					else
+					// If current part is a nested start style, we increase depth.
+					// Except if is the same that the previous depth.
+					// It mean that is a continuation of nested color.
+					if (styleTester.test(parts[index]) && parts[index] !== depth[depth.length - 1]) {
+						depth.push(parts[index]);
+					}
 
-                    // Basically, we copy all next parts.
-                    result+= parts[index];
-                    index++;
-                }
+					// Basically, we copy all next parts.
+					result+= parts[index];
+					index++;
+				}
 
-                // If result has length, so we need ending it.
-                // Else, just return empty.
-                if (result.length) {
-                    return result + ( ending ? end : '' );
-                }
+				// If result has length, so we need ending it.
+				// Else, just return empty.
+				if (result.length) {
+					return result + ( ending ? end : '' );
+				}
 
-                return '';
-            }
-        }
+				return '';
+			}
+		}
 
-        return start + msg + end;
+		return start + msg + end;
 	};
 
 	fn.__proto__ = proto;
@@ -164,8 +164,8 @@ getMove = function (control) {
 };
 
 module.exports = defineProperties(getFn(), {
-    trim: d(trim),
-    throbber: d(throbber),
+	trim: d(trim),
+	throbber: d(throbber),
 	width: d.gs(function () { return process.stdout.columns || 0; }),
 	height: d.gs(function () { return process.stdout.rows || 0; }),
 	reset: d.gs(function () { return '\n\x1bc'; }),
