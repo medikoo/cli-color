@@ -7,7 +7,6 @@ var d              = require('d')
   , repeat         = require('es5-ext/string/#/repeat')
   , memoize        = require('memoizee')
   , memoizeMethods = require('memoizee/methods')
-  , tty            = require('tty')
 
   , trim           = require('./trim.js')
   , throbber       = require('./throbber.js')
@@ -21,7 +20,7 @@ var d              = require('d')
   , styleSplitter = new RegExp(styleTester.source + '|(?:(?!' + styleTester.source + ').)+', 'g')
 
   , mods, proto, getFn, getMove, xtermMatch
-  , up, down, right, left, getHeight, memoized;
+  , up, down, right, left, memoized;
 
 mods = assign({
 	// Style
@@ -167,19 +166,9 @@ getMove = function (control) {
 module.exports = defineProperties(getFn(), {
     trim: d(trim),
     throbber: d(throbber),
-	width: d.gs(process.stdout.getWindowSize ? function () {
-		return process.stdout.getWindowSize()[0];
-	} : function () {
-		return tty.getWindowSize ? tty.getWindowSize()[1] : 0;
-	}),
-	height: d.gs(getHeight = process.stdout.getWindowSize ? function () {
-		return process.stdout.getWindowSize()[1];
-	} : function () {
-		return tty.getWindowSize ? tty.getWindowSize()[0] : 0;
-	}),
-	reset: d.gs(function () {
-		return repeat.call('\n', getHeight() - 1) + '\x1bc';
-	}),
+	width: d.gs(function () { return process.stdout.columns || 0; }),
+	height: d.gs(function () { return process.stdout.rows || 0; }),
+	reset: d.gs(function () { return '\n\x1bc'; }),
 	up: d(up = getMove('A')),
 	down: d(down = getMove('B')),
 	right: d(right = getMove('C')),

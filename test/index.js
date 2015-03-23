@@ -141,7 +141,7 @@ module.exports = function (t, a) {
         '\x1b[41;m\x1b44;m\x1b39;m\x1b[49;m',
         "Nested Background: Trap Type 4 - Not a Valid Style");
     a(t.bgRed('\x1b[44;m\x1b[49;m'),
-        '\u001b[44;m\u001b[49;m',
+        '\x1b[44;m\x1b[49;m',
         "Nested Background: Trap Type 5 - No Message Style");
     a(t.bgRed('\x1b[44;m\x1b[49;m\x1b[44;mblue\x1b[49;m'),
         '\x1b[44;m\x1b[49;m\x1b[44;mblue\x1b[49;m',
@@ -211,19 +211,31 @@ module.exports = function (t, a) {
 		'\x1b[31;mfoo red\x1b[39;m \x1b[31;1;mfoo boldred\x1b[39;22;m',
 		"Detached extension");
 
-	a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
-		'\x1b[94;100;mfoo xterm\x1b[39;49;m', "Xterm");
-    a(t.redBright.bgBlueBright.xterm(12).bgXterm(67)('foo', 'xterm'),
-        '\x1b[94;100;mfoo xterm\x1b[39;49;m',
-        "Xterm: Override & Bright");
-    a(t.xterm(12).bgXterm(67).redBright.bgMagentaBright('foo', 'xterm'),
-        '\x1b[91;105;mfoo xterm\x1b[39;49;m',
-        "Xterm: Override & Bright #2");
+    if (t.xtermSupported) {
+        a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
+            '\x1b[94;38;5;12;100;48;5;67;mfoo xterm\x1b[39;49;m', "Xterm");
+        a(t.redBright.bgBlueBright.xterm(12).bgXterm(67)('foo', 'xterm'),
+            '\x1b[94;38;5;12;100;48;5;67;mfoo xterm\x1b[39;49;m',
+            "Xterm: Override & Bright");
+        a(t.xterm(12).bgXterm(67).redBright.bgMagentaBright('foo', 'xterm'),
+            '\x1b[91;105;mfoo xterm\x1b[39;49;m',
+            "Xterm: Override & Bright #2");
+    }
+    else {
+        a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
+            '\x1b[94;100;mfoo xterm\x1b[39;49;m', "Xterm");
+        a(t.redBright.bgBlueBright.xterm(12).bgXterm(67)('foo', 'xterm'),
+            '\x1b[94;100;mfoo xterm\x1b[39;49;m',
+            "Xterm: Override & Bright");
+        a(t.xterm(12).bgXterm(67).redBright.bgMagentaBright('foo', 'xterm'),
+            '\x1b[91;105;mfoo xterm\x1b[39;49;m',
+            "Xterm: Override & Bright #2");
+    }
 
 	a(typeof t.width, 'number', "Width");
 	a(typeof t.height, 'number', "Height");
 
-	a(/\n*\x1bc/.test(t.reset), true, "Reset");
+    a(typeof t.reset, 'string', "Reset");
 
 	a(t.up(), '', "Up: No argument");
 	a(t.up({}), '', "Up: Not a number");
