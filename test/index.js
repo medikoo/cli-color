@@ -3,49 +3,6 @@
 module.exports = function (t, a) {
 	var w = function (message) { process.stdout.write(message); }
 	  , a_original = a
-	  , colors = [ 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white' ]
-	  , printColors = function (title, style) {
-		var j = colors.length
-		  , color
-		  , colorText
-		  , tint
-		  , i;
-
-		w('  > ' + t.whiteBright(title) + ' ');
-		for (i = 0; i < j; i++) {
-			tint = t;
-			color = colors[i];
-			colorText = color.toUpperCase();
-
-			if (style === 'foreground') {
-				tint = tint[color];
-
-				if (color === 'black') {
-					tint = tint.bgBlackBright;
-				}
-			}
-
-			if (style === 'foregroundBright') {
-				tint = tint[color + 'Bright'];
-			}
-
-			if (style === 'background') {
-				tint = tint['bg' + color.slice(0, 1).toUpperCase() + color.slice(1)];
-
-				if (color === 'white') {
-					tint = tint.whiteBright;
-				}
-			}
-
-			if (style === 'backgroundBright') {
-				tint = tint['bg' + color.slice(0, 1).toUpperCase() + color.slice(1) + 'Bright'];
-			}
-
-			w(tint(colorText) + ' ');
-		}
-		w('\n');
-	}
-
 	  , x, y;
 
 	// Debug helper.
@@ -58,14 +15,6 @@ module.exports = function (t, a) {
 
 		a_original(x, y, z);
 	};
-
-	// Visual test.
-	w('  VISUAL TESTS\n');
-	printColors('FOREGROUNDS (DEFAULT)', 'foreground');
-	printColors('FOREGROUNDS (BRIGHT) ', 'foregroundBright');
-	printColors('BACKGROUNDS (DEFAULT)', 'background');
-	printColors('BACKGROUNDS (BRIGHT) ', 'backgroundBright');
-	w('\n');
 
 	// Tests.
 	a(t('test'), 'test', "Plain");
