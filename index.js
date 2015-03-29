@@ -2,19 +2,26 @@
 
 var d              = require('d')
   , assign         = require('es5-ext/object/assign')
-  , forEach        = require('es5-ext/object/for-each')
   , map            = require('es5-ext/object/map')
   , repeat         = require('es5-ext/string/#/repeat')
   , memoize        = require('memoizee')
   , memoizeMethods = require('memoizee/methods')
-  , tty            = require('tty')
+
+  , trim           = require('./trim.js')
+  , throbber       = require('./throbber.js')
+  , columns        = require('./columns.js')
+  , art            = require('./art.js')
 
   , join = Array.prototype.join, defineProperty = Object.defineProperty
   , defineProperties = Object.defineProperties, abs = Math.abs
   , floor = Math.floor, max = Math.max, min = Math.min
 
+  , styleTester = /(?:\x1b|\x9b)\[(?:\d[\d;]*)m/
+  , styleEndTester = new RegExp('(?:\\x1b|\\x9b)\\[(?:(?:39|49|22|23|24|25|27|29)[;m])+')
+  , styleSplitter = new RegExp(styleTester.source + '|(?:(?!' + styleTester.source + ').)+', 'g')
+
   , mods, proto, getFn, getMove, xtermMatch
-  , up, down, right, left, getHeight, memoized;
+  , up, down, right, left, memoized;
 
 mods = assign({
 	// Style
@@ -76,13 +83,78 @@ if (process.platform === 'win32') {
 
 getFn = function () {
 	var fn = function (/*…msg*/) {
-		var start = '', end = '';
-		forEach(fn._cliColorData, function (mod) {
-			end = '\x1b[' + mod[1] + 'm' + end;
-			start += '\x1b[' + mod[0] + 'm';
-		}, null, true);
-		return start + join.call(arguments, ' ') + end;
+		var start = ''
+		  , end   = ''
+		  , keys  = Object.keys(fn._cliColorData)
+		  , msg   = join.call(arguments, ' ')
+
+		  , i, result, parts, index
+		  , length, depth, ending;
+
+		if (keys.length) {
+			for (i = 0; i < keys.length; i++) {
+				start += '\x1b[' + fn._cliColorData[keys[i]][0] + 'm';
+				end   += '\x1b[' + fn._cliColorData[keys[i]][1] + 'm';
+			}
+
+			// Nested style.
+			if (styleTester.test(msg)) {
+				result = '';
+				parts  = msg.match(styleSplitter);
+				index  = 0;
+				length = parts.length;
+				depth  = [];
+				ending = false;
+
+				while (index < length) {
+					// When depth is empty, we can match a plain text.
+					// To it, we need check if current part is not a style.
+					// We encapsulate the text, but not end it, because
+					// next parts can use current style.
+					// We set ending to true that mean that we need end this style.
+					if (depth.length === 0 && !styleTester.test(parts[index])) {
+						ending = true;
+						result += start + parts[index];
+						index++;
+
+						// If no more parts, we can break looping.
+						if (index === length) {
+							break;
+						}
+					}
+
+					// If current part is a nested end style, we pop depth.
+					if (styleEndTester.test(parts[index])) {
+						depth.pop();
+					} else if (styleTester.test(parts[index]) && parts[index] !== depth[depth.length - 1]) {
+						// If current part is a nested start style, we increase depth.
+						// Except if is the same that the previous depth.
+						// It mean that is a continuation of nested color.
+						depth.push(parts[index]);
+					}
+
+					// Basically, we copy all next parts.
+					result += parts[index];
+					index++;
+				}
+
+				// If result has length, so we need ending it.
+				// Else, just return empty.
+				if (result.length) {
+					if (ending) {
+						return result + end;
+					}
+
+					return result;
+				}
+
+				return '';
+			}
+		}
+
+		return start + msg + end;
 	};
+
 	fn.__proto__ = proto;
 	return fn;
 };
@@ -95,19 +167,13 @@ getMove = function (control) {
 };
 
 module.exports = defineProperties(getFn(), {
-	width: d.gs(process.stdout.getWindowSize ? function () {
-		return process.stdout.getWindowSize()[0];
-	} : function () {
-		return tty.getWindowSize ? tty.getWindowSize()[1] : 0;
-	}),
-	height: d.gs(getHeight = process.stdout.getWindowSize ? function () {
-		return process.stdout.getWindowSize()[1];
-	} : function () {
-		return tty.getWindowSize ? tty.getWindowSize()[0] : 0;
-	}),
-	reset: d.gs(function () {
-		return repeat.call('\n', getHeight() - 1) + '\x1bc';
-	}),
+	trim: d(trim),
+	throbber: d(throbber),
+	columns: d(columns),
+	art: d(art),
+	width: d.gs(function () { return process.stdout.columns || 0; }),
+	height: d.gs(function () { return process.stdout.rows || 0; }),
+	reset: d.gs(function () { return '\n\x1bc'; }),
 	up: d(up = getMove('A')),
 	down: d(down = getMove('B')),
 	right: d(right = getMove('C')),

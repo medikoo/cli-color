@@ -33,6 +33,12 @@ Styled text can be mixed with unstyled:
 console.log(clc.red('red') + ' plain ' + clc.blue('blue'));
 ```
 
+Styled text can be nest another styled text:
+
+```javascript
+console.log(clc.red('red ' + clc.blue('blue') + ' red'));
+```
+
 __Best way is to predefine needed stylings and then use it__:
 
 ```javascript
@@ -503,6 +509,38 @@ Move cursor right _n_ columns
 
 Move cursor left _n_ columns
 
+#### trim(formatedText) _(as in 0.4.x)_
+
+Trims ANSI formatted string to plain text
+
+#### art(text, style) _(as in 0.4.x)_
+
+Create a text-graphical art using this module. First you define an art-text and a style object definition.
+
+```javascript
+var text = '.........\n' +
+           '. Hello .\n' +
+           '.........\n'
+  , style = { ".": clc.yellowBright("X") };
+
+process.stdout.write(clc.art(text, style));
+```
+
+#### throbber(write, interval[, format]) _(as in 0.4.x)_
+
+Writes throbber string to _write_ function at given _interval_. Optionally throbber output can be formatted with given _format_ function
+
+```javascript
+var throbber = clc.throbber(function (str) {
+  process.stdout.write(str);
+}, 200);
+
+throbber.start();
+
+// at any time you can stop/start throbber
+throbber.stop();
+```
+
 #### Terminal characteristics
 
 ##### clc.width
@@ -513,35 +551,7 @@ Returns terminal width
 
 Returns terminal height
 
-### Additional functionalities (provided as separate modules)
-
-#### trim(formatedText) _(cli-color/trim)_
-
-Trims ANSI formatted string to plain text
-
-```javascript
-var ansiTrim = require('cli-color/trim');
-
-var plain = ansiTrim(formatted);
-```
-
-#### throbber(write, interval[, format]) _(cli-color/throbber)_
-
-Writes throbber string to _write_ function at given _interval_. Optionally throbber output can be formatted with given _format_ function
-
-```javascript
-var setupThrobber = require('cli-color/throbber');
-
-var throbber = setupThrobber(function (str) {
-  process.stdout.write(str);
-}, 200);
-
-throbber.start();
-
-// at any time you can stop/start throbber
-throbber.stop();
-```
-
 ## Tests [![Build Status](https://travis-ci.org/medikoo/cli-color.png)](https://travis-ci.org/medikoo/cli-color)
 
 	$ npm test
+    $ npm run visual-test

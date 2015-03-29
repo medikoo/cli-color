@@ -2,7 +2,6 @@
 
 'use strict';
 
-var r = new RegExp('\x1b(?:\\[(?:\\d+[ABCDEFGJKSTm]|\\d+;\\d+[Hfm]|' +
-	'\\d+;\\d+;\\d+m|6n|s|u|\\?25[lh])|\\w)', 'g');
+var r = /(?:(?:\x1b|\x9b)(?:\[(?:\d+|\d[\d;]*)?)?[a-zA-Z]|\x07)/g;
 
 module.exports = function (str) { return str.replace(r, ''); };
