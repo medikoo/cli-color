@@ -2,7 +2,6 @@
 
 var d              = require('d')
   , assign         = require('es5-ext/object/assign')
-  , forEach        = require('es5-ext/object/for-each')
   , map            = require('es5-ext/object/map')
   , repeat         = require('es5-ext/string/#/repeat')
   , memoize        = require('memoizee')
@@ -89,12 +88,9 @@ getFn = function () {
 
 		if (keys.length) {
 			for (var i=0; i<keys.length; i++) {
-				start += ( i !== 0 ? ';' : '' ) + fn._cliColorData[keys[i]][0];
-				end   += ( i !== 0 ? ';' : '' ) + fn._cliColorData[keys[i]][1];
+				start += '\x1b[' + fn._cliColorData[keys[i]][0] + 'm';
+				end   += '\x1b[' + fn._cliColorData[keys[i]][1] + 'm';
 			}
-
-			start = '\x1b[' + start + 'm';
-			end   = '\x1b[' + end + 'm';
 
 			// Nested style.
 			if (styleTester.test(msg)) {
