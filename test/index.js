@@ -50,10 +50,10 @@ module.exports = function (t, a) {
 
 	// Debug helper.
 	a = function (x, y, z) {
-		if (x !== y) {
+		if (x !== y && typeof y === 'string') {
 			w('\n   ' + t.whiteBright(z) + '\n');
-			w('   > Expected: ' + x + '\n');
-			w('   > Actual:   ' + y + '\n\n');
+			w('   > Expected: ' + y + '\n');
+			w('   > Actual:   ' + x + '\n\n');
 		}
 
 		a_original(x, y, z);
@@ -358,6 +358,9 @@ module.exports = function (t, a) {
 
 	a(typeof t.width, 'number', "Width");
 	a(typeof t.height, 'number', "Height");
+
+	a(t.width > 0, true, "Width > 0");
+	a(t.height > 0, true, "Height > 0");
 
 	a(typeof t.reset, 'string', "Reset");
 
