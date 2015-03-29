@@ -84,22 +84,25 @@ getFn = function () {
 		var start = ''
 		  , end   = ''
 		  , keys  = Object.keys(fn._cliColorData)
-		  , msg   = join.call(arguments, ' ');
+		  , msg   = join.call(arguments, ' ')
+
+		  , i, result, parts, index
+		  , length, depth, ending;
 
 		if (keys.length) {
-			for (var i=0; i<keys.length; i++) {
+			for (i = 0; i < keys.length; i++) {
 				start += '\x1b[' + fn._cliColorData[keys[i]][0] + 'm';
 				end   += '\x1b[' + fn._cliColorData[keys[i]][1] + 'm';
 			}
 
 			// Nested style.
 			if (styleTester.test(msg)) {
-				var result    = ''
-				  , parts     = msg.match(styleSplitter)
-				  , index     = 0
-				  , length    = parts.length
-				  , depth     = []
-				  , ending    = false;
+				result = '';
+				parts  = msg.match(styleSplitter);
+				index  = 0;
+				length = parts.length;
+				depth  = [];
+				ending = false;
 
 				while (index < length) {
 					// When depth is empty, we can match a plain text.
@@ -109,7 +112,7 @@ getFn = function () {
 					// We set ending to true that mean that we need end this style.
 					if (depth.length === 0 && !styleTester.test(parts[index])) {
 						ending = true;
-						result+= start + parts[index];
+						result += start + parts[index];
 						index++;
 
 						// If no more parts, we can break looping.
@@ -121,24 +124,26 @@ getFn = function () {
 					// If current part is a nested end style, we pop depth.
 					if (styleEndTester.test(parts[index])) {
 						depth.pop();
-					}
-					else
-					// If current part is a nested start style, we increase depth.
-					// Except if is the same that the previous depth.
-					// It mean that is a continuation of nested color.
-					if (styleTester.test(parts[index]) && parts[index] !== depth[depth.length - 1]) {
+					} else if (styleTester.test(parts[index]) && parts[index] !== depth[depth.length - 1]) {
+						// If current part is a nested start style, we increase depth.
+						// Except if is the same that the previous depth.
+						// It mean that is a continuation of nested color.
 						depth.push(parts[index]);
 					}
 
 					// Basically, we copy all next parts.
-					result+= parts[index];
+					result += parts[index];
 					index++;
 				}
 
 				// If result has length, so we need ending it.
 				// Else, just return empty.
 				if (result.length) {
-					return result + ( ending ? end : '' );
+					if (ending) {
+						return result + end;
+					}
+
+					return result;
 				}
 
 				return '';

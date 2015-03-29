@@ -3,6 +3,9 @@
 var clc = require('../');
 
 module.exports = function (t, a) {
+	var x = clc.red
+	  , y = x.bold;
+
 	a(clc.trim('test'), 'test', "Plain");
 
 	a(clc.trim('\x1bA'), '', "Simple Command Type 1");
@@ -21,7 +24,9 @@ module.exports = function (t, a) {
 	a(clc.trim(clc.bgRed.bgYellow('foo', 'bar', 3)), 'foo bar 3', "Background: Overriden");
 
 	a(clc.trim(clc.blue.bgYellow('foo', 'bar')), 'foo bar', "Foreground & Background");
-	a(clc.trim(clc.blue.bgYellow.red.bgMagenta('foo', 'bar')), 'foo bar', "Foreground & Background: Overriden");
+	a(clc.trim(clc.blue.bgYellow.red.bgMagenta('foo', 'bar')),
+		'foo bar',
+		"Foreground & Background: Overriden");
 
 	a(clc.trim(clc.bold('foo', 'bar')), 'foo bar', "Format");
 	a(clc.trim(clc.blink('foobar')), 'foobar', "Format: blink");
@@ -40,13 +45,16 @@ module.exports = function (t, a) {
 	a(clc.trim(clc.bgBlue.bgRed('foo')), 'foo', "Prioritize the Last Background Color: Red");
 	a(clc.trim(clc.bgRed.red.bgBlue.blue('foo')), 'foo', "Prioritize the Last Mixed Style: Blue");
 	a(clc.trim(clc.bgBlue.blue.bgRed.red('foo')), 'foo', "Prioritize the Last Mixed Style: Red");
-	a(clc.trim(clc.bgRed.blue.bgBlue.red('foo')), 'foo', "Prioritize the Last Mixed Style: BG Blue and Red");
-	a(clc.trim(clc.bgBlue.red.bgRed.blue('foo')), 'foo', "Prioritize the Last Mixed Style: BG Red and Blue");
+	a(clc.trim(clc.bgRed.blue.bgBlue.red('foo')),
+		'foo',
+		"Prioritize the Last Mixed Style: BG Blue and Red");
+	a(clc.trim(clc.bgBlue.red.bgRed.blue('foo')),
+		'foo',
+		"Prioritize the Last Mixed Style: BG Red and Blue");
 
-	var x = clc.red;
-	var y = x.bold;
-
-	a(clc.trim(x('foo', 'red') + ' ' + y('foo', 'boldred')), 'foo red foo boldred', "Detached extension");
+	a(clc.trim(x('foo', 'red') + ' ' + y('foo', 'boldred')),
+		'foo red foo boldred',
+		"Detached extension");
 
 	a(clc.trim(clc.reset).replace(/\n/g, ''), '', "Reset");
 

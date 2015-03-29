@@ -1,74 +1,73 @@
 'use strict';
 
 module.exports = function (t, a) {
-	var x, y;
-    var w = function(message) {
-        process.stdout.write(message);
-    };
+	var w = function (message) { process.stdout.write(message); }
+	  , a_original = a
+	  , colors = [ 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white' ]
+	  , printColors = function (title, style) {
+		var j = colors.length
+		  , color
+		  , colorText
+		  , tint
+		  , i;
 
-    // Debug helper.
-    var a_original = a;
-    a = function(x, y, z) {
-        if(x !== y) {
-            w('\n   ' + t.whiteBright(z) + '\n');
-            w('   > Expected: ' + x + '\n');
-            w('   > Actual:   ' + y + '\n\n');
-        }
+		w('  > ' + t.whiteBright(title) + ' ');
+		for (i = 0; i < j; i++) {
+			tint = t;
+			color = colors[i];
+			colorText = color.toUpperCase();
 
-        a_original(x, y, z);
-    };
+			if (style === 'foreground') {
+				tint = tint[color];
 
-    // Visual test.
-    var colors = [ 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white' ]
-    var printColors = function (title, style) {
-        var j = colors.length
-          , color
-          , colorText
-          , tint;
+				if (color === 'black') {
+					tint = tint.bgBlackBright;
+				}
+			}
 
-        w('  > ' + t.whiteBright(title) + ' ');
-        for (var i=0; i<j; i++) {
-            tint = t;
-            color = colors[i];
-            colorText = color.toUpperCase();
+			if (style === 'foregroundBright') {
+				tint = tint[color + 'Bright'];
+			}
 
-            if (style === 'foreground') {
-                tint = tint[color];
+			if (style === 'background') {
+				tint = tint['bg' + color.slice(0, 1).toUpperCase() + color.slice(1)];
 
-                if (color === 'black') {
-                    tint = tint.bgBlackBright;
-                }
-            }
+				if (color === 'white') {
+					tint = tint.whiteBright;
+				}
+			}
 
-            if (style === 'foregroundBright') {
-                tint = tint[color + 'Bright'];
-            }
+			if (style === 'backgroundBright') {
+				tint = tint['bg' + color.slice(0, 1).toUpperCase() + color.slice(1) + 'Bright'];
+			}
 
-            if (style === 'background') {
-                tint = tint['bg' + color.slice(0, 1).toUpperCase() + color.slice(1)];
+			w(tint(colorText) + ' ');
+		}
+		w('\n');
+	}
 
-                if (color === 'white') {
-                    tint = tint.whiteBright;
-                }
-            }
+	  , x, y;
 
-            if (style === 'backgroundBright') {
-                tint = tint['bg' + color.slice(0, 1).toUpperCase() + color.slice(1) + 'Bright'];
-            }
+	// Debug helper.
+	a = function (x, y, z) {
+		if (x !== y) {
+			w('\n   ' + t.whiteBright(z) + '\n');
+			w('   > Expected: ' + x + '\n');
+			w('   > Actual:   ' + y + '\n\n');
+		}
 
-            w(tint(colorText) + ' ');
-        }
-        w('\n');
-    }
+		a_original(x, y, z);
+	};
 
-    w('  VISUAL TESTS\n');
-    printColors('FOREGROUNDS (DEFAULT)', 'foreground');
-    printColors('FOREGROUNDS (BRIGHT) ', 'foregroundBright');
-    printColors('BACKGROUNDS (DEFAULT)', 'background');
-    printColors('BACKGROUNDS (BRIGHT) ', 'backgroundBright');
-    w('\n');
+	// Visual test.
+	w('  VISUAL TESTS\n');
+	printColors('FOREGROUNDS (DEFAULT)', 'foreground');
+	printColors('FOREGROUNDS (BRIGHT) ', 'foregroundBright');
+	printColors('BACKGROUNDS (DEFAULT)', 'background');
+	printColors('BACKGROUNDS (BRIGHT) ', 'backgroundBright');
+	w('\n');
 
-    // Tests.
+	// Tests.
 	a(t('test'), 'test', "Plain");
 	a(t('test', 'foo', 3, { toString: function () { return 'bar'; } }),
 		'test foo 3 bar', "Plain: Many args");
@@ -104,10 +103,18 @@ module.exports = function (t, a) {
 	a(t.blue.red('foo'), '\x1b[31mfoo\x1b[39m', "Prioritize the Last Color: Red");
 	a(t.bgRed.bgBlue('foo'), '\x1b[44mfoo\x1b[49m', "Prioritize the Last Background Color: Blue");
 	a(t.bgBlue.bgRed('foo'), '\x1b[41mfoo\x1b[49m', "Prioritize the Last Background Color: Red");
-	a(t.bgRed.red.bgBlue.blue('foo'), '\x1b[44m\x1b[34mfoo\x1b[49m\x1b[39m', "Prioritize the Last Mixed Style: Blue");
-	a(t.bgBlue.blue.bgRed.red('foo'), '\x1b[41m\x1b[31mfoo\x1b[49m\x1b[39m', "Prioritize the Last Mixed Style: Red");
-	a(t.bgRed.blue.bgBlue.red('foo'), '\x1b[44m\x1b[31mfoo\x1b[49m\x1b[39m', "Prioritize the Last Mixed Style: BG Blue and Red");
-	a(t.bgBlue.red.bgRed.blue('foo'), '\x1b[41m\x1b[34mfoo\x1b[49m\x1b[39m', "Prioritize the Last Mixed Style: BG Red and Blue");
+	a(t.bgRed.red.bgBlue.blue('foo'),
+		'\x1b[44m\x1b[34mfoo\x1b[49m\x1b[39m',
+		"Prioritize the Last Mixed Style: Blue");
+	a(t.bgBlue.blue.bgRed.red('foo'),
+		'\x1b[41m\x1b[31mfoo\x1b[49m\x1b[39m',
+		"Prioritize the Last Mixed Style: Red");
+	a(t.bgRed.blue.bgBlue.red('foo'),
+		'\x1b[44m\x1b[31mfoo\x1b[49m\x1b[39m',
+		"Prioritize the Last Mixed Style: BG Blue and Red");
+	a(t.bgBlue.red.bgRed.blue('foo'),
+		'\x1b[41m\x1b[34mfoo\x1b[49m\x1b[39m',
+		"Prioritize the Last Mixed Style: BG Red and Blue");
 
 	a(t.bold('bold ' + t.whiteBright('whiteBright ') + 'bold'),
 		'\x1b[1mbold \x1b[97mwhiteBright \x1b[39m\x1b[1mbold\x1b[22m',
@@ -168,17 +175,21 @@ module.exports = function (t, a) {
 		'\x1b[31mred \x1b[34mblue \x1b[32mgreen \x1b[39m\x1b[34mblue \x1b[39m\x1b[31mred\x1b[39m',
 		"Nested Foreground: Three Levels Type 2");
 	a(t.red('red ' + t.blue('blue ' + t.green('green ')) + t.green('green ') + 'red'),
-		'\x1b[31mred \x1b[34mblue \x1b[32mgreen \x1b[39m\x1b[39m\x1b[32mgreen \x1b[39m\x1b[31mred\x1b[39m',
+		'\x1b[31mred \x1b[34mblue \x1b[32mgreen \x1b[39m' +
+			'\x1b[39m\x1b[32mgreen \x1b[39m\x1b[31mred\x1b[39m',
 		"Nested Foreground: Three Levels Type 3");
 	a(t.red('red ' + t.blue('blue ' + t.green('green ') + t.yellow('yellow ')) + 'red'),
-		'\x1b[31mred \x1b[34mblue \x1b[32mgreen \x1b[39m\x1b[33myellow \x1b[39m\x1b[39m\x1b[31mred\x1b[39m',
+		'\x1b[31mred \x1b[34mblue \x1b[32mgreen \x1b[39m' +
+			'\x1b[33myellow \x1b[39m\x1b[39m\x1b[31mred\x1b[39m',
 		"Nested Foreground: Three Levels Type 4");
 	a(t.red('red ' + t.blue('blue ' + t.green('green ') + "blue " + t.yellow('yellow ')) + 'red'),
-		'\x1b[31mred \x1b[34mblue \x1b[32mgreen \x1b[39m\x1b[34mblue \x1b[33myellow \x1b[39m\x1b[39m\x1b[31mred\x1b[39m',
+		'\x1b[31mred \x1b[34mblue \x1b[32mgreen \x1b[39m' +
+			'\x1b[34mblue \x1b[33myellow \x1b[39m\x1b[39m\x1b[31mred\x1b[39m',
 		"Nested Foreground: Three Levels Type 5");
 
 	a(t.red('red ' + t.blue('blue ' + t.green('green ' + t.yellow('yellow ') + "green ")) + 'red'),
-		'\x1b[31mred \x1b[34mblue \x1b[32mgreen \x1b[33myellow \x1b[39m\x1b[32mgreen \x1b[39m\x1b[39m\x1b[31mred\x1b[39m',
+		'\x1b[31mred \x1b[34mblue \x1b[32mgreen \x1b[33myellow \x1b[39m' +
+			'\x1b[32mgreen \x1b[39m\x1b[39m\x1b[31mred\x1b[39m',
 		"Nested Foreground: Four Levels");
 
 	a(t.red('\x1bAred'),
@@ -223,17 +234,23 @@ module.exports = function (t, a) {
 		'\x1b[41mred \x1b[44mblue \x1b[42mgreen \x1b[49m\x1b[44mblue \x1b[49m\x1b[41mred\x1b[49m',
 		"Nested Background: Three Levels Type 2");
 	a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ')) + t.bgGreen('green ') + 'red'),
-		'\x1b[41mred \x1b[44mblue \x1b[42mgreen \x1b[49m\x1b[49m\x1b[42mgreen \x1b[49m\x1b[41mred\x1b[49m',
+		'\x1b[41mred \x1b[44mblue \x1b[42mgreen \x1b[49m' +
+			'\x1b[49m\x1b[42mgreen \x1b[49m\x1b[41mred\x1b[49m',
 		"Nested Background: Three Levels Type 3");
 	a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ') + t.bgYellow('yellow ')) + 'red'),
-		'\x1b[41mred \x1b[44mblue \x1b[42mgreen \x1b[49m\x1b[43myellow \x1b[49m\x1b[49m\x1b[41mred\x1b[49m',
+		'\x1b[41mred \x1b[44mblue \x1b[42mgreen \x1b[49m' +
+			'\x1b[43myellow \x1b[49m\x1b[49m\x1b[41mred\x1b[49m',
 		"Nested Background: Three Levels Type 4");
-	a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ') + "blue " + t.bgYellow('yellow ')) + 'red'),
-		'\x1b[41mred \x1b[44mblue \x1b[42mgreen \x1b[49m\x1b[44mblue \x1b[43myellow \x1b[49m\x1b[49m\x1b[41mred\x1b[49m',
+	a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ') + "blue " +
+			t.bgYellow('yellow ')) + 'red'),
+		'\x1b[41mred \x1b[44mblue \x1b[42mgreen \x1b[49m' +
+			'\x1b[44mblue \x1b[43myellow \x1b[49m\x1b[49m\x1b[41mred\x1b[49m',
 		"Nested Background: Three Levels Type 5");
 
-	a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ' + t.bgYellow('yellow ') + "green ")) + 'red'),
-		'\x1b[41mred \x1b[44mblue \x1b[42mgreen \x1b[43myellow \x1b[49m\x1b[42mgreen \x1b[49m\x1b[49m\x1b[41mred\x1b[49m',
+	a(t.bgRed('red ' + t.bgBlue('blue ' + t.bgGreen('green ' +
+			t.bgYellow('yellow ') + "green ")) + 'red'),
+		'\x1b[41mred \x1b[44mblue \x1b[42mgreen \x1b[43myellow \x1b[49m' +
+			'\x1b[42mgreen \x1b[49m\x1b[49m\x1b[41mred\x1b[49m',
 		"Nested Background: Four Levels");
 
 	a(t.bgRed('\x1bAred'),
@@ -328,8 +345,7 @@ module.exports = function (t, a) {
 		a(t.xterm(12).bgXterm(67).redBright.bgMagentaBright('foo', 'xterm'),
 			'\x1b[91m\x1b[105mfoo xterm\x1b[39m\x1b[49m',
 			"Xterm: Override & Bright #2");
-	}
-	else {
+	} else {
 		a(t.xterm(12).bgXterm(67)('foo', 'xterm'),
 			'\x1b[94m\x1b[100mfoo xterm\x1b[39m\x1b[49m', "Xterm");
 		a(t.redBright.bgBlueBright.xterm(12).bgXterm(67)('foo', 'xterm'),
