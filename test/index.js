@@ -2,7 +2,23 @@
 
 module.exports = function (t, a) {
 	var x, y;
+    var w = function(message) {
+        process.stdout.write(message);
+    };
 
+    // Debug helper.
+    var a_original = a;
+    a = function(x, y, z) {
+        if(x !== y) {
+            w('\n   ' + t.whiteBright(z) + '\n');
+            w('   > Expected: ' + x + '\n');
+            w('   > Actual:   ' + y + '\n\n');
+        }
+
+        a_original(x, y, z);
+    };
+
+    // Tests.
 	a(t('test'), 'test', "Plain");
 	a(t('test', 'foo', 3, { toString: function () { return 'bar'; } }),
 		'test foo 3 bar', "Plain: Many args");
