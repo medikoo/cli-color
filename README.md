@@ -509,19 +509,22 @@ Move cursor right _n_ columns
 
 Move cursor left _n_ columns
 
-#### Terminal characteristics
-
-##### clc.width
-
-Returns terminal width
-
-##### clc.height
-
-Returns terminal height
-
 #### trim(formatedText) _(as in 0.4.x)_
 
 Trims ANSI formatted string to plain text
+
+#### art(text, style) _(as in 0.4.x)_
+
+Create a text-graphical art using this module. First you define an art-text and a style object definition.
+
+```javascript
+var text = '.........\n' +
+           '. Hello .\n' +
+           '.........\n'
+  , style = { ".": clc.yellowBright("X") };
+
+process.stdout.write(clc.art(text, style));
+```
 
 #### throbber(write, interval[, format]) _(as in 0.4.x)_
 
@@ -538,6 +541,17 @@ throbber.start();
 throbber.stop();
 ```
 
+#### Terminal characteristics
+
+##### clc.width
+
+Returns terminal width
+
+##### clc.height
+
+Returns terminal height
+
 ## Tests [![Build Status](https://travis-ci.org/medikoo/cli-color.png)](https://travis-ci.org/medikoo/cli-color)
 
 	$ npm test
+    $ npm run visual-test

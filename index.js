@@ -10,6 +10,7 @@ var d              = require('d')
   , trim           = require('./trim.js')
   , throbber       = require('./throbber.js')
   , columns        = require('./columns.js')
+  , art            = require('./art.js')
 
   , join = Array.prototype.join, defineProperty = Object.defineProperty
   , defineProperties = Object.defineProperties, abs = Math.abs
@@ -169,6 +170,7 @@ module.exports = defineProperties(getFn(), {
 	trim: d(trim),
 	throbber: d(throbber),
 	columns: d(columns),
+	art: d(art),
 	width: d.gs(function () { return process.stdout.columns || 0; }),
 	height: d.gs(function () { return process.stdout.rows || 0; }),
 	reset: d.gs(function () { return '\n\x1bc'; }),

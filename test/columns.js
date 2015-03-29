@@ -1,7 +1,5 @@
 'use strict';
 
-var clc = require("../index.js");
-
 module.exports = function (c, a) {
 	a(c([]), '\n', "Empty #1");
 	a(c([ [], [], [] ]), '\n\n\n', "Empty #2");
@@ -31,4 +29,4 @@ module.exports = function (c, a) {
 	a(c([ [ "ID" ], [ "", "" ], [ 123, 123 ] ]),
 		'ID \n    |    \n123 | 123\n',
 		"Empty cells");
-}
+};

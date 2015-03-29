@@ -92,12 +92,36 @@ w(clc.left(2));
 w(clc.red.bgYellowBright("\u2588\u2584\u2588"));
 
 // Move back.
-w(clc.moveTo(0, 8));
+w(clc.moveTo(0, 9));
 
 // Colors test.
-w('\n\n  COLORS TESTS\n');
+w('\n  COLORS TESTS\n');
 printColors('FOREGROUNDS (DEFAULT)', 'foreground');
 printColors('FOREGROUNDS (BRIGHT) ', 'foregroundBright');
 printColors('BACKGROUNDS (DEFAULT)', 'background');
 printColors('BACKGROUNDS (BRIGHT) ', 'backgroundBright');
+
+// Art test.
+w('\n  ART TESTS\n\n');
+w(clc.art(function () {
+/*
+	.01111111112.
+	.3.........3.
+	.3.........3.
+	.41111111115.
+*/
+}, {
+	"0": clc.bgBlue.yellowBright('\u2554'),
+	"1": clc.bgBlue.yellowBright('\u2550'),
+	"2": clc.bgBlue.yellowBright('\u2557'),
+	"3": clc.bgBlue.yellowBright('\u2551'),
+	"4": clc.bgBlue.yellowBright('\u255A'),
+	"5": clc.bgBlue.yellowBright('\u255D'),
+	".": clc.bgBlue(' ')
+}));
+w(clc.move(11, -3));
+w(clc.bgBlue.whiteBright("Hello"));
+w(clc.move(-3, 1));
+w(clc.bgBlue.whiteBright("World"));
+w(clc.move(0, 2));
 w('\n');
