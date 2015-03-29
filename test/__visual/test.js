@@ -52,8 +52,50 @@ function printColors(title, style) {
 	w('\n');
 }
 
+// Smile test.
+w(clc.reset);
+w('\n  SMILE TEST\n\n');
+
+// Yellow face.
+w(clc("      "));
+w(clc.bgYellowBright("     "));
+w(clc("\n"));
+w(clc("     "));
+w(clc.bgYellowBright("       "));
+w(clc("\n"));
+w(clc("    "));
+w(clc.bgYellowBright("         "));
+w(clc("\n"));
+w(clc("    "));
+w(clc.bgYellowBright("         "));
+w(clc("\n"));
+w(clc("     "));
+w(clc.bgYellowBright("       "));
+w(clc("\n"));
+w(clc("      "));
+w(clc.bgYellowBright("     "));
+w(clc("\n"));
+
+// Move blue eyes.
+w(clc.move(7, -5));
+w(clc.blueBright.bgYellowBright("O"));
+w(clc.move(1, 0));
+w(clc.blueBright.bgYellowBright("O"));
+
+// Red nose.
+w(clc.moveTo(8, 5));
+w(clc.redBright.bgYellowBright("\u25A0"));
+
+// Red mouth.
+w(clc.down(2));
+w(clc.left(2));
+w(clc.red.bgYellowBright("\u2588\u2584\u2588"));
+
+// Move back.
+w(clc.moveTo(0, 8));
+
 // Colors test.
-w('  COLORS TESTS\n');
+w('\n\n  COLORS TESTS\n');
 printColors('FOREGROUNDS (DEFAULT)', 'foreground');
 printColors('FOREGROUNDS (BRIGHT) ', 'foregroundBright');
 printColors('BACKGROUNDS (DEFAULT)', 'background');
