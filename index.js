@@ -34,10 +34,8 @@ mods = assign({
 		obj[color + 'Bright'] = { _fg: [90 + index, 39] };
 
 		// background
-		obj['bg' + color[0].toUpperCase() + color.slice(1)] =
-			{ _bg: [40 + index, 49] };
-		obj['bg' + color[0].toUpperCase() + color.slice(1) + 'Bright'] =
-			{ _bg: [100 + index, 49] };
+		obj['bg' + color[0].toUpperCase() + color.slice(1)] = { _bg: [40 + index, 49] };
+		obj['bg' + color[0].toUpperCase() + color.slice(1) + 'Bright'] = { _bg: [100 + index, 49] };
 
 		return obj;
 	}, {}));
@@ -46,8 +44,7 @@ mods = assign({
 // Which is inefficient as on each call it configures new clc object
 // with memoization we reuse once created object
 memoized = memoize(function (scope, mod) {
-	return defineProperty(getFn(), '_cliColorData',
-		d(assign({}, scope._cliColorData, mod)));
+	return defineProperty(getFn(), '_cliColorData', d(assign({}, scope._cliColorData, mod)));
 });
 
 proto = Object.create(Function.prototype, assign(map(mods, function (mod) {
@@ -70,9 +67,7 @@ proto = Object.create(Function.prototype, assign(map(mods, function (mod) {
 	})
 })));
 
-if (process.platform === 'win32') {
-	xtermMatch = require('./lib/xterm-match');
-}
+if (process.platform === 'win32') xtermMatch = require('./lib/xterm-match');
 
 getFn = function () {
 	var fn = function (/*…msg*/) {
@@ -105,9 +100,7 @@ module.exports = defineProperties(getFn(), {
 	} : function () {
 		return tty.getWindowSize ? tty.getWindowSize()[0] : 0;
 	}),
-	reset: d.gs(function () {
-		return repeat.call('\n', getHeight() - 1) + '\x1bc';
-	}),
+	reset: d.gs(function () { return repeat.call('\n', getHeight() - 1) + '\x1bc'; }),
 	up: d(up = getMove('A')),
 	down: d(down = getMove('B')),
 	right: d(right = getMove('C')),
@@ -127,9 +120,9 @@ module.exports = defineProperties(getFn(), {
 		n = isNaN(n) ? 0 : Number(n);
 		dir = (n >= 0) ? 'E' : 'F';
 		n = floor(abs(n));
-		return arguments[1] ?
-				(((!n || (dir === 'F')) ? '\x1b[0E\x1bK' : '') +
-					repeat.call('\x1b[1' + dir + '\x1b[K', n)) : '\x1b[' + n + dir;
+		return (arguments[1]
+			? (((!n || (dir === 'F')) ? '\x1b[0E\x1bK' : '') + repeat.call('\x1b[1' + dir + '\x1b[K', n))
+			: '\x1b[' + n + dir);
 	}),
 	beep: d('\x07'),
 	xtermSupported: d(!xtermMatch),
