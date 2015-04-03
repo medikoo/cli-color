@@ -4,6 +4,7 @@ var d              = require('d')
   , assign         = require('es5-ext/object/assign')
   , forEach        = require('es5-ext/object/for-each')
   , map            = require('es5-ext/object/map')
+  , setPrototypeOf = require('es5-ext/object/set-prototype-of')
   , memoize        = require('memoizee')
   , memoizeMethods = require('memoizee/methods')
 
@@ -65,16 +66,14 @@ var proto = Object.create(Function.prototype, assign(map(mods, function (mod) {
 if (process.platform === 'win32') xtermMatch = require('./lib/xterm-match');
 
 getFn = function () {
-	var fn = function (/*…msg*/) {
+	return setPrototypeOf(function self(/*…msg*/) {
 		var start = '', end = '', msg = join.call(arguments, ' ');
-		forEach(fn._cliColorData, function (mod) {
+		forEach(self._cliColorData, function (mod) {
 			end = '\x1b[' + mod[1] + 'm' + end;
 			start += '\x1b[' + mod[0] + 'm';
 		}, null, true);
 		return start + msg + end;
-	};
-	fn.__proto__ = proto;
-	return fn;
+	}, proto);
 };
 
 module.exports = Object.defineProperties(getFn(), {
