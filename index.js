@@ -8,6 +8,6 @@ module.exports = Object.defineProperties(require('./bare'), {
 	move: d(require('./move')),
 	beep: d(require('./beep')),
 	columns: d(require('./columns')),
-	trim: d(require('./trim')),
+	strip: d(require('./strip')),
 	throbber: d(require('./throbber'))
 });
