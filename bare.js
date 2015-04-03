@@ -66,12 +66,12 @@ if (process.platform === 'win32') xtermMatch = require('./lib/xterm-match');
 
 getFn = function () {
 	var fn = function (/*…msg*/) {
-		var start = '', end = '';
+		var start = '', end = '', msg = join.call(arguments, ' ');
 		forEach(fn._cliColorData, function (mod) {
 			end = '\x1b[' + mod[1] + 'm' + end;
 			start += '\x1b[' + mod[0] + 'm';
 		}, null, true);
-		return start + join.call(arguments, ' ') + end;
+		return start + msg + end;
 	};
 	fn.__proto__ = proto;
 	return fn;
