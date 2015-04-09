@@ -1,17 +1,8 @@
 'use strict';
 
-var d   = require('d')
-  , tty = require('tty');
+var d = require('d');
 
 Object.defineProperties(exports, {
-	width: d.gs('ce', process.stdout.getWindowSize ? function () {
-		return process.stdout.getWindowSize()[0];
-	} : function () {
-		return tty.getWindowSize ? tty.getWindowSize()[1] : 0;
-	}),
-	height: d.gs('ce', process.stdout.getWindowSize ? function () {
-		return process.stdout.getWindowSize()[1];
-	} : function () {
-		return tty.getWindowSize ? tty.getWindowSize()[0] : 0;
-	})
+	width: d.gs('ce', function () { return process.stdout.columns || 0; }),
+	height: d.gs('ce', function () { return process.stdout.rows || 0; })
 });
