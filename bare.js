@@ -4,13 +4,15 @@ var d              = require('d')
   , assign         = require('es5-ext/object/assign')
   , forEach        = require('es5-ext/object/for-each')
   , map            = require('es5-ext/object/map')
+  , primitiveSet   = require('es5-ext/object/primitive-set')
   , setPrototypeOf = require('es5-ext/object/set-prototype-of')
+  , includes       = require('es5-ext/string/#/contains')
   , memoize        = require('memoizee')
   , memoizeMethods = require('memoizee/methods')
 
   , join = Array.prototype.join, defineProperty = Object.defineProperty
   , max = Math.max, min = Math.min
-
+  , variantModes = primitiveSet('_fg', '_bg')
   , xtermMatch, getFn;
 
 var mods = assign({
@@ -63,14 +65,22 @@ var proto = Object.create(Function.prototype, assign(map(mods, function (mod) {
 	})
 })));
 
+var getEndRe = memoize(function (code) {
+	return new RegExp('\x1b\\[' + code + 'm', 'g');
+}, { primitive: true });
+
 if (process.platform === 'win32') xtermMatch = require('./lib/xterm-match');
 
 getFn = function () {
 	return setPrototypeOf(function self(/*…msg*/) {
-		var start = '', end = '', msg = join.call(arguments, ' ');
-		forEach(self._cliColorData, function (mod) {
+		var start = '', end = '', msg = join.call(arguments, ' '), conf = self._cliColorData
+		  , hasAnsi = includes.call(msg, '\x1b[');
+		forEach(conf, function (mod, key) {
 			end = '\x1b[' + mod[1] + 'm' + end;
 			start += '\x1b[' + mod[0] + 'm';
+			if (hasAnsi) {
+				msg = msg.replace(getEndRe(mod[1]), variantModes[key] ? '\x1b[' + mod[0] + 'm' : '');
+			}
 		}, null, true);
 		return start + msg + end;
 	}, proto);
