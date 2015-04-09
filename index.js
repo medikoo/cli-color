@@ -9,5 +9,6 @@ module.exports = Object.defineProperties(require('./bare'), {
 	beep: d(require('./beep')),
 	columns: d(require('./columns')),
 	strip: d(require('./strip')),
-	throbber: d(require('./throbber'))
+	throbber: d(require('./throbber')),
+	reset: d(require('./reset'))
 });
