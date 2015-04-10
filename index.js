@@ -10,5 +10,6 @@ module.exports = Object.defineProperties(require('./bare'), {
 	columns: d(require('./columns')),
 	strip: d(require('./strip')),
 	throbber: d(require('./throbber')),
-	reset: d(require('./reset'))
+	reset: d(require('./reset')),
+	art: d(require('./art'))
 });
