@@ -33,6 +33,14 @@ Styled text can be mixed with unstyled:
 console.log(clc.red('red') + ' plain ' + clc.blue('blue'));
 ```
 
+Styled text can be nested:
+
+_Thanks to [@rentalhost](https://github.com/rentalhost) for bringing that feature in_
+
+```javascript
+console.log(clc.red('red ' + clc.blue('blue') + ' red'));
+```
+
 __Best way is to predefine needed stylings and then use it__:
 
 ```javascript
@@ -453,12 +461,62 @@ Color table:
   </tr>
 </table>
 
-#### Terminal reset
+#### Reset
 
 Terminal can be cleared with `clc.reset`
 
 ```javascript
-console.log(clc.reset);
+process.stdout.write(clc.reset);
+```
+
+#### Erase
+
+##### clc.erase.screen
+
+Entire screen
+
+```javascript
+process.stdout.write(clc.erase.screen);
+```
+
+##### clc.erase.screenLeft
+
+Left portion of a screen
+
+```javascript
+process.stdout.write(clc.erase.screenLeft);
+```
+
+##### clc.erase.screenRight
+
+Right portion of a screen
+
+```javascript
+process.stdout.write(clc.erase.screenRight);
+```
+
+##### clc.erase.line
+
+Current line
+
+```javascript
+process.stdout.write(clc.erase.line);
+```
+
+##### clc.erase.lineRight
+
+Right portion of current line
+
+```javascript
+process.stdout.write(clc.erase.lineRight);
+```
+
+##### clc.erase.lineLeft
+
+Left portion of current line
+
+```javascript
+process.stdout.write(clc.erase.lineLeft);
 ```
 
 #### Move around functions
@@ -471,61 +529,92 @@ Move cursor _x_ columns and _y_ rows away. Values can be positive or negative, e
 process.stdout.write(clc.move(-2, -2)); // Move cursors two columns and two rows back
 ```
 
-##### clc.moveTo(x, y)
+##### clc.move.to(x, y)
 
 Absolute move. Sets cursor position at _x_ column and _y_ row
 
 ```javascript
-process.stdout.write(clc.moveTo(0, 0)); // Move cursor to first row and first column in terminal window
+process.stdout.write(clc.move.to(0, 0)); // Move cursor to first row and first column in terminal window
 ```
 
-##### clc.bol([n[, erase]])
-
-Move cursor to the begining of the line, with _n_ we may specify how many lines away we want to move, value can be positive or negative. Additionally we may decide to clear lines content with _erase_
-
-```javascript
-process.stdout.write(clc.bol(-2)); // Move cursor two lines back and place it at begin of the line
-```
-
-##### clc.up(n)
+##### clc.move.up(n)
 
 Move cursor up _n_ rows
 
-##### clc.down(n)
+```javascript
+process.stdout.write(clc.move.up(2));
+```
+
+##### clc.move.down(n)
 
 Move cursor down _n_ rows
 
-##### clc.right(n)
+```javascript
+process.stdout.write(clc.move.down(2));
+```
+
+##### clc.move.right(n)
 
 Move cursor right _n_ columns
 
-##### clc.left(n)
+```javascript
+process.stdout.write(clc.move.right(2));
+```
+
+##### clc.move.left(n)
 
 Move cursor left _n_ columns
 
+```javascript
+process.stdout.write(clc.move.left(2));
+```
+
+##### clc.move.lines(n)
+
+Move cursor `n` lines forward if `n` is positive, otherwise `n` lines backward.
+
+```javascript
+process.stdout.write(clc.move.lines(2));
+```
+
 #### Terminal characteristics
 
-##### clc.width
+##### clc.windowSize.width
 
 Returns terminal width
 
-##### clc.height
+##### clc.windowSize.height
 
 Returns terminal height
 
-### Additional functionalities (provided as separate modules)
+### Additional functionalities
 
-#### trim(formatedText) _(cli-color/trim)_
+#### clc.strip(formatedText)
 
-Trims ANSI formatted string to plain text
+Strips ANSI formatted string to plain text
 
 ```javascript
-var ansiTrim = require('cli-color/trim');
+var ansiStrip = require('cli-color/strip');
 
-var plain = ansiTrim(formatted);
+var plain = ansiStrip(formatted);
 ```
 
-#### throbber(write, interval[, format]) _(cli-color/throbber)_
+#### clc.art(text, styleConf)
+
+_Thanks to [@rentalhost](https://github.com/rentalhost) for bringing that feature in_
+
+Create a text-graphical art. Within `styleConf`, string replacements needs to be defined, which are then used to convert `text` to styled graphical text.
+
+```javascript
+var text = '.........\n' +
+    '. Hello .\n' +
+    '.........\n';
+var style = { ".": clc.yellowBright("X") };
+
+process.stdout.write(clc.art(text, style));
+```
+
+##### throbber(write, interval[, format])
 
 Writes throbber string to _write_ function at given _interval_. Optionally throbber output can be formatted with given _format_ function
 
@@ -545,3 +634,11 @@ throbber.stop();
 ## Tests [![Build Status](https://travis-ci.org/medikoo/cli-color.png)](https://travis-ci.org/medikoo/cli-color)
 
 	$ npm test
+	
+## Contributors
+
+* [@rentalhost](https://github.com/rentalhost) (David Rodrigues)
+  * Help with support for nested styles. Introduction of `clc.art` module, and significant improvements to tests coverage.
+
+
+
