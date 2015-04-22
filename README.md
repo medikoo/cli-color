@@ -35,8 +35,6 @@ console.log(clc.red('red') + ' plain ' + clc.blue('blue'));
 
 Styled text can be nested:
 
-_Thanks to [@rentalhost](https://github.com/rentalhost) for bringing that feature in_
-
 ```javascript
 console.log(clc.red('red ' + clc.blue('blue') + ' red'));
 ```
@@ -600,8 +598,6 @@ var plain = ansiStrip(formatted);
 ```
 
 #### clc.art(text, styleConf)
-
-_Thanks to [@rentalhost](https://github.com/rentalhost) for bringing that feature in_
 
 Create a text-graphical art. Within `styleConf`, string replacements needs to be defined, which are then used to convert `text` to styled graphical text.
 
