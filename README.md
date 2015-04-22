@@ -630,7 +630,7 @@ throbber.stop();
 ## Tests [![Build Status](https://travis-ci.org/medikoo/cli-color.png)](https://travis-ci.org/medikoo/cli-color)
 
 	$ npm test
-	
+
 ## Contributors
 
 * [@rentalhost](https://github.com/rentalhost) (David Rodrigues)
