@@ -1,3 +1,17 @@
+v1.0.0  --  2015.04.22
+* General modularization and files reorganization. From now on each utility is placed in individual
+  module, and can be required directly without others. Alternatively all modules are provided on
+  index module
+* Support style nesting (thanks @rentalhost)
+* Rename `trim` to `strip`
+* Improve `strip` (previously `trim`) regex by relying on ansi-regex package
+* Improve resolution of window size
+* Add `columns` utility
+* Add `art` utility  (thanks @rentalhost)
+* Add visual test  (thanks @rentalhost)
+* Drop support for v0.8 node
+* Update lint configuration
+
 v0.3.3  --  2015.03.20
 * Fix throbber tests
 * Fix spelling of LICENSE
