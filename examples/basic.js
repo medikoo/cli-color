@@ -1,3 +1,5 @@
+'use strict';
+
 var clc = require('../');
 
 console.log('Output colored text:');
