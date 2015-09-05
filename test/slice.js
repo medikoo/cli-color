@@ -35,4 +35,7 @@ module.exports = function (t, a) {
 	a(slice('\x1b[1mAAA\x1b[31mBBB\x1b[39mAAA\x1b[22m', 2, 7), "\x1b[1mA\x1b[31mBBB\x1b[39mA\x1b[22m", "Works with nested styles")
 	a(slice('\x1b[3mAAA\x1b[41mBBB\x1b[49mAAA\x1b[23m', 0, 5), "\x1b[3mAAA\x1b[41mBB\x1b[49m\x1b[23m", "Works with nested styles")
 	a(slice('\x1b[3mAAA\x1b[41mBBB\x1b[49mAAA\x1b[23m', 2, 7), "\x1b[3mA\x1b[41mBBB\x1b[49mA\x1b[23m", "Works with nested styles")
+
+	a(slice('\x1b[31mAAA\x1b[32mBBB\x1b[31mAAA\x1b[39m', 0, 5), "\x1b[31mAAA\x1b[32mBB\x1b[31m\x1b[39m", "Works with nested overlapping styles")
+	a(slice('\x1b[31mAAA\x1b[32mBBB\x1b[31mAAA\x1b[39m', 2, 7), "\x1b[31mA\x1b[32mBBB\x1b[31mA\x1b[39m", "Works with nested overlapping styles")
 };
