@@ -1,13 +1,48 @@
 'use strict';
 
-var stringSlice = ''.slice
+var ReAnsi        = require('ansi-regex')
   , stringifiable = require('es5-ext/object/validate-stringifiable')
-  , ReAnsi        = require('ansi-regex');
+  , length        = require('./get-stripped-length');
 
 module.exports = function (str, begin, end) {
 	str = stringifiable(str);
 
+	var len = length(str);
+
+	if (begin == null)
+	{
+		begin = 0
+	}
+	if (end == null)
+	{
+		end = len
+	}
+	if (begin < 0)
+	{
+		begin = len - begin
+	}
+	if (end < 0)
+	{
+		end = len - end
+	}
+
 	var seq = tokenize(str);
+	seq = sliceSeq(seq, begin, end)
+
+	console.dir(seq)
+	str = seq.map(function (chunk)
+	{
+		if (chunk instanceof Token)
+		{
+			return chunk.token
+		}
+		else
+		{
+			return chunk
+		}
+	})
+	.join('')
+
 	return str;
 };
 
@@ -43,4 +78,55 @@ function tokenize(str) {
 function Token (token)
 {
 	this.token = token;
+}
+
+function sliceSeq (seq, begin, end)
+{
+	//var count = Math.max(end - begin, 0);
+
+	var r = seq.reduce(function (state, chunk) {
+		if (! (chunk instanceof Token))
+		{
+			var index = state.index
+			var nextIndex = index + chunk.length
+			var nextChunk = ''
+
+			if (chunkInSlice(chunk, index, begin, end))
+			{
+				var relBegin = Math.max(begin - index, 0)
+				var relEnd = Math.min(end - index, chunk.length)
+
+				console.log('*')
+				console.log(begin, end)
+				console.log(relBegin, relEnd)
+				console.dir(chunk)
+
+				nextChunk = chunk.slice(relBegin, relEnd)
+			}
+
+			state.seq.push(nextChunk)
+			state.index = nextIndex
+		}
+		else /* Token */
+		{
+			state.seq.push(chunk)
+		}
+
+		return state
+	}, {
+		index: 0,
+		seq: []
+	})
+
+	return r.seq
+}
+
+function chunkInSlice (chunk, index, begin, end)
+{
+	var endIndex = chunk.length + index
+
+	// if (begin > end) return false
+	if (begin > endIndex) return false
+	if (end < index) return false
+	return true
 }
