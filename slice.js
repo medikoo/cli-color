@@ -82,30 +82,22 @@ function Token (token)
 
 function sliceSeq (seq, begin, end)
 {
-	//var count = Math.max(end - begin, 0);
-
-	var r = seq.reduce(function (state, chunk) {
+	return seq.reduce(function (state, chunk) {
 		if (! (chunk instanceof Token))
 		{
 			var index = state.index
-			var nextIndex = index + chunk.length
 			var nextChunk = ''
 
-			if (chunkInSlice(chunk, index, begin, end))
+			if (isChunkInSlice(chunk, index, begin, end))
 			{
 				var relBegin = Math.max(begin - index, 0)
 				var relEnd = Math.min(end - index, chunk.length)
-
-				console.log('*')
-				console.log(begin, end)
-				console.log(relBegin, relEnd)
-				console.dir(chunk)
 
 				nextChunk = chunk.slice(relBegin, relEnd)
 			}
 
 			state.seq.push(nextChunk)
-			state.index = nextIndex
+			state.index = index + chunk.length
 		}
 		else /* Token */
 		{
@@ -116,12 +108,10 @@ function sliceSeq (seq, begin, end)
 	}, {
 		index: 0,
 		seq: []
-	})
-
-	return r.seq
+	}).seq;
 }
 
-function chunkInSlice (chunk, index, begin, end)
+function isChunkInSlice (chunk, index, begin, end)
 {
 	var endIndex = chunk.length + index
 
