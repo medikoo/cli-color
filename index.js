@@ -11,5 +11,6 @@ module.exports = Object.defineProperties(require('./bare'), {
 	strip: d(require('./strip')),
 	throbber: d(require('./throbber')),
 	reset: d(require('./reset')),
-	art: d(require('./art'))
+	art: d(require('./art')),
+	getStrippedLength: d(require('./get-stripped-length'))
 });
