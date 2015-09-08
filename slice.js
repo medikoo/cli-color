@@ -29,9 +29,8 @@ module.exports = function (str, begin, end) {
 		if (chunk instanceof Token) {
 			return chunk.token;
 		}
-		else {
-			return chunk;
-		}
+
+		return chunk;
 	}).join('');
 };
 
@@ -42,22 +41,20 @@ function tokenize(str) {
 	if (!match) {
 		return [ str ];
 	}
-	else {
-		var index = match.index;
-		if (index === 0) {
-			var head = match[0];
-			var tail = str.slice(head.length);
 
-			return [ new Token(head) ].concat(tokenize(tail));
-		}
-		else {
-			var prehead = str.slice(0, index);
-			var head = match[0];
-			var tail = str.slice(index + head.length);
+	var index = match.index;
+	if (index === 0) {
+		var head = match[0];
+		var tail = str.slice(head.length);
 
-			return [ prehead, new Token(head) ].concat(tokenize(tail));
-		}
+		return [ new Token(head) ].concat(tokenize(tail));
 	}
+
+	var prehead = str.slice(0, index);
+	var head = match[0];
+	var tail = str.slice(index + head.length);
+
+	return [ prehead, new Token(head) ].concat(tokenize(tail));
 }
 
 function Token(token) {
