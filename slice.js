@@ -76,9 +76,7 @@ function sliceSeq(seq, begin, end) {
 
 			state.seq.push(nextChunk);
 			state.index = index + chunk.length;
-		}
-		else /* Token */
-		{
+		} else {
 			state.seq.push(chunk);
 		}
 
