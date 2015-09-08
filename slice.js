@@ -1,6 +1,6 @@
 'use strict';
 
-var ReAnsi        = require('ansi-regex')
+var reAnsi        = require('ansi-regex')
   , stringifiable = require('es5-ext/object/validate-stringifiable')
   , length        = require('./get-stripped-length');
 
@@ -35,8 +35,7 @@ module.exports = function (str, begin, end) {
 };
 
 function tokenize(str) {
-	var reAnsi = ReAnsi();
-	var match = reAnsi.exec(str);
+	var match = reAnsi().exec(str);
 
 	if (!match) {
 		return [ str ];
