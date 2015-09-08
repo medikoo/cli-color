@@ -19,11 +19,11 @@ module.exports = function (str, begin, end) {
 	}
 	if (begin < 0)
 	{
-		begin = len - begin
+		begin = len + begin
 	}
 	if (end < 0)
 	{
-		end = len - end
+		end = len + end
 	}
 
 	var seq = tokenize(str);
