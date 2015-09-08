@@ -29,7 +29,6 @@ module.exports = function (str, begin, end) {
 	var seq = tokenize(str);
 	seq = sliceSeq(seq, begin, end)
 
-	console.dir(seq)
 	str = seq.map(function (chunk)
 	{
 		if (chunk instanceof Token)
@@ -115,7 +114,6 @@ function isChunkInSlice (chunk, index, begin, end)
 {
 	var endIndex = chunk.length + index
 
-	// if (begin > end) return false
 	if (begin > endIndex) return false
 	if (end < index) return false
 	return true
