@@ -23,7 +23,7 @@ module.exports = function (t, a) {
 	a(slice('ABC\x1b[31mDEF\x1b[39m', 3), "\x1b[31mDEF\x1b[39m", "Does not corrupt start CSI");
 	a(slice('ABC\x1b[31mDEF\x1b[39m', 0, 3), "ABC", "Does not mixin CSI to plain string");
 
-	a(slice('\x1b[41mABC\x1b[49mDEF', 0, 3), "\x1b[31mABC\x1b[39m", "Does not corrupt end CSI");
+	a(slice('\x1b[41mABC\x1b[49mDEF', 0, 3), "\x1b[41mABC\x1b[49m", "Does not corrupt end CSI");
 	a(slice('\x1b[41mABC\x1b[49mDEF', 3), "DEF", "Does not mixin CSI to plain string");
 
 	a(slice('ABC\x1b[31mDEF\x1b[39m', 0, 5), "ABC\x1b[31mDE\x1b[39m", "Save styles when chopping part of the forecolor-styled string");
