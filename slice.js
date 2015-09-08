@@ -42,16 +42,19 @@ function tokenize(str) {
 	}
 
 	var index = match.index;
+	var head;
+	var tail;
+
 	if (index === 0) {
-		var head = match[0];
-		var tail = str.slice(head.length);
+		head = match[0];
+		tail = str.slice(head.length);
 
 		return [ new Token(head) ].concat(tokenize(tail));
 	}
 
 	var prehead = str.slice(0, index);
-	var head = match[0];
-	var tail = str.slice(index + head.length);
+	head = match[0];
+	tail = str.slice(index + head.length);
 
 	return [ prehead, new Token(head) ].concat(tokenize(tail));
 }
