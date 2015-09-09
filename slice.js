@@ -4,6 +4,68 @@ var reAnsi        = require('ansi-regex')
   , stringifiable = require('es5-ext/object/validate-stringifiable')
   , length        = require('./get-stripped-length');
 
+function Token(token) {
+	this.token = token;
+}
+
+function tokenize(str) {
+	var match = reAnsi().exec(str);
+
+	if (!match) {
+		return [ str ];
+	}
+
+	var index = match.index
+	  , head, prehead, tail;
+
+	if (index === 0) {
+		head = match[0];
+		tail = str.slice(head.length);
+
+		return [ new Token(head) ].concat(tokenize(tail));
+	}
+
+	prehead = str.slice(0, index);
+	head = match[0];
+	tail = str.slice(index + head.length);
+
+	return [ prehead, new Token(head) ].concat(tokenize(tail));
+}
+
+function isChunkInSlice(chunk, index, begin, end) {
+	var endIndex = chunk.length + index;
+
+	if (begin > endIndex) return false;
+	if (end < index) return false;
+	return true;
+}
+
+function sliceSeq(seq, begin, end) {
+	return seq.reduce(function (state, chunk) {
+		if (!(chunk instanceof Token)) {
+			var index = state.index
+			  , nextChunk = '';
+
+			if (isChunkInSlice(chunk, index, begin, end)) {
+				var relBegin = Math.max(begin - index, 0)
+				  , relEnd   = Math.min(end - index, chunk.length);
+
+				nextChunk = chunk.slice(relBegin, relEnd);
+			}
+
+			state.seq.push(nextChunk);
+			state.index = index + chunk.length;
+		} else {
+			state.seq.push(chunk);
+		}
+
+		return state;
+	}, {
+		index: 0,
+		seq: []
+	}).seq;
+}
+
 module.exports = function (str, begin, end) {
 	var seq, len;
 
@@ -33,65 +95,3 @@ module.exports = function (str, begin, end) {
 		return chunk;
 	}).join('');
 };
-
-function tokenize(str) {
-	var match = reAnsi().exec(str);
-
-	if (!match) {
-		return [ str ];
-	}
-
-	var index = match.index
-	  , head, prehead, tail;
-
-	if (index === 0) {
-		head = match[0];
-		tail = str.slice(head.length);
-
-		return [ new Token(head) ].concat(tokenize(tail));
-	}
-
-	prehead = str.slice(0, index);
-	head = match[0];
-	tail = str.slice(index + head.length);
-
-	return [ prehead, new Token(head) ].concat(tokenize(tail));
-}
-
-function Token(token) {
-	this.token = token;
-}
-
-function sliceSeq(seq, begin, end) {
-	return seq.reduce(function (state, chunk) {
-		if (!(chunk instanceof Token)) {
-			var index = state.index
-			  , nextChunk = '';
-
-			if (isChunkInSlice(chunk, index, begin, end)) {
-				var relBegin = Math.max(begin - index, 0)
-				  , relEnd   = Math.min(end - index, chunk.length);
-
-				nextChunk = chunk.slice(relBegin, relEnd);
-			}
-
-			state.seq.push(nextChunk);
-			state.index = index + chunk.length;
-		} else {
-			state.seq.push(chunk);
-		}
-
-		return state;
-	}, {
-		index: 0,
-		seq: []
-	}).seq;
-}
-
-function isChunkInSlice(chunk, index, begin, end) {
-	var endIndex = chunk.length + index;
-
-	if (begin > endIndex) return false;
-	if (end < index) return false;
-	return true;
-}
