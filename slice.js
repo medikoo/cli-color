@@ -4,11 +4,11 @@ var reAnsi        = require('ansi-regex')
   , stringifiable = require('es5-ext/object/validate-stringifiable')
   , length        = require('./get-stripped-length');
 
-function Token(token) {
+var Token = function Token(token) {
 	this.token = token;
-}
+};
 
-function tokenize(str) {
+var tokenize = function (str) {
 	var match = reAnsi().exec(str);
 
 	if (!match) {
@@ -30,17 +30,17 @@ function tokenize(str) {
 	tail = str.slice(index + head.length);
 
 	return [ prehead, new Token(head) ].concat(tokenize(tail));
-}
+};
 
-function isChunkInSlice(chunk, index, begin, end) {
+var isChunkInSlice = function (chunk, index, begin, end) {
 	var endIndex = chunk.length + index;
 
 	if (begin > endIndex) return false;
 	if (end < index) return false;
 	return true;
-}
+};
 
-function sliceSeq(seq, begin, end) {
+var sliceSeq = function (seq, begin, end) {
 	return seq.reduce(function (state, chunk) {
 		if (!(chunk instanceof Token)) {
 			var index = state.index
@@ -64,7 +64,7 @@ function sliceSeq(seq, begin, end) {
 		index: 0,
 		seq: []
 	}).seq;
-}
+};
 
 module.exports = function (str, begin, end) {
 	var seq, len;
