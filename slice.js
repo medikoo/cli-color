@@ -5,9 +5,10 @@ var reAnsi        = require('ansi-regex')
   , length        = require('./get-stripped-length');
 
 module.exports = function (str, begin, end) {
-	str = stringifiable(str);
+	var seq, len;
 
-	var len = length(str);
+	str = stringifiable(str);
+	len = length(str);
 
 	if (begin == null) {
 		begin = 0;
@@ -22,9 +23,8 @@ module.exports = function (str, begin, end) {
 		end = len + end;
 	}
 
-	var seq = tokenize(str);
+	seq = tokenize(str);
 	seq = sliceSeq(seq, begin, end);
-
 	return seq.map(function (chunk) {
 		if (chunk instanceof Token) {
 			return chunk.token;
@@ -41,9 +41,8 @@ function tokenize(str) {
 		return [ str ];
 	}
 
-	var index = match.index;
-	var head;
-	var tail;
+	var index = match.index
+	  , head, prehead, tail;
 
 	if (index === 0) {
 		head = match[0];
@@ -52,7 +51,7 @@ function tokenize(str) {
 		return [ new Token(head) ].concat(tokenize(tail));
 	}
 
-	var prehead = str.slice(0, index);
+	prehead = str.slice(0, index);
 	head = match[0];
 	tail = str.slice(index + head.length);
 
@@ -66,12 +65,12 @@ function Token(token) {
 function sliceSeq(seq, begin, end) {
 	return seq.reduce(function (state, chunk) {
 		if (!(chunk instanceof Token)) {
-			var index = state.index;
-			var nextChunk = '';
+			var index = state.index
+			  , nextChunk = '';
 
 			if (isChunkInSlice(chunk, index, begin, end)) {
-				var relBegin = Math.max(begin - index, 0);
-				var relEnd = Math.min(end - index, chunk.length);
+				var relBegin = Math.max(begin - index, 0)
+				  , relEnd   = Math.min(end - index, chunk.length);
 
 				nextChunk = chunk.slice(relBegin, relEnd);
 			}
