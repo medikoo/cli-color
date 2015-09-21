@@ -2,7 +2,8 @@
 
 var reAnsi        = require('ansi-regex')
   , stringifiable = require('es5-ext/object/validate-stringifiable')
-  , length        = require('./get-stripped-length');
+  , length        = require('./get-stripped-length')
+  , sgr           = require('./lib/sgr');
 
 var Token = function Token(token) {
 	this.token = token;
@@ -41,7 +42,7 @@ var isChunkInSlice = function (chunk, index, begin, end) {
 };
 
 var sliceSeq = function (seq, begin, end) {
-	return seq.reduce(function (state, chunk) {
+	var sliced = seq.reduce(function (state, chunk) {
 		if (!(chunk instanceof Token)) {
 			var index = state.index
 			  , nextChunk = '';
@@ -56,14 +57,25 @@ var sliceSeq = function (seq, begin, end) {
 			state.seq.push(nextChunk);
 			state.index = index + chunk.length;
 		} else {
+			var code = sgr.extractCode(chunk.token);
+			var codeEncloser = sgr.closers[code];
+			if (codeEncloser) {
+				state.enclosers.push(codeEncloser);
+			}
+
 			state.seq.push(chunk);
 		}
 
 		return state;
 	}, {
 		index: 0,
-		seq: []
-	}).seq;
+		seq: [],
+		enclosers: []
+	});
+
+	sliced.seq = sliced.seq.concat(sgr.closers[sgr.sgr]);
+
+	return sliced.seq;
 };
 
 module.exports = function (str, begin, end) {
