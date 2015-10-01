@@ -64,15 +64,16 @@ var sliceSeq = function (seq, begin, end) {
 			if (index < begin) {
 				if (code in sgr.openers) {
 					sgr.openStyle(state.preOpeners, code);
-					state.seq.push(chunk);
 				}
-			} if ((index >= begin) && (index <= end)) {
+				if (code in sgr.closers) {
+					sgr.closeStyle(state.preOpeners, code);
+				}
+			} else if (index <= end) {
 				if (code in sgr.openers) {
 					sgr.openStyle(state.inOpeners, code);
 					state.seq.push(chunk);
 				} else if (code in sgr.closers) {
-					sgr.closeStyle(state.preOpeners, code);
-					sgr.closeStyle(state.inOpeners, code);
+					state.inClosers.push(code);
 					state.seq.push(chunk);
 				}
 			}
@@ -85,14 +86,16 @@ var sliceSeq = function (seq, begin, end) {
 
 		// preOpeners -> { mod }
 		// inOpeners  -> { mod }
-		preOpeners: [], // opener CSI before slice begin
-		inOpeners:  []  // opener CSI inside slice
+		// closers    -> [ code ]
+		preOpeners: {}, // opener CSI before slice begin
+		inOpeners:  {}, // opener CSI inside slice
+		inClosers:  []
 	});
 
 	sliced.seq = [].concat(
 		sgr.prepend(sliced.preOpeners),
 		sliced.seq,
-		sgr.complete(assign({}, sliced.preOpeners, sliced.inOpeners))
+		sgr.complete(assign({}, sliced.preOpeners, sliced.inOpeners), sliced.inClosers)
 	);
 
 	return sliced.seq;
