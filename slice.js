@@ -61,14 +61,14 @@ var sliceSeq = function (seq, begin, end) {
 		} else {
 			var code = sgr.extractCode(chunk.token);
 
-			if (index < begin) {
+			if (index <= begin) {
 				if (code in sgr.openers) {
 					sgr.openStyle(state.preOpeners, code);
 				}
 				if (code in sgr.closers) {
 					sgr.closeStyle(state.preOpeners, code);
 				}
-			} else if (index <= end) {
+			} else if (index < end) {
 				if (code in sgr.openers) {
 					sgr.openStyle(state.inOpeners, code);
 					state.seq.push(chunk);
