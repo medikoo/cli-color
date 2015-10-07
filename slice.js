@@ -3,7 +3,6 @@
 var reAnsi        = require('ansi-regex')
   , stringifiable = require('es5-ext/object/validate-stringifiable')
   , length        = require('./get-stripped-length')
-  , assign        = require('es5-ext/object/assign')
   , sgr           = require('./lib/sgr');
 
 var Token = function Token(token) {
