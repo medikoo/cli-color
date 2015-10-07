@@ -84,18 +84,18 @@ var sliceSeq = function (seq, begin, end) {
 		index: 0,
 		seq: [],
 
-		// preOpeners -> { mod }
-		// inOpeners  -> { mod }
+		// preOpeners -> [ mod ]
+		// inOpeners  -> [ mod ]
 		// closers    -> [ code ]
-		preOpeners: {}, // opener CSI before slice begin
-		inOpeners:  {}, // opener CSI inside slice
+		preOpeners: [], // opener CSI before slice begin
+		inOpeners:  [], // opener CSI inside slice
 		inClosers:  []
 	});
 
 	sliced.seq = [].concat(
 		sgr.prepend(sliced.preOpeners),
 		sliced.seq,
-		sgr.complete(assign({}, sliced.preOpeners, sliced.inOpeners), sliced.inClosers)
+		sgr.complete([].concat(sliced.preOpeners, sliced.inOpeners), sliced.inClosers)
 	);
 
 	return sliced.seq;
