@@ -84,10 +84,17 @@ var sliceSeq = function (seq, begin, end) {
 		seq: [],
 
 		// preOpeners -> [ mod ]
+		// preOpeners must be prepended to the slice if they wasn't closed til the end of it
+		// preOpeners must be closed if they wasn't closed til the end of the slice
+		preOpeners: [],
+
 		// inOpeners  -> [ mod ]
-		// closers    -> [ code ]
-		preOpeners: [], // opener CSI before slice begin
+		// inOpeners already in the slice and must not be prepended to the slice
+		// inOpeners must be closed if they wasn't closed til the end of the slice
 		inOpeners:  [], // opener CSI inside slice
+
+		// inClosers -> [ code ]
+		// closer CSIs for determining which pre/in-Openers must be closed
 		inClosers:  []
 	});
 
