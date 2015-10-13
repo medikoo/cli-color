@@ -39,7 +39,7 @@ v0.2.3  --  2013.09.16
 Add `blink`
 
 v0.2.2  --  2013.02.20
-* Fix trim, so it tims all kind of ANSI sequence codes correctly
+* Fix trim, so it trims all kind of ANSI sequence codes correctly
 * Do not rely on getWindowSize (it may not be available at all)
 * Fix some xterm colors references in documentation
 * Add Missing MIT licence
