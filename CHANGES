@@ -1,3 +1,7 @@
+v1.1.0  --  2015.10.13
+* Add clc.slice and clc.getStrippedLength (thanks @StreetStrider)
+* Add examples folder (thanks @ralphtheninja)
+
 v1.0.0  --  2015.04.22
 * General modularization and files reorganization. From now on each utility is placed in individual
   module, and can be required directly without others. Alternatively all modules are provided on
@@ -64,7 +68,7 @@ New functionalities:
 * clc.width & clc.height - Terminal characteristics properties
 
 v0.1.7  --  2012.06.13
-* Update up to v0.8 branch of es5-ext
+* Update up to v0.8 branch of es5-extre
 * package.json now in npm friendly format
 
 v0.1.6  --  2012.01.22
