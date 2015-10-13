@@ -9,6 +9,8 @@ module.exports = Object.defineProperties(require('./bare'), {
 	beep: d(require('./beep')),
 	columns: d(require('./columns')),
 	strip: d(require('./strip')),
+	getStrippedLength: d(require('./get-stripped-length')),
+	slice: d(require('./slice')),
 	throbber: d(require('./throbber')),
 	reset: d(require('./reset')),
 	art: d(require('./art'))
