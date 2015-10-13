@@ -3,7 +3,9 @@
 var reAnsi        = require('ansi-regex')
   , stringifiable = require('es5-ext/object/validate-stringifiable-value')
   , length        = require('./get-stripped-length')
-  , sgr           = require('./lib/sgr');
+  , sgr           = require('./lib/sgr')
+
+  , max = Math.max;
 
 var Token = function Token(token) {
 	this.token = token;
@@ -107,23 +109,23 @@ var sliceSeq = function (seq, begin, end) {
 	return sliced.seq;
 };
 
-module.exports = function (str, begin, end) {
-	var seq, len;
+module.exports = function (str/*, begin, end*/) {
+	var seq, begin = Number(arguments[1]), end = Number(arguments[2]), len;
 
 	str = stringifiable(str);
 	len = length(str);
 
-	if (begin == null) {
+	if (isNaN(begin)) {
 		begin = 0;
 	}
-	if (end == null) {
+	if (isNaN(end)) {
 		end = len;
 	}
 	if (begin < 0) {
-		begin = len + begin;
+		begin = max(len + begin, 0);
 	}
 	if (end < 0) {
-		end = len + end;
+		end = max(len + end, 0);
 	}
 
 	seq = tokenize(str);
