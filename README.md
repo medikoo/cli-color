@@ -592,7 +592,7 @@ Returns terminal height
 Slice provided string with preservation of eventual ANSI formatting
 
 ```javascript
-var clc = require('cli-color')
+var clc = require('cli-color');
 
 var str = clc.bold('foo') + 'bar' + clc.red('elo');
 var sliced = clc.slice(str, 1, 7); // Same as: clc.bold('oo') + 'bar' + clc.red('e')
