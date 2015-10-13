@@ -587,6 +587,17 @@ Returns terminal height
 
 ### Additional functionalities
 
+#### clc.slice(str[, begin[, end]])
+
+Slice provided string with preservation of eventual ANSI formatting
+
+```javascript
+var clc = require('cli-color')
+
+var str = clc.bold('foo') + 'bar' + clc.red('elo');
+var sliced = clc.slice(str, 1, 7); // Same as: clc.bold('oo') + 'bar' + clc.red('e')
+```
+
 #### clc.strip(formatedText)
 
 Strips ANSI formatted string to plain text
@@ -595,6 +606,17 @@ Strips ANSI formatted string to plain text
 var ansiStrip = require('cli-color/strip');
 
 var plain = ansiStrip(formatted);
+```
+
+#### clc.getStrippedLength(str, begin, end)
+
+Slice provided string with preservation of eventual ANSI formatting
+
+```javascript
+var clc = require('cli-color');
+
+var str = clc.bold('foo') + 'bar' + clc.red('elo');
+clc.getStrippedLength(str); // 9
 ```
 
 #### clc.art(text, styleConf)
@@ -634,7 +656,6 @@ throbber.stop();
 ## Contributors
 
 * [@rentalhost](https://github.com/rentalhost) (David Rodrigues)
-  * Help with support for nested styles. Introduction of `clc.art` module, and significant improvements to tests coverage.
-
-
-
+  * Help with support for nested styles. Introduction of `clc.art` module, and significant improvements to tests coverage
+* [@StreetStrider](https://github.com/StreetStrider)
+  * Implementation of sophistcated `clc.slice` functionality, and introduction of `clc.getStrippedLength` utility
