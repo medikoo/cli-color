@@ -608,9 +608,9 @@ var ansiStrip = require('cli-color/strip');
 var plain = ansiStrip(formatted);
 ```
 
-#### clc.getStrippedLength(str, begin, end)
+#### clc.getStrippedLength(str)
 
-Slice provided string with preservation of eventual ANSI formatting
+Get actual length of ANSI-formatted string
 
 ```javascript
 var clc = require('cli-color');
