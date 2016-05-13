@@ -17,6 +17,7 @@ module.exports = function (rows/*, options*/) {
 		});
 	}).map(function (row) {
 		return row.map(function (item, index) {
+			if (index === (row.length - 1)) return item;
 			return pad.call(item, ' ', -cols[index].width);
 		}).join((options.sep == null) ? ' | ' : options.sep);
 	}).join('\n') + '\n';
