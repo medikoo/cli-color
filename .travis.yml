@@ -1,9 +1,10 @@
 sudo: false # http://docs.travis-ci.com/user/workers/container-based-infrastructure/
 language: node_js
 node_js:
-  - 0.10
   - 0.12
-  - iojs
+  - 4
+  - 6
+  - 7
 
 before_install:
   - mkdir node_modules; ln -s ../ node_modules/cli-color
