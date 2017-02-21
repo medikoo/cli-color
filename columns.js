@@ -1,10 +1,10 @@
 'use strict';
 
-var from          = require('es5-ext/array/from')
-  , iterable      = require('es5-ext/iterable/validate-object')
-  , stringifiable = require('es5-ext/object/validate-stringifiable')
-  , repeat        = require('es5-ext/string/#/repeat')
-  , strip         = require('./strip');
+var from              = require('es5-ext/array/from')
+  , iterable          = require('es5-ext/iterable/validate-object')
+  , stringifiable     = require('es5-ext/object/validate-stringifiable')
+  , repeat            = require('es5-ext/string/#/repeat')
+  , getStrippedLength = require('./get-stripped-length');
 
 module.exports = function (rows/*, options*/) {
 	var options = Object(arguments[1]), cols = []
@@ -14,7 +14,7 @@ module.exports = function (rows/*, options*/) {
 			var col = cols[index], strLength;
 			if (!col) col = cols[index] = { width: 0 };
 			str = stringifiable(str);
-			strLength = strip(str).length;
+			strLength = getStrippedLength(str);
 			if (strLength > col.width) col.width = strLength;
 			return { str: str, length: strLength };
 		});
