@@ -24,7 +24,7 @@ module.exports = function (rows/*, options*/) {
 			align = (colOptions && (colOptions.align === 'right')) ? 'right' : 'left';
 			pad = repeat.call(' ', cols[index].width - item.length);
 			if (align === 'left') return item.str + pad;
-			else return pad + item.str;
+			return pad + item.str;
 		}).join((options.sep == null) ? ' | ' : options.sep);
 	}).join('\n') + '\n';
 };
