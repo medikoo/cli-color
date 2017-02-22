@@ -1,3 +1,9 @@
+v1.2.0  --  2017.02.22
+* Improve `columns`:
+  * ANSI formatting instructions are not counted in calculation of column width
+	* Support custom 'align' per column
+* Improve documentation, document `colums` utility
+
 v1.1.0  --  2015.10.13
 * Add clc.slice and clc.getStrippedLength (thanks @StreetStrider)
 * Add examples folder (thanks @ralphtheninja)
