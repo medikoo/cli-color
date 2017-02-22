@@ -8,7 +8,7 @@ var from              = require('es5-ext/array/from')
 
 module.exports = function (rows/*, options*/) {
 	var options = Object(arguments[1]), cols = []
-	  , colsOptions = options.cols || [];
+	  , colsOptions = options.columns || [];
 	return from(iterable(rows), function (row, index) {
 		return from(iterable(row), function (str, index) {
 			var col = cols[index], strLength;
