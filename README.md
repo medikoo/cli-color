@@ -632,6 +632,36 @@ var style = { ".": clc.yellowBright("X") };
 process.stdout.write(clc.art(text, style));
 ```
 
+#### clc.columns(data[, options])
+
+Outputs aligned table of columns.
+
+`data` is expected to be an array (or other iterable structure) of rows, where each row is also an array (or other iterable structure) of content to display.
+
+Supported `options`:
+- `sep`: Custom colums separator (defaults to `|`)
+- `columns`: Per column customizations,  as e.g. `[{ align: 'right' }, null, { align: 'left' }]`:
+  -  `align`: Possible options: `'left'`, `'right` (efaults to `'left'`)
+
+```javascript
+var clc = require('cli-color');
+
+process.stdout.write(clc.columns([
+  [clc.bold('First Name'), clc.bold('Last Name'), clc.bold('Age')],
+  ['John', 'Doe', 34],
+  ['Martha', 'Smith', 20],
+  ['Jan', 'Kowalski', 30]
+]));
+
+/* Outputs:
+
+First Name | Last Name | Age
+John       | Doe       | 34
+Martha     | Smith     | 20
+Jan        | Kowalski  | 30
+*/
+```
+
 ##### throbber(write, interval[, format])
 
 Writes throbber string to _write_ function at given _interval_. Optionally throbber output can be formatted with given _format_ function
