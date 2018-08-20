@@ -3,9 +3,9 @@
 var compose      = require("es5-ext/function/#/compose")
   , callable     = require("es5-ext/object/valid-callable")
   , d            = require("d")
-  , validTimeout = require("timers-ext/valid-timeout")
+  , validTimeout = require("timers-ext/valid-timeout");
 
-  , chars = "-\\|/", l = chars.length, ThrobberIterator;
+var chars = "-\\|/", l = chars.length, ThrobberIterator;
 
 ThrobberIterator = function () {};
 Object.defineProperties(ThrobberIterator.prototype, {
