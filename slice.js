@@ -6,7 +6,7 @@ var reAnsi        = require("ansi-regex")
   , sgr           = require("./lib/sgr")
   , max           = Math.max;
 
-var Token = function Token(token) { this.token = token; };
+var Token = function (token) { this.token = token; };
 
 var tokenize = function (str) {
 	var match = reAnsi().exec(str);
@@ -39,24 +39,13 @@ var isChunkInSlice = function (chunk, index, begin, end) {
 	return true;
 };
 
+// eslint-disable-next-line max-lines-per-function
 var sliceSeq = function (seq, begin, end) {
 	var sliced = seq.reduce(
 		function (state, chunk) {
 			var index = state.index;
 
-			if (!(chunk instanceof Token)) {
-				var nextChunk = "";
-
-				if (isChunkInSlice(chunk, index, begin, end)) {
-					var relBegin = Math.max(begin - index, 0)
-					  , relEnd = Math.min(end - index, chunk.length);
-
-					nextChunk = chunk.slice(relBegin, relEnd);
-				}
-
-				state.seq.push(nextChunk);
-				state.index = index + chunk.length;
-			} else {
+			if (chunk instanceof Token) {
 				var code = sgr.extractCode(chunk.token);
 
 				if (index <= begin) {
@@ -75,6 +64,18 @@ var sliceSeq = function (seq, begin, end) {
 						state.seq.push(chunk);
 					}
 				}
+			} else {
+				var nextChunk = "";
+
+				if (isChunkInSlice(chunk, index, begin, end)) {
+					var relBegin = Math.max(begin - index, 0)
+					  , relEnd = Math.min(end - index, chunk.length);
+
+					nextChunk = chunk.slice(relBegin, relEnd);
+				}
+
+				state.seq.push(nextChunk);
+				state.index = index + chunk.length;
 			}
 
 			return state;

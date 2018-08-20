@@ -17,7 +17,6 @@ setTimeout(function () {
 		setTimeout(function () {
 			process.stdout.write(clc.move(-13, 0));
 			process.stdout.write(clc.erase.lineRight);
-			setTimeout(function () {}, 2000);
 		}, 2000);
 	}, 2000);
 }, 2000);

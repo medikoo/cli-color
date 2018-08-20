@@ -5,10 +5,10 @@ var clc = require("./");
 var colors = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"];
 
 // Write some message.
-function w(message) { process.stdout.write(message); }
+var w = function (message) { process.stdout.write(message); };
 
 // Print colors.
-function printColors(title, style) {
+var printColors = function (title, style) {
 	var j = colors.length, color, colorText, tint, i;
 
 	w("  > " + clc.whiteBright(title) + " ");
@@ -44,7 +44,7 @@ function printColors(title, style) {
 		w(tint(colorText) + " ");
 	}
 	w("\n");
-}
+};
 
 // Smile test.
 w(clc.reset);
@@ -99,7 +99,7 @@ printColors("BACKGROUNDS (BRIGHT) ", "backgroundBright");
 // // Art test.
 w("\n  ART TESTS\n\n");
 w(
-	clc.art("\t.01111111112.\n" + "\t.3.........3.\n" + "\t.3.........3.\n" + "\t.41111111115.\n", {
+	clc.art("\t.01111111112.\n\t.3.........3.\n\t.3.........3.\n\t.41111111115.\n", {
 		"0": clc.bgBlue.yellowBright("\u2554"),
 		"1": clc.bgBlue.yellowBright("\u2550"),
 		"2": clc.bgBlue.yellowBright("\u2557"),

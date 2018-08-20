@@ -36,7 +36,18 @@
     "root": true,
     "env": {
       "node": true
-    }
+    },
+    "rules": {
+      "id-length": "off"
+    },
+    "overrides": [
+      {
+        "files": "examples/**",
+        "rules": {
+          "no-console": "off"
+        }
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint --ignore-path=.gitignore .",

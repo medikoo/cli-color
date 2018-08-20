@@ -7,7 +7,9 @@ var compose      = require("es5-ext/function/#/compose")
 
 var chars = "-\\|/", l = chars.length, ThrobberIterator;
 
-ThrobberIterator = function () {};
+ThrobberIterator = function () {
+	// no setup needed
+};
 Object.defineProperties(ThrobberIterator.prototype, {
 	index: d(-1),
 	running: d(false),

@@ -2,6 +2,7 @@
 
 var from              = require("es5-ext/array/from")
   , iterable          = require("es5-ext/iterable/validate-object")
+  , isValue           = require("es5-ext/object/is-value")
   , stringifiable     = require("es5-ext/object/validate-stringifiable")
   , repeat            = require("es5-ext/string/#/repeat")
   , getStrippedLength = require("./get-stripped-length");
@@ -9,7 +10,7 @@ var from              = require("es5-ext/array/from")
 module.exports = function (rows/*, options*/) {
 	var options = Object(arguments[1]), cols = [], colsOptions = options.columns || [];
 	return (
-		from(iterable(rows), function (row, index) {
+		from(iterable(rows), function (row) {
 			return from(iterable(row), function (str, index) {
 				var col = cols[index], strLength;
 				if (!col) col = cols[index] = { width: 0 };
@@ -28,7 +29,7 @@ module.exports = function (rows/*, options*/) {
 						if (align === "left") return item.str + pad;
 						return pad + item.str;
 					})
-					.join(options.sep == null ? " | " : options.sep);
+					.join(isValue(options.sep) ? options.sep : " | ");
 			})
 			.join("\n") + "\n"
 	);
