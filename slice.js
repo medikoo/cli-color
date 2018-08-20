@@ -4,12 +4,9 @@ var reAnsi        = require("ansi-regex")
   , stringifiable = require("es5-ext/object/validate-stringifiable-value")
   , length        = require("./get-stripped-length")
   , sgr           = require("./lib/sgr")
+  , max           = Math.max;
 
-  , max = Math.max;
-
-var Token = function Token(token) {
-	this.token = token;
-};
+var Token = function Token(token) { this.token = token; };
 
 var tokenize = function (str) {
 	var match = reAnsi().exec(str);
@@ -18,8 +15,7 @@ var tokenize = function (str) {
 		return [str];
 	}
 
-	var index = match.index
-	  , head, prehead, tail;
+	var index = match.index, head, prehead, tail;
 
 	if (index === 0) {
 		head = match[0];
@@ -44,65 +40,67 @@ var isChunkInSlice = function (chunk, index, begin, end) {
 };
 
 var sliceSeq = function (seq, begin, end) {
-	var sliced = seq.reduce(function (state, chunk) {
-		var index = state.index;
+	var sliced = seq.reduce(
+		function (state, chunk) {
+			var index = state.index;
 
-		if (!(chunk instanceof Token)) {
-			var nextChunk = "";
+			if (!(chunk instanceof Token)) {
+				var nextChunk = "";
 
-			if (isChunkInSlice(chunk, index, begin, end)) {
-				var relBegin = Math.max(begin - index, 0)
-				  , relEnd   = Math.min(end - index, chunk.length);
+				if (isChunkInSlice(chunk, index, begin, end)) {
+					var relBegin = Math.max(begin - index, 0)
+					  , relEnd = Math.min(end - index, chunk.length);
 
-				nextChunk = chunk.slice(relBegin, relEnd);
+					nextChunk = chunk.slice(relBegin, relEnd);
+				}
+
+				state.seq.push(nextChunk);
+				state.index = index + chunk.length;
+			} else {
+				var code = sgr.extractCode(chunk.token);
+
+				if (index <= begin) {
+					if (code in sgr.openers) {
+						sgr.openStyle(state.preOpeners, code);
+					}
+					if (code in sgr.closers) {
+						sgr.closeStyle(state.preOpeners, code);
+					}
+				} else if (index < end) {
+					if (code in sgr.openers) {
+						sgr.openStyle(state.inOpeners, code);
+						state.seq.push(chunk);
+					} else if (code in sgr.closers) {
+						state.inClosers.push(code);
+						state.seq.push(chunk);
+					}
+				}
 			}
 
-			state.seq.push(nextChunk);
-			state.index = index + chunk.length;
-		} else {
-			var code = sgr.extractCode(chunk.token);
+			return state;
+		},
+		{
+			index: 0,
+			seq: [],
 
-			if (index <= begin) {
-				if (code in sgr.openers) {
-					sgr.openStyle(state.preOpeners, code);
-				}
-				if (code in sgr.closers) {
-					sgr.closeStyle(state.preOpeners, code);
-				}
-			} else if (index < end) {
-				if (code in sgr.openers) {
-					sgr.openStyle(state.inOpeners, code);
-					state.seq.push(chunk);
-				} else if (code in sgr.closers) {
-					state.inClosers.push(code);
-					state.seq.push(chunk);
-				}
-			}
+			// preOpeners -> [ mod ]
+			// preOpeners must be prepended to the slice if they wasn't closed til the end of it
+			// preOpeners must be closed if they wasn't closed til the end of the slice
+			preOpeners: [],
+
+			// inOpeners  -> [ mod ]
+			// inOpeners already in the slice and must not be prepended to the slice
+			// inOpeners must be closed if they wasn't closed til the end of the slice
+			inOpeners: [], // opener CSI inside slice
+
+			// inClosers -> [ code ]
+			// closer CSIs for determining which pre/in-Openers must be closed
+			inClosers: []
 		}
-
-		return state;
-	}, {
-		index: 0,
-		seq: [],
-
-		// preOpeners -> [ mod ]
-		// preOpeners must be prepended to the slice if they wasn't closed til the end of it
-		// preOpeners must be closed if they wasn't closed til the end of the slice
-		preOpeners: [],
-
-		// inOpeners  -> [ mod ]
-		// inOpeners already in the slice and must not be prepended to the slice
-		// inOpeners must be closed if they wasn't closed til the end of the slice
-		inOpeners: [], // opener CSI inside slice
-
-		// inClosers -> [ code ]
-		// closer CSIs for determining which pre/in-Openers must be closed
-		inClosers: []
-	});
+	);
 
 	sliced.seq = [].concat(
-		sgr.prepend(sliced.preOpeners),
-		sliced.seq,
+		sgr.prepend(sliced.preOpeners), sliced.seq,
 		sgr.complete([].concat(sliced.preOpeners, sliced.inOpeners), sliced.inClosers)
 	);
 
@@ -130,11 +128,13 @@ module.exports = function (str/*, begin, end*/) {
 
 	seq = tokenize(str);
 	seq = sliceSeq(seq, begin, end);
-	return seq.map(function (chunk) {
-		if (chunk instanceof Token) {
-			return chunk.token;
-		}
+	return seq
+		.map(function (chunk) {
+			if (chunk instanceof Token) {
+				return chunk.token;
+			}
 
-		return chunk;
-	}).join("");
+			return chunk;
+		})
+		.join("");
 };
