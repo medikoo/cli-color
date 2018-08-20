@@ -1,26 +1,26 @@
-'use strict';
+"use strict";
 
-var compose      = require('es5-ext/function/#/compose')
-  , callable     = require('es5-ext/object/valid-callable')
-  , d            = require('d')
-  , validTimeout = require('timers-ext/valid-timeout')
+var compose      = require("es5-ext/function/#/compose")
+  , callable     = require("es5-ext/object/valid-callable")
+  , d            = require("d")
+  , validTimeout = require("timers-ext/valid-timeout")
 
-  , chars = '-\\|/', l = chars.length, ThrobberIterator;
+  , chars = "-\\|/", l = chars.length, ThrobberIterator;
 
 ThrobberIterator = function () {};
 Object.defineProperties(ThrobberIterator.prototype, {
 	index: d(-1),
 	running: d(false),
 	next: d(function () {
-		var str = this.running ? '\u0008' : '';
+		var str = this.running ? "\u0008" : "";
 		if (!this.running) this.running = true;
-		return str + chars[this.index = ((this.index + 1) % l)];
+		return str + chars[this.index = (this.index + 1) % l];
 	}),
 	reset: d(function () {
-		if (!this.running) return '';
+		if (!this.running) return "";
 		this.index = -1;
 		this.running = false;
-		return '\u0008';
+		return "\u0008";
 	})
 });
 
@@ -47,4 +47,4 @@ module.exports = exports = function (write, interval/*, format*/) {
 	};
 };
 
-Object.defineProperty(exports, 'Iterator', d(ThrobberIterator));
+Object.defineProperty(exports, "Iterator", d(ThrobberIterator));

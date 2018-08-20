@@ -1,3 +1,3 @@
-'use strict';
+"use strict";
 
-module.exports = '\x07';
+module.exports = "\x07";

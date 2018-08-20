@@ -1,3 +1,3 @@
-'use strict';
+"use strict";
 
-module.exports = function (t, a) { a(t, '\x07'); };
+module.exports = function (t, a) { a(t, "\x07"); };

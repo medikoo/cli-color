@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-var reAnsi        = require('ansi-regex')
-  , stringifiable = require('es5-ext/object/validate-stringifiable-value')
-  , length        = require('./get-stripped-length')
-  , sgr           = require('./lib/sgr')
+var reAnsi        = require("ansi-regex")
+  , stringifiable = require("es5-ext/object/validate-stringifiable-value")
+  , length        = require("./get-stripped-length")
+  , sgr           = require("./lib/sgr")
 
   , max = Math.max;
 
@@ -15,7 +15,7 @@ var tokenize = function (str) {
 	var match = reAnsi().exec(str);
 
 	if (!match) {
-		return [ str ];
+		return [str];
 	}
 
 	var index = match.index
@@ -25,14 +25,14 @@ var tokenize = function (str) {
 		head = match[0];
 		tail = str.slice(head.length);
 
-		return [ new Token(head) ].concat(tokenize(tail));
+		return [new Token(head)].concat(tokenize(tail));
 	}
 
 	prehead = str.slice(0, index);
 	head = match[0];
 	tail = str.slice(index + head.length);
 
-	return [ prehead, new Token(head) ].concat(tokenize(tail));
+	return [prehead, new Token(head)].concat(tokenize(tail));
 };
 
 var isChunkInSlice = function (chunk, index, begin, end) {
@@ -48,7 +48,7 @@ var sliceSeq = function (seq, begin, end) {
 		var index = state.index;
 
 		if (!(chunk instanceof Token)) {
-			var nextChunk = '';
+			var nextChunk = "";
 
 			if (isChunkInSlice(chunk, index, begin, end)) {
 				var relBegin = Math.max(begin - index, 0)
@@ -93,11 +93,11 @@ var sliceSeq = function (seq, begin, end) {
 		// inOpeners  -> [ mod ]
 		// inOpeners already in the slice and must not be prepended to the slice
 		// inOpeners must be closed if they wasn't closed til the end of the slice
-		inOpeners:  [], // opener CSI inside slice
+		inOpeners: [], // opener CSI inside slice
 
 		// inClosers -> [ code ]
 		// closer CSIs for determining which pre/in-Openers must be closed
-		inClosers:  []
+		inClosers: []
 	});
 
 	sliced.seq = [].concat(
@@ -136,5 +136,5 @@ module.exports = function (str/*, begin, end*/) {
 		}
 
 		return chunk;
-	}).join('');
+	}).join("");
 };
