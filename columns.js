@@ -8,12 +8,12 @@ var from              = require("es5-ext/array/from")
   , getStrippedLength = require("./get-stripped-length");
 
 module.exports = function (rows/*, options*/) {
-	var options = Object(arguments[1]), cols = [], colsOptions = options.columns || [];
+	var options = Object(arguments[1]), colsMeta = [], colsOptions = options.columns || [];
 	return (
 		from(iterable(rows), function (row) {
 			return from(iterable(row), function (str, index) {
-				var col = cols[index], strLength;
-				if (!col) col = cols[index] = { width: 0 };
+				var col = colsMeta[index], strLength;
+				if (!col) col = colsMeta[index] = { width: 0 };
 				str = stringifiable(str);
 				strLength = getStrippedLength(str);
 				if (strLength > col.width) col.width = strLength;
@@ -25,7 +25,7 @@ module.exports = function (rows/*, options*/) {
 					.map(function (item, index) {
 						var pad, align = "left", colOptions = colsOptions && colsOptions[index];
 						align = colOptions && colOptions.align === "right" ? "right" : "left";
-						pad = repeat.call(" ", cols[index].width - item.length);
+						pad = repeat.call(" ", colsMeta[index].width - item.length);
 						if (align === "left") return item.str + pad;
 						return pad + item.str;
 					})
