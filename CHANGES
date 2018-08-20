@@ -1,3 +1,5 @@
+-- For new changelog see CHANGELOG.md
+
 v1.2.0  --  2017.02.22
 * Improve `columns`:
   * ANSI formatting instructions are not counted in calculation of column width
