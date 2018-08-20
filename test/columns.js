@@ -20,5 +20,12 @@ module.exports = function (t, a) {
 
 	a(t([["ID"], [1], [1, 23], [1, 23, 456]]), "ID\n1 \n1  | 23\n1  | 23 | 456\n", "Force columns");
 
+	a(
+		t([["ONE", "TWO", "THREE"], ["ON", "DWA\nTRZY", "DWA\nTRZY\nCZTERY"], ["HOPLA", "B", "C"]]),
+		"ONE   | TWO  | THREE \nON    | DWA  | DWA   \n      | TRZY | TRZY  \n" +
+			"      |      | CZTERY\nHOPLA | B    | C     \n",
+		"Rows"
+	);
+
 	a(t([["ID"], ["", ""], [123, 123]]), "ID \n    |    \n123 | 123\n", "Empty cells");
 };
