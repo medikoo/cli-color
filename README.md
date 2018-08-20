@@ -1,3 +1,8 @@
+[![*nix build status][nix-build-image]][nix-build-url]
+[![Windows build status][win-build-image]][win-build-url]
+![Transpilation status][transpilation-image]
+[![npm version][npm-image]][npm-url]
+
 # cli-color
 
 ## Yet another colors and formatting for the console solution
@@ -681,7 +686,7 @@ throbber.start();
 throbber.stop();
 ```
 
-## Tests [![Build Status](https://travis-ci.org/medikoo/cli-color.png)](https://travis-ci.org/medikoo/cli-color)
+## Tests
 
     $ npm test
 
@@ -691,3 +696,11 @@ throbber.stop();
     -   Help with support for nested styles. Introduction of `clc.art` module, and significant improvements to tests coverage
 -   [@StreetStrider](https://github.com/StreetStrider)
     -   Implementation of sophistcated `clc.slice` functionality, and introduction of `clc.getStrippedLength` utility
+
+[nix-build-image]: https://semaphoreci.com/api/v1/medikoo-org/cli-color/branches/master/shields_badge.svg
+[nix-build-url]: https://semaphoreci.com/medikoo-org/cli-color
+[win-build-image]: https://ci.appveyor.com/api/projects/status/mnd4catkeu181ll5?svg=true
+[win-build-url]: https://ci.appveyor.com/project/medikoo/cli-color
+[transpilation-image]: https://img.shields.io/badge/transpilation-free-brightgreen.svg
+[npm-image]: https://img.shields.io/npm/v/cli-color.svg
+[npm-url]: https://www.npmjs.com/package/cli-color
