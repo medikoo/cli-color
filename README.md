@@ -1,54 +1,55 @@
 # cli-color
+
 ## Yet another colors and formatting for the console solution
 
 Colors, formatting and other goodies for the console. This package won't mess with built-ins and provides neat way to predefine formatting patterns, see below.
 
 ## Installation
 
-	$ npm install cli-color
+    $ npm install cli-color
 
 ## Usage
 
 Usage:
 
 ```javascript
-var clc = require('cli-color');
+var clc = require("cli-color");
 ```
 
 Output colored text:
 
 ```javascript
-console.log(clc.red('Text in red'));
+console.log(clc.red("Text in red"));
 ```
 
 Styles can be mixed:
 
 ```javascript
-console.log(clc.red.bgWhite.underline('Underlined red text on white background.'));
+console.log(clc.red.bgWhite.underline("Underlined red text on white background."));
 ```
 
 Styled text can be mixed with unstyled:
 
 ```javascript
-console.log(clc.red('red') + ' plain ' + clc.blue('blue'));
+console.log(clc.red("red") + " plain " + clc.blue("blue"));
 ```
 
 Styled text can be nested:
 
 ```javascript
-console.log(clc.red('red ' + clc.blue('blue') + ' red'));
+console.log(clc.red("red " + clc.blue("blue") + " red"));
 ```
 
-__Best way is to predefine needed stylings and then use it__:
+**Best way is to predefine needed stylings and then use it**:
 
 ```javascript
 var error = clc.red.bold;
 var warn = clc.yellow;
 var notice = clc.blue;
 
-console.log(error('Error!'));
-console.log(warn('Warning'));
-console.log(notice('Notice'));
+console.log(error("Error!"));
+console.log(warn("Warning"));
+console.log(notice("Notice"));
 ```
 
 Supported are all ANSI colors and styles:
@@ -57,12 +58,12 @@ Supported are all ANSI colors and styles:
 
 Styles will display correctly if font used in your console supports them.
 
-* bold
-* italic
-* underline
-* blink
-* inverse
-* strike
+-   bold
+-   italic
+-   underline
+-   blink
+-   inverse
+-   strike
 
 #### Colors
 
@@ -98,13 +99,13 @@ Styles will display correctly if font used in your console supports them.
 
 ##### xTerm colors (256 colors table)
 
-__Not supported on Windows and some terminals__. However if used in not supported environment, the closest color from basic (16 colors) palette is chosen.
+**Not supported on Windows and some terminals**. However if used in not supported environment, the closest color from basic (16 colors) palette is chosen.
 
 Usage:
 
 ```javascript
 var msg = clc.xterm(202).bgXterm(236);
-console.log(msg('Orange text on dark gray background'));
+console.log(msg("Orange text on dark gray background"));
 ```
 
 Color table:
@@ -592,9 +593,9 @@ Returns terminal height
 Slice provided string with preservation of eventual ANSI formatting
 
 ```javascript
-var clc = require('cli-color');
+var clc = require("cli-color");
 
-var str = clc.bold('foo') + 'bar' + clc.red('elo');
+var str = clc.bold("foo") + "bar" + clc.red("elo");
 var sliced = clc.slice(str, 1, 7); // Same as: clc.bold('oo') + 'bar' + clc.red('e')
 ```
 
@@ -603,7 +604,7 @@ var sliced = clc.slice(str, 1, 7); // Same as: clc.bold('oo') + 'bar' + clc.red(
 Strips ANSI formatted string to plain text
 
 ```javascript
-var ansiStrip = require('cli-color/strip');
+var ansiStrip = require("cli-color/strip");
 
 var plain = ansiStrip(formatted);
 ```
@@ -613,9 +614,9 @@ var plain = ansiStrip(formatted);
 Get actual length of ANSI-formatted string
 
 ```javascript
-var clc = require('cli-color');
+var clc = require("cli-color");
 
-var str = clc.bold('foo') + 'bar' + clc.red('elo');
+var str = clc.bold("foo") + "bar" + clc.red("elo");
 clc.getStrippedLength(str); // 9
 ```
 
@@ -624,9 +625,7 @@ clc.getStrippedLength(str); // 9
 Create a text-graphical art. Within `styleConf`, string replacements needs to be defined, which are then used to convert `text` to styled graphical text.
 
 ```javascript
-var text = '.........\n' +
-    '. Hello .\n' +
-    '.........\n';
+var text = ".........\n" + ". Hello .\n" + ".........\n";
 var style = { ".": clc.yellowBright("X") };
 
 process.stdout.write(clc.art(text, style));
@@ -639,19 +638,22 @@ Outputs aligned table of columns.
 `data` is expected to be an array (or other iterable structure) of rows, where each row is also an array (or other iterable structure) of content to display.
 
 Supported `options`:
-- `sep`: Custom colums separator (defaults to `|`)
-- `columns`: Per column customizations,  as e.g. `[{ align: 'right' }, null, { align: 'left' }]`:
-  -  `align`: Possible options: `'left'`, `'right` (efaults to `'left'`)
+
+-   `sep`: Custom colums separator (defaults to `|`)
+-   `columns`: Per column customizations, as e.g. `[{ align: 'right' }, null, { align: 'left' }]`:
+    -   `align`: Possible options: `'left'`, `'right` (efaults to `'left'`)
 
 ```javascript
-var clc = require('cli-color');
+var clc = require("cli-color");
 
-process.stdout.write(clc.columns([
-  [clc.bold('First Name'), clc.bold('Last Name'), clc.bold('Age')],
-  ['John', 'Doe', 34],
-  ['Martha', 'Smith', 20],
-  ['Jan', 'Kowalski', 30]
-]));
+process.stdout.write(
+	clc.columns([
+		[clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")],
+		["John", "Doe", 34],
+		["Martha", "Smith", 20],
+		["Jan", "Kowalski", 30]
+	])
+);
 
 /* Outputs:
 
@@ -667,10 +669,10 @@ Jan        | Kowalski  | 30
 Writes throbber string to _write_ function at given _interval_. Optionally throbber output can be formatted with given _format_ function
 
 ```javascript
-var setupThrobber = require('cli-color/throbber');
+var setupThrobber = require("cli-color/throbber");
 
-var throbber = setupThrobber(function (str) {
-  process.stdout.write(str);
+var throbber = setupThrobber(function(str) {
+	process.stdout.write(str);
 }, 200);
 
 throbber.start();
@@ -681,11 +683,11 @@ throbber.stop();
 
 ## Tests [![Build Status](https://travis-ci.org/medikoo/cli-color.png)](https://travis-ci.org/medikoo/cli-color)
 
-	$ npm test
+    $ npm test
 
 ## Contributors
 
-* [@rentalhost](https://github.com/rentalhost) (David Rodrigues)
-  * Help with support for nested styles. Introduction of `clc.art` module, and significant improvements to tests coverage
-* [@StreetStrider](https://github.com/StreetStrider)
-  * Implementation of sophistcated `clc.slice` functionality, and introduction of `clc.getStrippedLength` utility
+-   [@rentalhost](https://github.com/rentalhost) (David Rodrigues)
+    -   Help with support for nested styles. Introduction of `clc.art` module, and significant improvements to tests coverage
+-   [@StreetStrider](https://github.com/StreetStrider)
+    -   Implementation of sophistcated `clc.slice` functionality, and introduction of `clc.getStrippedLength` utility
