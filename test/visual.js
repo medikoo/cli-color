@@ -1,21 +1,15 @@
 "use strict";
 
-var clc = require("./")
+var clc = require("./");
 
-  , colors = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"];
+var colors = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"];
 
 // Write some message.
-function w(message) {
-	process.stdout.write(message);
-}
+function w(message) { process.stdout.write(message); }
 
 // Print colors.
 function printColors(title, style) {
-	var j = colors.length
-	  , color
-	  , colorText
-	  , tint
-	  , i;
+	var j = colors.length, color, colorText, tint, i;
 
 	w("  > " + clc.whiteBright(title) + " ");
 	for (i = 0; i < j; i++) {
@@ -104,10 +98,8 @@ printColors("BACKGROUNDS (BRIGHT) ", "backgroundBright");
 
 // // Art test.
 w("\n  ART TESTS\n\n");
-w(clc.art("\t.01111111112.\n" +
-	"\t.3.........3.\n" +
-	"\t.3.........3.\n" +
-	"\t.41111111115.\n", {
+w(
+	clc.art("\t.01111111112.\n" + "\t.3.........3.\n" + "\t.3.........3.\n" + "\t.41111111115.\n", {
 		"0": clc.bgBlue.yellowBright("\u2554"),
 		"1": clc.bgBlue.yellowBright("\u2550"),
 		"2": clc.bgBlue.yellowBright("\u2557"),
@@ -115,7 +107,8 @@ w(clc.art("\t.01111111112.\n" +
 		"4": clc.bgBlue.yellowBright("\u255A"),
 		"5": clc.bgBlue.yellowBright("\u255D"),
 		".": clc.bgBlue(" ")
-	}));
+	})
+);
 w(clc.move(11, -3));
 w(clc.bgBlue.whiteBright("Hello"));
 w(clc.move(-3, 1));
