@@ -19,12 +19,12 @@
     "url": "git://github.com/medikoo/cli-color.git"
   },
   "dependencies": {
-    "ansi-regex": "^2.1.1",
+    "ansi-regex": "3",
     "d": "1",
-    "es5-ext": "^0.10.12",
-    "es6-iterator": "2",
-    "memoizee": "^0.4.3",
-    "timers-ext": "0.1"
+    "es5-ext": "^0.10.46",
+    "es6-iterator": "^2.0.3",
+    "memoizee": "^0.4.14",
+    "timers-ext": "^0.1.5"
   },
   "devDependencies": {
     "eslint": "^5.4",
