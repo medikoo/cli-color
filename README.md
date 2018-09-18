@@ -575,7 +575,7 @@ process.stdout.write(clc.move.left(2));
 
 ##### clc.move.lines(n)
 
-Move cursor `n` lines forward if `n` is positive, otherwise `n` lines backward.
+Move cursor `n` lines forward if `n` is positive, otherwise `n` lines backward, and place it at line beginning
 
 ```javascript
 process.stdout.write(clc.move.lines(2));
