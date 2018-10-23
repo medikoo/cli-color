@@ -581,6 +581,38 @@ Move cursor `n` lines forward if `n` is positive, otherwise `n` lines backward, 
 process.stdout.write(clc.move.lines(2));
 ```
 
+##### clc.move.top
+
+Move cursor to top of a screen
+
+```javascript
+process.stdout.write(clc.move.top);
+```
+
+##### clc.move.bottom
+
+Move cursor to bottom of a screen
+
+```javascript
+process.stdout.write(clc.move.bottom);
+```
+
+##### clc.move.lineBegin
+
+Move cursor to begin of a line
+
+```javascript
+process.stdout.write(clc.move.lineBegin);
+```
+
+##### clc.move.lineEnd
+
+Move cursor to end of a line
+
+```javascript
+process.stdout.write(clc.move.lineEnd);
+```
+
 #### Terminal characteristics
 
 ##### clc.windowSize.width

@@ -34,6 +34,10 @@ module.exports = Object.defineProperties(
 			dir = n >= 0 ? "E" : "F";
 			n = floor(abs(n));
 			return "\x1b[" + n + dir;
-		})
+		}),
+		top: d("\x1b[5000F"),
+		bottom: d("\x1b[5000B"),
+		lineBegin: d("\x1b[5000D"),
+		lineEnd: d("\x1b[5000C")
 	}
 );
