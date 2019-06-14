@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "eslint": "^5.16.0",
-    "eslint-config-medikoo-es5": "^1.7.3",
+    "eslint-config-medikoo-es5": "^2.0.0",
     "tad": "^2.0.1"
   },
   "eslintConfig": {
