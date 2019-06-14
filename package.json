@@ -20,16 +20,16 @@
   },
   "dependencies": {
     "ansi-regex": "^2.1.1",
-    "d": "1",
-    "es5-ext": "^0.10.46",
+    "d": "^1.0.0",
+    "es5-ext": "^0.10.50",
     "es6-iterator": "^2.0.3",
     "memoizee": "^0.4.14",
-    "timers-ext": "^0.1.5"
+    "timers-ext": "^0.1.7"
   },
   "devDependencies": {
-    "eslint": "^5.4",
-    "eslint-config-medikoo-es5": "^1.6.1",
-    "tad": "^0.2.7"
+    "eslint": "^5.16.0",
+    "eslint-config-medikoo-es5": "^1.7.3",
+    "tad": "^0.2.8"
   },
   "eslintConfig": {
     "extends": "medikoo-es5",
