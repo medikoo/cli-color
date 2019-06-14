@@ -30,8 +30,23 @@
 		"eslint": "^5.16.0",
 		"eslint-config-medikoo-es5": "^2.0.0",
 		"git-list-updated": "^1.1.2",
+		"husky": "^2.4.1",
+		"lint-staged": "^8.2.1",
 		"prettier-elastic": "^1.18.2",
 		"tad": "^2.0.1"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.js": [
+			"eslint"
+		],
+		"*.{css,html,js,json,md,yaml,yml}": [
+			"prettier -c"
+		]
 	},
 	"eslintConfig": {
 		"extends": "medikoo-es5",
