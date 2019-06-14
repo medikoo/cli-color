@@ -1,57 +1,73 @@
 {
-  "name": "cli-color",
-  "version": "1.4.0",
-  "description": "Colors, formatting and other tools for the console",
-  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
-  "keywords": [
-    "ansi",
-    "color",
-    "console",
-    "terminal",
-    "cli",
-    "shell",
-    "log",
-    "logging",
-    "xterm"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/medikoo/cli-color.git"
-  },
-  "dependencies": {
-    "ansi-regex": "^2.1.1",
-    "d": "^1.0.0",
-    "es5-ext": "^0.10.50",
-    "es6-iterator": "^2.0.3",
-    "memoizee": "^0.4.14",
-    "timers-ext": "^0.1.7"
-  },
-  "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-medikoo-es5": "^2.0.0",
-    "tad": "^2.0.1"
-  },
-  "eslintConfig": {
-    "extends": "medikoo-es5",
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "rules": {
-      "id-length": "off"
-    },
-    "overrides": [
-      {
-        "files": "examples/**",
-        "rules": {
-          "no-console": "off"
-        }
-      }
-    ]
-  },
-  "scripts": {
-    "lint": "eslint --ignore-path=.gitignore .",
-    "test": "node ./node_modules/tad/bin/tad"
-  },
-  "license": "ISC"
+	"name": "cli-color",
+	"version": "1.4.0",
+	"description": "Colors, formatting and other tools for the console",
+	"author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
+	"keywords": [
+		"ansi",
+		"color",
+		"console",
+		"terminal",
+		"cli",
+		"shell",
+		"log",
+		"logging",
+		"xterm"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/medikoo/cli-color.git"
+	},
+	"dependencies": {
+		"ansi-regex": "^2.1.1",
+		"d": "^1.0.0",
+		"es5-ext": "^0.10.50",
+		"es6-iterator": "^2.0.3",
+		"memoizee": "^0.4.14",
+		"timers-ext": "^0.1.7"
+	},
+	"devDependencies": {
+		"eslint": "^5.16.0",
+		"eslint-config-medikoo-es5": "^2.0.0",
+		"prettier-elastic": "^1.18.2",
+		"tad": "^2.0.1"
+	},
+	"eslintConfig": {
+		"extends": "medikoo-es5",
+		"root": true,
+		"env": {
+			"node": true
+		},
+		"rules": {
+			"id-length": "off"
+		},
+		"overrides": [
+			{
+				"files": "examples/**",
+				"rules": {
+					"no-console": "off"
+				}
+			}
+		]
+	},
+	"prettier": {
+		"printWidth": 100,
+		"tabWidth": 4,
+		"overrides": [
+			{
+				"files": [
+					"*.md"
+				],
+				"options": {
+					"tabWidth": 2
+				}
+			}
+		]
+	},
+	"scripts": {
+		"lint": "eslint --ignore-path=.gitignore .",
+		"test": "node ./node_modules/tad/bin/tad",
+		"prettify": "prettier --write --ignore-path .gitignore '**/*.{css,html,js,json,md,yaml,yml}'"
+	},
+	"license": "ISC"
 }
