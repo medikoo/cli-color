@@ -6,6 +6,4 @@
 
 var strip = require("./strip");
 
-module.exports = function (str) {
-	return strip(str).length;
-};
+module.exports = function (str) { return strip(str).length; };

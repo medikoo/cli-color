@@ -1,5 +1,3 @@
 "use strict";
 
-module.exports = function (t, a) {
-	a(typeof t, "string");
-};
+module.exports = function (t, a) { a(typeof t, "string"); };

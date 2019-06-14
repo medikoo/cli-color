@@ -3,8 +3,7 @@
 var clc = require("../");
 
 module.exports = function (t, a) {
-	var x = clc.red
-	  , y = x.bold;
+	var x = clc.red, y = x.bold;
 
 	a(t("test"), "test", "Plain");
 
@@ -24,9 +23,10 @@ module.exports = function (t, a) {
 	a(t(clc.bgRed.bgYellow("foo", "bar", 3)), "foo bar 3", "Background: Overriden");
 
 	a(t(clc.blue.bgYellow("foo", "bar")), "foo bar", "Foreground & Background");
-	a(t(clc.blue.bgYellow.red.bgMagenta("foo", "bar")),
-		"foo bar",
-		"Foreground & Background: Overriden");
+	a(
+		t(clc.blue.bgYellow.red.bgMagenta("foo", "bar")), "foo bar",
+		"Foreground & Background: Overriden"
+	);
 
 	a(t(clc.bold("foo", "bar")), "foo bar", "Format");
 	a(t(clc.blink("foobar")), "foobar", "Format: blink");
@@ -35,9 +35,10 @@ module.exports = function (t, a) {
 	a(t(clc.redBright("foo", "bar")), "foo bar", "Bright");
 	a(t(clc.bgRedBright("foo", 3)), "foo 3", "Bright background");
 
-	a(t(clc.blueBright.bgYellowBright.red.bgMagenta("foo", "bar")),
-		"foo bar",
-		"Foreground & Background: Bright: Overriden");
+	a(
+		t(clc.blueBright.bgYellowBright.red.bgMagenta("foo", "bar")), "foo bar",
+		"Foreground & Background: Bright: Overriden"
+	);
 
 	a(t(clc.red.blue("foo")), "foo", "Prioritize the Last Color: Blue");
 	a(t(clc.blue.red("foo")), "foo", "Prioritize the Last Color: Red");
@@ -45,16 +46,16 @@ module.exports = function (t, a) {
 	a(t(clc.bgBlue.bgRed("foo")), "foo", "Prioritize the Last Background Color: Red");
 	a(t(clc.bgRed.red.bgBlue.blue("foo")), "foo", "Prioritize the Last Mixed Style: Blue");
 	a(t(clc.bgBlue.blue.bgRed.red("foo")), "foo", "Prioritize the Last Mixed Style: Red");
-	a(t(clc.bgRed.blue.bgBlue.red("foo")),
-		"foo",
-		"Prioritize the Last Mixed Style: BG Blue and Red");
-	a(t(clc.bgBlue.red.bgRed.blue("foo")),
-		"foo",
-		"Prioritize the Last Mixed Style: BG Red and Blue");
+	a(
+		t(clc.bgRed.blue.bgBlue.red("foo")), "foo",
+		"Prioritize the Last Mixed Style: BG Blue and Red"
+	);
+	a(
+		t(clc.bgBlue.red.bgRed.blue("foo")), "foo",
+		"Prioritize the Last Mixed Style: BG Red and Blue"
+	);
 
-	a(t(x("foo", "red") + " " + y("foo", "boldred")),
-		"foo red foo boldred",
-		"Detached extension");
+	a(t(x("foo", "red") + " " + y("foo", "boldred")), "foo red foo boldred", "Detached extension");
 
 	a(t(clc.erase.screen).replace(/\n/g, ""), "", "Reset");
 

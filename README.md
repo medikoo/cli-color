@@ -63,12 +63,12 @@ Supported are all ANSI colors and styles:
 
 Styles will display correctly if font used in your console supports them.
 
--   bold
--   italic
--   underline
--   blink
--   inverse
--   strike
+- bold
+- italic
+- underline
+- blink
+- inverse
+- strike
 
 #### Colors
 
@@ -676,20 +676,18 @@ Outputs aligned table of columns.
 
 Supported `options`:
 
--   `sep`: Custom colums separator (defaults to `|`)
--   `columns`: Per column customizations, as e.g. `[{ align: 'right' }, null, { align: 'left' }]`:
-    -   `align`: Possible options: `'left'`, `'right` (efaults to `'left'`)
+- `sep`: Custom colums separator (defaults to `|`)
+- `columns`: Per column customizations, as e.g. `[{ align: 'right' }, null, { align: 'left' }]`:
+  - `align`: Possible options: `'left'`, `'right` (efaults to `'left'`)
 
 ```javascript
 var clc = require("cli-color");
 
 process.stdout.write(
-	clc.columns([
-		[clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")],
-		["John", "Doe", 34],
-		["Martha", "Smith", 20],
-		["Jan", "Kowalski", 30]
-	])
+  clc.columns([
+    [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")], ["John", "Doe", 34],
+    ["Martha", "Smith", 20], ["Jan", "Kowalski", 30]
+  ])
 );
 
 /* Outputs:
@@ -708,9 +706,7 @@ Writes throbber string to _write_ function at given _interval_. Optionally throb
 ```javascript
 var setupThrobber = require("cli-color/throbber");
 
-var throbber = setupThrobber(function(str) {
-	process.stdout.write(str);
-}, 200);
+var throbber = setupThrobber(function (str) { process.stdout.write(str); }, 200);
 
 throbber.start();
 
@@ -724,10 +720,10 @@ throbber.stop();
 
 ## Contributors
 
--   [@rentalhost](https://github.com/rentalhost) (David Rodrigues)
-    -   Help with support for nested styles. Introduction of `clc.art` module, and significant improvements to tests coverage
--   [@StreetStrider](https://github.com/StreetStrider)
-    -   Implementation of sophistcated `clc.slice` functionality, and introduction of `clc.getStrippedLength` utility
+- [@rentalhost](https://github.com/rentalhost) (David Rodrigues)
+  - Help with support for nested styles. Introduction of `clc.art` module, and significant improvements to tests coverage
+- [@StreetStrider](https://github.com/StreetStrider)
+  - Implementation of sophistcated `clc.slice` functionality, and introduction of `clc.getStrippedLength` utility
 
 [nix-build-image]: https://semaphoreci.com/api/v1/medikoo-org/cli-color/branches/master/shields_badge.svg
 [nix-build-url]: https://semaphoreci.com/medikoo-org/cli-color

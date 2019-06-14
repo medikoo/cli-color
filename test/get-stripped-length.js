@@ -11,6 +11,8 @@ module.exports = function (t, a) {
 	a(length("\x1b[31mABC\x1b[39mDE"), 5, "Works on formatted string by couple of styles");
 
 	a(length("\x1b[31mABC\x1b[3mDE\x1b[23m\x1b[39m"), 5, "Works on nested formatted string");
-	a(length("\x1b[31mAAA\x1b[32mBBB\x1b[31mAAA\x1b[39m"), 9,
-		"Works on nested formatted string with overlapping styles");
+	a(
+		length("\x1b[31mAAA\x1b[32mBBB\x1b[31mAAA\x1b[39m"), 9,
+		"Works on nested formatted string with overlapping styles"
+	);
 };

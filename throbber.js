@@ -16,7 +16,7 @@ Object.defineProperties(ThrobberIterator.prototype, {
 	next: d(function () {
 		var str = this.running ? "\u0008" : "";
 		if (!this.running) this.running = true;
-		return str + chars[this.index = (this.index + 1) % l];
+		return str + chars[(this.index = (this.index + 1) % l)];
 	}),
 	reset: d(function () {
 		if (!this.running) return "";
