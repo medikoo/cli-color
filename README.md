@@ -736,3 +736,15 @@ To report a security vulnerability, please use the [Tidelift security contact](h
 [transpilation-image]: https://img.shields.io/badge/transpilation-free-brightgreen.svg
 [npm-image]: https://img.shields.io/npm/v/cli-color.svg
 [npm-url]: https://www.npmjs.com/package/cli-color
+
+---
+
+<div align="center">
+	<b>
+		<a href="https://tidelift.com/subscription/pkg/npm-cli-color?utm_source=npm-cli-color&utm_medium=referral&utm_campaign=readme">Get professional support for cli-color with a Tidelift subscription</a>
+	</b>
+	<br>
+	<sub>
+		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
+	</sub>
+</div>
