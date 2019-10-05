@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 "use strict";
 
 module.exports = function (t, a) {

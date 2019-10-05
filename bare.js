@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 "use strict";
 
 var d              = require("d")
@@ -15,6 +16,7 @@ var d              = require("d")
   , max            = Math.max
   , min            = Math.min
   , variantModes   = primitiveSet("_fg", "_bg")
+  , noColor        = require("./no-color")
   , xtermMatch
   , getFn;
 
@@ -85,6 +87,9 @@ getFn = function () {
 				null,
 				true
 			);
+			if (noColor.isNoColor()) {
+				return msg;
+			}
 			return start + msg + end;
 		},
 		proto
