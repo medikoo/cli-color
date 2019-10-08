@@ -1,8 +1,8 @@
 "use strict";
-var supportsColor = require("../supports-color");
-supportsColor.enable();
+var supportsColor = require("../lib/supports-color");
+var wrapper = require("./_lib/supports-color-wrapper");
 
-module.exports = function (t, a) {
+module.exports = wrapper(function (t, a) {
 	var x, y;
 
 	a(t("test"), "test", "Plain");
@@ -400,12 +400,8 @@ module.exports = function (t, a) {
 		);
 	}
 
-	try {
-		supportsColor.disable();
-		a(t.red("foo"), "foo", "Foreground with NO_COLOR");
-		a(t.bgRed("foo", "bar"), "foo bar", "Background with NO_COLOR");
-		a(t.blue.bgYellow("foo", "bar"), "foo bar", "Foreground & Background with NO_COLOR");
-	} finally {
-		supportsColor.auto();
-	}
-};
+	supportsColor.disableColor();
+	a(t.red("foo"), "foo", "Foreground with NO_COLOR");
+	a(t.bgRed("foo", "bar"), "foo bar", "Background with NO_COLOR");
+	a(t.blue.bgYellow("foo", "bar"), "foo bar", "Foreground & Background with NO_COLOR");
+});

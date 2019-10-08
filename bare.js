@@ -15,7 +15,7 @@ var d              = require("d")
   , max            = Math.max
   , min            = Math.min
   , variantModes   = primitiveSet("_fg", "_bg")
-  , supportsColor  = require("./supports-color")
+  , supportsColor  = require("./lib/supports-color")
   , xtermMatch
   , getFn;
 
