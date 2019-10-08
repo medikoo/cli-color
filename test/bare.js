@@ -1,7 +1,6 @@
-/* eslint-disable max-lines */
 "use strict";
-var noColor = require("../no-color");
-noColor.disable();
+var supportsColor = require("../supports-color");
+supportsColor.enable();
 
 module.exports = function (t, a) {
 	var x, y;
@@ -402,11 +401,11 @@ module.exports = function (t, a) {
 	}
 
 	try {
-		noColor.enable();
+		supportsColor.disable();
 		a(t.red("foo"), "foo", "Foreground with NO_COLOR");
 		a(t.bgRed("foo", "bar"), "foo bar", "Background with NO_COLOR");
 		a(t.blue.bgYellow("foo", "bar"), "foo bar", "Foreground & Background with NO_COLOR");
 	} finally {
-		noColor.disable();
+		supportsColor.auto();
 	}
 };

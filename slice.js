@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 "use strict";
 
 var reAnsi        = require("ansi-regex")

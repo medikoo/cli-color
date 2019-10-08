@@ -1,8 +1,8 @@
 "use strict";
 
 var clc = require("../");
-var noColor = require("../no-color");
-noColor.disable();
+var supportsColor = require("../supports-color");
+supportsColor.enable();
 
 module.exports = function (t, a) {
 	a(
