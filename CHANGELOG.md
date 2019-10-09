@@ -1,6 +1,16 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.0.0](https://github.com/medikoo/cli-color/compare/v1.4.0...v2.0.0) (2019-10-09)
+
+### Features
+
+- Support NO_COLOR standard ([8f2a4eb](https://github.com/medikoo/cli-color/commit/8f2a4eb))
+
+### BREAKING CHANGES
+
+- ANSI color codes won't be generated for output, when NO_COLOR env var is set
 
 <a name="1.4.0"></a>
 
