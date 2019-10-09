@@ -27,7 +27,7 @@
 		"timers-ext": "^0.1.7"
 	},
 	"devDependencies": {
-		"eslint": "^5.16.0",
+		"eslint": "^6.5.1",
 		"eslint-config-medikoo-es5": "^2.0.0",
 		"git-list-updated": "^1.2.1",
 		"husky": "^2.7.0",
