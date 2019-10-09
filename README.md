@@ -57,6 +57,8 @@ console.log(warn("Warning"));
 console.log(notice("Notice"));
 ```
 
+_Note: No colors or styles are output when [`NO_COLOR` env var](https://no-color.org/) is set_
+
 Supported are all ANSI colors and styles:
 
 #### Styles
