@@ -9,15 +9,17 @@ var d              = require("d")
   , memoize        = require("memoizee")
   , memoizeMethods = require("memoizee/methods")
   , sgr            = require("./lib/sgr")
-  , mods           = sgr.mods
+  , supportsColor  = require("./lib/supports-color");
+
+var mods           = sgr.mods
   , join           = Array.prototype.join
   , defineProperty = Object.defineProperty
   , max            = Math.max
   , min            = Math.min
   , variantModes   = primitiveSet("_fg", "_bg")
-  , supportsColor  = require("./lib/supports-color")
-  , xtermMatch
-  , getFn;
+  , xtermMatch     = process.platform === "win32" ? require("./lib/xterm-match") : null;
+
+var getFn;
 
 // Some use cli-color as: console.log(clc.red('Error!'));
 // Which is inefficient as on each call it configures new clc object
@@ -64,8 +66,6 @@ var getEndRe = memoize(function (code) { return new RegExp("\x1b\\[" + code + "m
 	primitive: true
 });
 
-if (process.platform === "win32") xtermMatch = require("./lib/xterm-match");
-
 getFn = function () {
 	return setPrototypeOf(
 		function self(/* …msg*/) {
@@ -86,9 +86,7 @@ getFn = function () {
 				null,
 				true
 			);
-			if (!supportsColor.isColorSupported()) {
-				return msg;
-			}
+			if (!supportsColor.isColorSupported()) return msg;
 			return start + msg + end;
 		},
 		proto
