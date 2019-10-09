@@ -20,8 +20,8 @@
 	},
 	"dependencies": {
 		"ansi-regex": "^2.1.1",
-		"d": "^1.0.0",
-		"es5-ext": "^0.10.50",
+		"d": "^1.0.1",
+		"es5-ext": "^0.10.51",
 		"es6-iterator": "^2.0.3",
 		"memoizee": "^0.4.14",
 		"timers-ext": "^0.1.7"
@@ -29,8 +29,8 @@
 	"devDependencies": {
 		"eslint": "^5.16.0",
 		"eslint-config-medikoo-es5": "^2.0.0",
-		"git-list-updated": "^1.1.2",
-		"husky": "^2.4.1",
+		"git-list-updated": "^1.2.1",
+		"husky": "^2.7.0",
 		"lint-staged": "^8.2.1",
 		"prettier-elastic": "^1.18.2",
 		"tad": "^2.0.1"
