@@ -26,14 +26,19 @@ module.exports = {
 		t.stderr.on("data", function (data) { err += data; });
 		t.on("exit", function () {
 			a.ok(out.length > 4, "Interval");
-			a(
-				startsWith.call(
-					out.join(""),
-					"START\x1b[31m-\x1b[39m\x1b[31m\b\\\x1b" +
-						"[39m\x1b[31m\b|\x1b[39m\x1b[31m\b/\x1b[39m\x1b[31m\b-\x1b[39m"
-				),
-				true, "Output"
-			);
+			var isNoColor = Boolean(process.env.NO_COLOR);
+			if (isNoColor) {
+				a(startsWith.call(out.join(""), "START"), true, "Output");
+			} else {
+				a(
+					startsWith.call(
+						out.join(""),
+						"START\x1b[31m-\x1b[39m\x1b[31m\b\\\x1b" +
+							"[39m\x1b[31m\b|\x1b[39m\x1b[31m\b/\x1b[39m\x1b[31m\b-\x1b[39m"
+					),
+					true, "Output"
+				);
+			}
 			a(err, "", "No stderr output");
 			d();
 		});

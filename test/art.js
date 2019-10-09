@@ -1,8 +1,9 @@
 "use strict";
 
 var clc = require("../");
+var wrapper = require("./_lib/supports-color-wrapper");
 
-module.exports = function (t, a) {
+module.exports = wrapper(function (t, a) {
 	a(
 		t("ooo", { o: clc.yellow("x") }), "\x1b[33mx\x1b[39m\x1b[33mx\x1b[39m\x1b[33mx\x1b[39m",
 		"Basic art"
@@ -19,4 +20,4 @@ module.exports = function (t, a) {
 	a(t("o\no", { o: clc.yellow("x") }), "\x1b[33mx\x1b[39m\n\x1b[33mx\x1b[39m", "Multiline art");
 
 	a(t("ooo", {}), "ooo", "Only text art");
-};
+});

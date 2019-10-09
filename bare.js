@@ -15,6 +15,7 @@ var d              = require("d")
   , max            = Math.max
   , min            = Math.min
   , variantModes   = primitiveSet("_fg", "_bg")
+  , supportsColor  = require("./lib/supports-color")
   , xtermMatch
   , getFn;
 
@@ -85,6 +86,9 @@ getFn = function () {
 				null,
 				true
 			);
+			if (!supportsColor.isColorSupported()) {
+				return msg;
+			}
 			return start + msg + end;
 		},
 		proto
