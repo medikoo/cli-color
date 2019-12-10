@@ -1,2 +1,2 @@
 language = "nodejs"
-run = "cd examples && node art.js"
+run = "npm install && cd examples && node art.js"
