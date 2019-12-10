@@ -2,6 +2,7 @@
 [![Windows build status][win-build-image]][win-build-url]
 ![Transpilation status][transpilation-image]
 [![npm version][npm-image]][npm-url]
+[![run on repl.it](http://repl.it/badge/github/medikoo/cli-color)](https://repl.it/github/medikoo/cli-color)
 
 # cli-color
 
