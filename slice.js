@@ -1,6 +1,8 @@
+/* eslint max-lines: "off" */
+
 "use strict";
 
-var reAnsi        = require("ansi-regex")
+var reAnsi        = require("./regex-ansi")
   , stringifiable = require("es5-ext/object/validate-stringifiable-value")
   , length        = require("./get-stripped-length")
   , sgr           = require("./lib/sgr")
