@@ -3,6 +3,6 @@
 "use strict";
 
 var stringifiable = require("es5-ext/object/validate-stringifiable")
-  , r             = require("ansi-regex")();
+  , r             = require("./regex-ansi")();
 
 module.exports = function (str) { return stringifiable(str).replace(r, ""); };
