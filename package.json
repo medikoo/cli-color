@@ -85,5 +85,8 @@
 		"prettify:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier --write",
 		"test": "node ./node_modules/tad/bin/tad"
 	},
+	"engines": {
+		"node": ">=0.10"
+	},
 	"license": "ISC"
 }
