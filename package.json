@@ -26,6 +26,7 @@
 		"timers-ext": "^0.1.7"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^13.2.1",
 		"eslint": "^8.0.1",
 		"eslint-config-medikoo": "^4.1.0",
 		"git-list-updated": "^1.2.1",
@@ -36,6 +37,7 @@
 	},
 	"husky": {
 		"hooks": {
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
 			"pre-commit": "lint-staged"
 		}
 	},
@@ -78,6 +80,7 @@
 		]
 	},
 	"scripts": {
+		"commitlint": "commitlint -f HEAD@{15}",
 		"lint": "eslint --ignore-path=.gitignore .",
 		"lint:updated": "pipe-git-updated --ext=js -- eslint --ignore-pattern '!*'",
 		"prettier-check": "prettier -c --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
