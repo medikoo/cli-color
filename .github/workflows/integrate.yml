@@ -263,7 +263,7 @@ jobs:
       - name: Unit tests
         run: npm test
 
-  linuxNode0.12:
+  linuxNode012:
     name: "[Linux] Node.js v0.12: Unit tests"
     runs-on: ubuntu-latest
     steps:
@@ -306,7 +306,7 @@ jobs:
         linuxNode8,
         linuxNode6,
         linuxNode4,
-        linuxNode0.12
+        linuxNode012
       ]
     steps:
       - name: Checkout repository
