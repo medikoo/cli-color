@@ -30,6 +30,7 @@
 		"eslint": "^8.0.1",
 		"eslint-config-medikoo": "^4.1.0",
 		"git-list-updated": "^1.2.1",
+		"github-release-from-cc-changelog": "^2.2.0",
 		"husky": "^4.3.8",
 		"lint-staged": "^11.2.3",
 		"nyc": "^15.1.0",
