@@ -20,15 +20,15 @@
 	},
 	"dependencies": {
 		"d": "^1.0.1",
-		"es5-ext": "^0.10.51",
+		"es5-ext": "^0.10.53",
 		"es6-iterator": "^2.0.3",
-		"memoizee": "^0.4.14",
+		"memoizee": "^0.4.15",
 		"timers-ext": "^0.1.7"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^13.2.1",
 		"eslint": "^8.0.1",
-		"eslint-config-medikoo": "^4.1.0",
+		"eslint-config-medikoo": "^4.1.1",
 		"git-list-updated": "^1.2.1",
 		"github-release-from-cc-changelog": "^2.2.0",
 		"husky": "^4.3.8",
@@ -36,7 +36,7 @@
 		"nyc": "^15.1.0",
 		"prettier-elastic": "^2.2.1",
 		"standard-version": "^9.3.1",
-		"tad": "^3.0.1"
+		"tad": "^3.1.0"
 	},
 	"husky": {
 		"hooks": {
