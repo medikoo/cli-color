@@ -10,7 +10,7 @@ var generate          = require("es5-ext/array/generate")
 
 var push = Array.prototype.push;
 
-module.exports = function (inputRows/*, options*/) {
+module.exports = function (inputRows /*, options*/) {
 	var options = Object(arguments[1])
 	  , colsMeta = []
 	  , colsOptions = options.columns || []

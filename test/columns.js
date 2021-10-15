@@ -6,14 +6,26 @@ module.exports = function (t, a) {
 
 	a(t([["A", "BC", "DEF"]]), "A | BC | DEF\n", "Header Only");
 
-	a(t([["A", "BC", "DEF"], [1, 23, 456]]), "A | BC | DEF\n1 | 23 | 456\n", "Small items");
 	a(
-		t([["A", "BC", "DEF"], [12, 234, 4567]]), "A  | BC  | DEF \n12 | 234 | 4567\n",
+		t([
+			["A", "BC", "DEF"], [1, 23, 456]
+		]),
+		"A | BC | DEF\n1 | 23 | 456\n",
+		"Small items"
+	);
+	a(
+		t([
+			["A", "BC", "DEF"], [12, 234, 4567]
+		]),
+		"A  | BC  | DEF \n12 | 234 | 4567\n",
 		"Large items"
 	);
 	a(
-		t([["A", "BC", "DEF"], [1234, 23456, 456789]]),
-		"A    | BC    | DEF   \n1234 | 23456 | 456789\n", "Very large items"
+		t([
+			["A", "BC", "DEF"], [1234, 23456, 456789]
+		]),
+		"A    | BC    | DEF   \n1234 | 23456 | 456789\n",
+		"Very large items"
 	);
 
 	a(t([["A"], [1], [23], [456]]), "A  \n1  \n23 \n456\n", "Single column");
@@ -21,7 +33,9 @@ module.exports = function (t, a) {
 	a(t([["ID"], [1], [1, 23], [1, 23, 456]]), "ID\n1 \n1  | 23\n1  | 23 | 456\n", "Force columns");
 
 	a(
-		t([["ONE", "TWO", "THREE"], ["ON", "DWA\nTRZY", "DWA\nTRZY\nCZTERY"], ["HOPLA", "B", "C"]]),
+		t([
+			["ONE", "TWO", "THREE"], ["ON", "DWA\nTRZY", "DWA\nTRZY\nCZTERY"], ["HOPLA", "B", "C"]
+		]),
 		"ONE   | TWO  | THREE \nON    | DWA  | DWA   \n      | TRZY | TRZY  \n" +
 			"      |      | CZTERY\nHOPLA | B    | C     \n",
 		"Rows"

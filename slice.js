@@ -110,7 +110,7 @@ var sliceSeq = function (seq, begin, end) {
 	return sliced.seq;
 };
 
-module.exports = function (str/*, begin, end*/) {
+module.exports = function (str /*, begin, end*/) {
 	var seq, begin = Number(arguments[1]), end = Number(arguments[2]), len;
 
 	str = stringifiable(str);

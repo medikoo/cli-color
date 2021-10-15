@@ -31,7 +31,7 @@
 		"git-list-updated": "^1.2.1",
 		"husky": "^4.3.8",
 		"lint-staged": "^11.2.3",
-		"prettier-elastic": "^1.18.2",
+		"prettier-elastic": "^2.2.1",
 		"tad": "^3.0.1"
 	},
 	"husky": {

@@ -687,8 +687,10 @@ var clc = require("cli-color");
 
 process.stdout.write(
   clc.columns([
-    [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")], ["John", "Doe", 34],
-    ["Martha", "Smith", 20], ["Jan", "Kowalski", 30]
+    [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")],
+    ["John", "Doe", 34],
+    ["Martha", "Smith", 20],
+    ["Jan", "Kowalski", 30]
   ])
 );
 
