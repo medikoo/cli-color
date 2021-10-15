@@ -1,6 +1,5 @@
-[![*nix build status][nix-build-image]][nix-build-url]
-[![Windows build status][win-build-image]][win-build-url]
-![Transpilation status][transpilation-image]
+[![Build status][build-image]][build-url]
+[![Tests coverage][cov-image]][cov-url]
 [![npm version][npm-image]][npm-url]
 
 # cli-color
@@ -752,3 +751,10 @@ To report a security vulnerability, please use the [Tidelift security contact](h
 		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
 	</sub>
 </div>
+
+[build-image]: https://github.com/medikoo/cli-color/workflows/Integrate/badge.svg
+[build-url]: https://github.com/medikoo/cli-color/actions?query=workflow%3AIntegrate
+[cov-image]: https://img.shields.io/codecov/c/github/medikoo/cli-color.svg
+[cov-url]: https://codecov.io/gh/medikoo/cli-color
+[npm-image]: https://img.shields.io/npm/v/cli-color.svg
+[npm-url]: https://www.npmjs.com/package/cli-color
