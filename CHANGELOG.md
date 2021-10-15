@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/medikoo/cli-color/compare/v2.0.0...v2.0.1) (2021-10-15)
+
+### Maintenance Improvements
+
+- Drop `ansi-regex` dependency due to security issues ([#38](https://github.com/medikoo/cli-color/issues/38)) ([9072cda](https://github.com/medikoo/cli-color/commit/9072cda305181dcc64d657d4de95a813db6dbdf3)) ([Jorge Cabot](https://github.com/jcabot21))
+
 ## [2.0.0](https://github.com/medikoo/cli-color/compare/v1.4.0...v2.0.0) (2019-10-09)
 
 ### Features
