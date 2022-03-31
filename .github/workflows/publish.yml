@@ -12,7 +12,7 @@ env:
 
 jobs:
   _:
-    uses: medikoo/github-actions-workflows/.github/workflows/tad-publish.yml@main
+    uses: medikoo/github-actions-workflows/.github/workflows/publish.yml@main
     secrets:
       USER_GITHUB_TOKEN: ${{ secrets.USER_GITHUB_TOKEN }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
