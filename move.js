@@ -31,9 +31,9 @@ module.exports = Object.defineProperties(
 		lines: d(function (n) {
 			var dir;
 			n = trunc(n) || 0;
-			dir = n >= 0 ? "E" : "F";
+			dir = n >= 0 ? "B" : "A";
 			n = floor(abs(n));
-			return "\x1b[" + n + dir;
+			return "\x1b[" + n + dir + "\x1b[1G";
 		}),
 		top: d("\x1b[5000F"),
 		bottom: d("\x1b[5000B"),
