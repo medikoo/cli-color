@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2](https://github.com/medikoo/cli-color/compare/v2.0.1...v2.0.2) (2022-03-31)
+
+### Bug Fixes
+
+- Ensure to use widely supported ANSI codes for line move ([6838339](https://github.com/medikoo/cli-color/commit/6838339ae80d36e77c291645c6de891928197933))
+
 ### [2.0.1](https://github.com/medikoo/cli-color/compare/v2.0.0...v2.0.1) (2021-10-15)
 
 ### Maintenance Improvements
