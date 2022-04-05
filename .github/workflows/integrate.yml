@@ -11,6 +11,6 @@ env:
 
 jobs:
   _:
-    uses: medikoo/github-actions-workflows/.github/workflows/tad-integrate.yml@main
+    uses: medikoo/github-actions-workflows/.github/workflows/0.12-integrate.yml@main
     secrets:
       USER_GITHUB_TOKEN: ${{ secrets.USER_GITHUB_TOKEN }}
