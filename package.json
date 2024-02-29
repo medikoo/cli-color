@@ -14,10 +14,7 @@
 		"logging",
 		"xterm"
 	],
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/medikoo/cli-color.git"
-	},
+	"repository": "medikoo/cli-color",
 	"dependencies": {
 		"d": "^1.0.1",
 		"es5-ext": "^0.10.64",
